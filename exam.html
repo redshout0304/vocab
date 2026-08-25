@@ -2243,13 +2243,20 @@ function confirmLangmode(event) {
 
 
         
-    /* ── 초기 진입 — 로그인 체크 후 메인 화면 표시 ── */
+       /* ── 초기 진입 — 로그인 체크 후 메인 화면 표시 ── */
 window.addEventListener('DOMContentLoaded', function () {
     /* 비로그인 상태면 common.html로 이동 */
-    const user = JSON.parse(localStorage.getItem('vocabCurrentUser')); /* localStorage에서 로그인 상태 확인 */
+    const user = JSON.parse(localStorage.getItem('vocabCurrentUser'));
     if (!user) {
         location.href = 'common.html';
         return;
+    }
+    /* 모바일 기기면 자동으로 폰 모드 적용 */
+    if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+        isPhoneMode = true;
+        document.body.classList.add('phone-mode');
+        document.querySelectorAll('.btn-view-toggle')
+            .forEach(btn => btn.textContent = '💻');
     }
     showScreen('screen-main');
 });
