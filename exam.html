@@ -1,0 +1,2663 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시험 모드</title>
+    <style>
+        /* ══════════════════════════════════════
+           ROOT 변수 — 전체 디자인 토큰
+        ══════════════════════════════════════ */
+    :root {
+       --bg:          #ccc7c3;        /* 전체 배경 — 황토 베이지 */
+    --surface:      #939fab;        /* 카드/패널 배경 */
+    --surface2:     #8a939f;        /* hover 배경 */
+    --border:       #7a8490;        /* 테두리 */
+    --accent-blue:  #dbc76c;        /* 포인트 — 파란 */
+    --accent-green: #16a34a;        /* 포인트 — 초록 (혼자시험) */
+    --accent-red:   #ef4444;        /* 포인트 — 빨강 (대결) */
+    --accent-yellow:#d97706;        /* 포인트 — amber (저장결과) */
+    --accent-purple:#7c3aed;        /* 포인트 — 보라 (친구관리) */
+    --text-main:    #1a1a1a;        /* 본문 텍스트 — 진한 차콜 */
+    --text-sub:     #2e3540;        /* 보조 텍스트 — 다크 블루그레이 */
+    --radius-card:  20px;           /* 카드 모서리 반경 */
+    --radius-btn:   12px;           /* 버튼 모서리 반경 */
+
+    --card-w: 200px;                /* 카드 가로 너비 */
+    --card-h: 420px;                /* 카드 세로 높이 */
+
+    /* ── 선택박스 색상 — 배경 #c3b091 기준 ── */
+    --sel-left-bg:  #ccc9a7;        /* 좌측 라벨 — 배경보다 진한 갈색 */
+    --sel-right-bg: #ecebde;        /* 우측 선택값 — 좌측보다 1단계 연한 갈색 */
+    --sel-text:     #1a1a1a;        /* 라벨 텍스트 — 검정색 */
+       --sel-val-text: #4a3f32;        /* 선택값 텍스트 — 진한 갈색 */
+
+    --summary-lbl-w: 48px;          /* 상단 헤더 요약 좌측 라벨 너비 */
+    --summary-val-w: 157px;         /* 상단 헤더 요약 우측 내용 너비 */
+--qa-width:   500px;            /* 문제/정답창 가로 너비 */
+--qa-q-width: 400px;            /* 문제창 가로 너비 — 독립 */
+--qa-a-width: 400px;            /* 정답창 가로 너비 — 독립 */
+--qa-q-height: 80px;            /* 문제창 세로 최소 높이 — 독립 */
+--qa-a-height: 80px;            /* 정답창 세로 최소 높이 — 독립 */
+--qa-q-color: #8aab6e;          /* 문제창 Q. 라벨 배경색 */
+--qa-a-color: #6a9abf;          /* 정답창 A. 라벨 배경색 */
+--qa-q-top:    20px;             /* 문제창 위아래 이동 — 독립 */
+--qa-q-left:   0px;             /* 문제창 좌우 이동 — 독립 */
+--qa-a-top:    30px;             /* 정답창 위아래 이동 — 독립 */
+--qa-a-right:  0px;             /* 정답창 좌우 이동 — 독립 */
+--qa-height:   300px;           /* 전체 감싸는 카드 세로 최소 높이 */
+--qa-top:      10px;             /* 전체창 위아래 이동 — 문제/정답창 함께 이동 */
+--qa-left:     0px;             /* 전체창 좌우 이동 — 문제/정답창 함께 이동 */
+--qa-bg: #ccc7c3;          /* 전체 감싸는 카드 배경색 */
+--qa-bg-pattern-line: rgba(255,255,255,0.18); /* 다이아몬드 선 색상 — 밝은 선 */
+--qa-bg-pattern-shadow: rgba(0,0,0,0.10);     /* 다이아몬드 선 색상 — 어두운 선 */
+--qa-radius:   10px;  /* QA카드 모서리 둥글기 */
+--qa-shadow:    0 6px 24px rgba(0,0,0,0.42); /* QA카드 그림자 */
+
+--timer-top:   0px;   /* 타임어택 전체창 위아래 이동 — 독립 */
+--timer-left:  0px;   /* 타임어택 전체창 좌우 이동 — 독립 */
+--timer-bg:   #7fbfbf;   /* 타임어택 전체창 배경색 */
+--timer-radius: 10px;  /* 타임어택 전체창 모서리 둥글기 */
+--timer-shadow: 0 6px 24px rgba(0,0,0,0.42); /* 타임창 그림자 */
+
+--tab-shadow:   0 4px 12px rgba(0,0,0,0.28); /* 탭 그림자 */
+   }
+        /* ══════════════════════════════════════
+           기본 리셋
+        ══════════════════════════════════════ */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+       body {
+    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    /* 다이아몬드 엠보싱 패턴 — 마름모 격자 + 입체 하이라이트/그림자 */
+    background-color: var(--bg);
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M12 2 L22 12 L12 22 L2 12 Z' fill='none' stroke='rgba(255,255,255,0.18)' stroke-width='0.8'/%3E%3Cpath d='M12 4 L20 12 L12 20 L4 12 Z' fill='none' stroke='rgba(0,0,0,0.10)' stroke-width='0.5'/%3E%3C/svg%3E"),
+        radial-gradient(
+            ellipse at 30% 20%,
+            rgba(255,255,255,0.15) 0%,
+            transparent 60%
+        ),
+        radial-gradient(
+            ellipse at 50% 50%,
+            rgba(0,0,0,0.05) 0%,
+            rgba(0,0,0,0.20) 100%
+        );
+    background-size: 24px 24px, cover, cover;
+    color: var(--text-main);
+    min-height: 100vh;
+    transition: background 0.3s;
+}
+
+        /* ══════════════════════════════════════
+           전체 화면 래퍼 — 화면 전환 단위
+        ══════════════════════════════════════ */
+              .screen {
+            display: none;              /* 기본 숨김 — JS로 표시 */
+            min-height: 100vh;
+        }
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+        }
+       /* 결과 화면만 높이 100dvh 고정 — 리스트가 화면 밖으로 나가지 않게 */
+#screen-result.active {
+    height: 100dvh;       /* 모바일 주소창 포함 실제 뷰포트 높이 적용 */
+    min-height: 0;
+    overflow: hidden;
+    box-sizing: border-box; /* padding이 높이에 포함되도록 강제 */
+}
+
+        /* ══════════════════════════════════════
+           상단 헤더 바
+        ══════════════════════════════════════ */
+               .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 28px;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+        .header-logo {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--accent-blue);
+            letter-spacing: -0.5px;
+        }
+               .header-logo span {
+            color: var(--text-sub);
+            font-weight: 400;
+            font-size: 13px;
+            margin-left: 8px;
+        }
+        /* 로고 아래 버튼 세로 배치 컨테이너 */
+        .header-logo-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+            /* 로고 아래 버튼 그룹 — EXAM 글자 너비에 꽉 차게 */
+        .header-logo-btns {
+            display: flex;
+            flex-direction: row;
+            gap: 4px;
+            width: 100%;
+        }
+        /* 로고 아래 아이콘 버튼 공통 — 2개가 균등하게 너비 분할 */
+        .header-logo-btn {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text-sub);
+            font-size: 14px;
+            flex: 1;
+            height: 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s;
+        }
+        .header-logo-btn:hover { background: var(--border); color: var(--text-main); }
+
+              /* 헤더 우측 버튼 그룹 */
+        .header-btns {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+                  
+                      /* 티커 배너 — 헤더 아래 메인창 위 한 줄 */
+        .ticker-wrap {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background: var(--sel-right-bg);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+            height: 28px;
+            cursor: pointer;
+            position: relative;
+        }
+                    /* 티커 좌측 라벨 영역 — 배경 고정, 텍스트만 슬라이드 */
+        .ticker-lbl-wrap {
+           background: #8fad88;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 60px;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .ticker-lbl {
+            color: var(--sel-text);
+            font-size: 11px;
+            font-weight: 900;
+            padding: 0 10px;
+            white-space: nowrap;
+        }
+        /* 티커 라벨 슬라이드 인/아웃 */
+        .ticker-lbl.ticker-in  { animation: slide-in 0.4s ease forwards; }
+        .ticker-lbl.ticker-out { animation: slide-out 0.4s ease forwards; }
+                /* 티커 우측 내용 — 슬라이드 영역 */
+        .ticker-val-wrap {
+            flex: 1;
+            overflow: hidden;
+            height: 100%;
+            position: relative;
+        }
+        .ticker-val {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            font-size: 11px;
+            font-weight: bold;
+            color: var(--sel-val-text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        /* 티커 슬라이드 인/아웃 */
+        .ticker-val.ticker-in  { animation: slide-in 0.4s ease forwards; }
+        .ticker-val.ticker-out { animation: slide-out 0.4s ease forwards; }
+        /* 티커 펼침 드롭다운 */
+        .ticker-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
+            background: var(--surface);
+            border: 1.5px solid var(--sel-left-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            z-index: 998;
+        }
+        .ticker-dropdown.open { display: block; }
+        /* 티커 드롭다운 각 항목 */
+        .ticker-dropdown-item {
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+            font-size: 11px;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+        .ticker-dropdown-item:last-child { border-bottom: none; }
+        .ticker-dropdown-item span.lbl {
+            background: var(--sel-left-bg);
+            color: var(--sel-text);
+            font-weight: 900;
+            width: 60px;
+            padding: 6px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .ticker-dropdown-item span.val {
+            background: var(--sel-right-bg);
+            color: var(--sel-val-text);
+            flex: 1;
+            padding: 6px 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+       
+        /* 뒤로가기 버튼 */
+        .back-btn {
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            color: var(--text-sub);
+            font-size: 13px;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: var(--radius-btn);
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .back-btn:hover { background: var(--border); color: var(--text-main); }
+
+        /* 로그아웃 버튼 */
+        .logout-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text-sub);
+            font-size: 12px;
+            padding: 7px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .logout-btn:hover { background: var(--surface2); }
+
+        /* ══════════════════════════════════════
+           메인 화면 — 카드 4개 가로 배치
+        ══════════════════════════════════════ */
+        .main-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 48px;
+            padding: 40px 24px;
+        }
+
+        /* 메인 타이틀 */
+        .main-title {
+            text-align: center;
+        }
+        .main-title h1 {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--text-main);
+            letter-spacing: -1px;
+        }
+        .main-title p {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-top: 8px;
+        }
+
+        /* 카드 4개 가로 줄 */
+        .main-card-row {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            justify-content: center;
+            align-items: stretch;
+            flex-wrap: wrap;            /* 폰 모드에서 자동 줄바꿈 */
+        }
+
+        /* 메인 카드 공통 */
+        .main-card {
+            width: var(--card-w);
+            min-height: var(--card-h);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-card);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: transform 0.18s, box-shadow 0.18s, background 0.18s, border-color 0.18s;
+            padding: 28px 16px;
+        }
+        .main-card:hover {
+            background: var(--surface2);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+        }
+
+        /* 카드 아이콘 원형 배경 */
+        .card-icon-wrap {
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+      /* 카드별 배경색 — 각각 독립 색상 */
+.card-solo   { background: #e8f5ee; border-color: #b6dfc8; }  /* 초록 계열 */
+.card-battle { background: #fdecea; border-color: #f5b8b3; }  /* 빨강 계열 */
+.card-saved  { background: #fef8e7; border-color: #f5dfa0; }  /* 노랑 계열 */
+.card-friend { background: #f0ecfd; border-color: #c9b8f5; }  /* 보라 계열 */
+
+/* 카드별 아이콘 wrap 배경 — 카드 배경보다 진하게 */
+.card-solo   .card-icon-wrap { background: rgba(22,163,74,0.15);  }
+.card-battle .card-icon-wrap { background: rgba(239,68,68,0.15);  }
+.card-saved  .card-icon-wrap { background: rgba(217,119,6,0.15);  }
+.card-friend .card-icon-wrap { background: rgba(124,58,237,0.15); }
+
+/* 카드 hover 시 배경 진하게 */
+.card-solo:hover   { background: #d4eddf; border-color: var(--accent-green); }
+.card-battle:hover { background: #fcd9d6; border-color: var(--accent-red);   }
+.card-saved:hover  { background: #fdf0c4; border-color: var(--accent-yellow);}
+.card-friend:hover { background: #e4dcfb; border-color: var(--accent-purple);}
+
+        /* 카드 라벨 */
+        .card-label {
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--text-main);
+            letter-spacing: -0.3px;
+        }
+
+        /* 카드 설명 */
+        .card-desc {
+            font-size: 12px;
+            color: var(--text-sub);
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* 카드별 라벨 색상 */
+        .card-solo   .card-label { color: var(--accent-green);  }
+        .card-battle .card-label { color: var(--accent-red);    }
+        .card-saved  .card-label { color: var(--accent-yellow); }
+        .card-friend .card-label { color: var(--accent-purple); }
+
+        /* ══════════════════════════════════════
+           빈 화면 공통 — 준비중 표시
+        ══════════════════════════════════════ */
+        .empty-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            color: var(--text-sub);
+        }
+        .empty-body .empty-icon { font-size: 52px; }
+        .empty-body .empty-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--text-main);
+        }
+        .empty-body .empty-desc { font-size: 13px; }
+
+        /* ══════════════════════════════════════
+           폰 모드 — body에 .phone-mode 클래스 추가 시 적용
+        ══════════════════════════════════════ */
+        body.phone-mode {
+            max-width: 390px;           /* iPhone 기준 너비 */
+            margin: 0 auto;
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            min-height: 100vh;
+        }
+        body.phone-mode .main-card-row {
+            flex-direction: column;     /* 폰에서 세로 1열 */
+            align-items: center;
+        }
+        body.phone-mode .main-card {
+            width: 100%;
+            max-width: 320px;
+            min-height: 90px;
+            flex-direction: row;        /* 폰에서 아이콘+텍스트 가로 배치 */
+            justify-content: flex-start;
+            padding: 20px 24px;
+            gap: 18px;
+        }
+        body.phone-mode .card-icon-wrap {
+            width: 48px;
+            height: 48px;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+        body.phone-mode .card-label { font-size: 15px; }
+        body.phone-mode .card-desc  { text-align: left; }
+        body.phone-mode .main-title h1 { font-size: 24px; }
+              body.phone-mode .header { padding: 14px 10px; }
+              body.phone-mode .header-logo { font-size: 15px; }
+        /* 폰 모드 — EXAM+버튼 좌측 끝으로 붙이기 */
+        body.phone-mode .header-logo-wrap { margin-right: auto; }
+                               /* 폰 모드 — 시간설정 한 줄 가로 유지, 간격 최소화, 너비 꽉 채우기 */
+        body.phone-mode .timemode-input-row {
+            flex-wrap: nowrap;
+            gap: 1px;
+            padding: 6px 4px;
+            font-size: 10px;
+            width: 100%;
+            justify-content: space-between;
+        }
+        body.phone-mode .timemode-input-divider { margin: 0 1px; }
+        body.phone-mode .timemode-input-label { font-size: 13px; min-width: auto; }
+        body.phone-mode .solo-time-input { width: 28px; font-size: 10px; padding: 2px 1px; }
+        body.phone-mode .solo-time-unit { font-size: 9px; }
+
+        /* 폰 모드 — 탭 영역 여백 전부 제거 + 탭 6개 한 줄 꽉 채우기 */
+               body.phone-mode .solo-body { padding: 36px 0px; align-items: stretch; margin: 0px; }
+        body.phone-mode .solo-box  { padding: 0px; max-width: 100%; margin: 0px; }
+        body.phone-mode .solo-tab-row { padding: 0px; gap: 0px; width: 100%; }
+        body.phone-mode .sel-label { font-size: 8px; padding: 4px 0px; letter-spacing: 0px; }
+/* 폰 모드 — 문제/정답창 너비를 화면에 맞게 100%로 재정의 */
+body.phone-mode .qa-question {
+    width: 100%; /* 고정 px 대신 부모 너비에 맞춤 */
+}
+body.phone-mode .qa-answer-wrap {
+    width: 100%; /* 정답창 감싸는 박스도 100% */
+}
+body.phone-mode .qa-answer-input {
+    width: 100%; /* 입력창도 100% — px 고정값 덮어씀 */
+}
+/* 폰 모드 — 결과 화면 여백 축소 */
+body.phone-mode .result-body {
+    padding: 12px 10px; /* 기본 24px 28px → 절반으로 축소 */
+    gap: 10px;          /* 기본 20px → 절반으로 축소 */
+}
+
+/* 폰 모드 — 요약 박스 세로 높이 절반으로 축소 */
+body.phone-mode .result-summary-box {
+    padding: 6px 4px;   /* 기본 14px 8px → 절반으로 축소 */
+    gap: 2px;           /* 기본 6px → 축소 */
+    border-radius: 8px;
+}
+body.phone-mode .result-summary-name {
+    font-size: 10px;    /* 기본 12px → 축소 */
+}
+body.phone-mode .result-summary-num {
+    font-size: 16px;    /* 기본 26px → 절반으로 축소 */
+}
+
+/* 폰 모드 — 테이블 행 높이 축소 */
+body.phone-mode .result-table {
+    font-size: 11px;    /* 기본 13px → 축소 */
+}
+body.phone-mode .result-table th {
+    padding: 6px 6px;   /* 기본 10px 12px → 절반으로 축소 */
+}
+body.phone-mode .result-table td {
+    padding: 5px 6px;   /* 기본 9px 12px → 절반으로 축소 */
+}
+body.phone-mode .result-badge {
+    font-size: 9px;     /* 기본 11px → 축소 */
+    padding: 2px 6px;
+}
+                                           /* 파일명 슬라이드 인 애니메이션 */
+        @keyframes slide-in {
+            from { transform: translateY(-100%); opacity: 0; }
+            to   { transform: translateY(0);     opacity: 1; }
+        }
+        /* 파일명 슬라이드 아웃 애니메이션 */
+        @keyframes slide-out {
+            from { transform: translateY(0);    opacity: 1; }
+            to   { transform: translateY(100%); opacity: 0; }
+        }
+                     /* 파일명 표시 영역 — 고정 박스, 내부 텍스트만 슬라이드 */
+        .file-val {
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        /* 파일명 텍스트 — 박스 안에 절대 위치 */
+        .file-val-text {
+            position: absolute;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        /* 슬라이드 인 — 위에서 아래로 들어옴 */
+        .file-val-text.slide-in {
+            animation: slide-in 0.4s ease forwards;
+        }
+        /* 슬라이드 아웃 — 아래로 나감 */
+        .file-val-text.slide-out {
+            animation: slide-out 0.4s ease forwards;
+        }
+        /* 폰 모드 — 요약 박스 크기 축소 */
+        body.phone-mode .header-summary {
+            gap: 2px;
+        }
+        body.phone-mode .header-summary-item {
+            font-size: 9px;
+        }
+        body.phone-mode .header-summary-item span.lbl {
+            width: 45px;
+            padding: 2px 3px;
+        }
+                body.phone-mode .header-summary-item span.val {
+            width: 115px;
+            padding: 2px 4px;
+        }
+
+/* ══════════════════════════════════════
+   시험 설정 화면
+══════════════════════════════════════ */
+
+/* 설정 화면 본문 */
+.solo-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;   /* 세로 방향으로 명시 */
+    align-items: center;      /* 가운데 정렬 */
+    padding: 36px 24px;       /* 좌우 여백 */
+    overflow-y: auto;
+}/* 설정 전체 박스 — 탭줄 + 선택탭 세로 구조 */
+.solo-box {
+    width: 100%;
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0 16px; /* 좌우 여백 */
+    position: relative; /* 드롭다운 absolute 기준점 */
+}
+/* 위쪽 탭 줄 — 비활성 탭들 */
+.solo-tab-row {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    padding: 8px 0 4px 0;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    flex-wrap: wrap;
+}
+.solo-tab-row::-webkit-scrollbar { display: none; }
+
+/* ── 선택박스 공통 — 탭 버튼 ── */
+.sel-box {
+    position: relative;
+    border-radius: 8px;
+    overflow: visible;
+    display: flex;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: var(--tab-shadow); /* 탭 그림자 — 변수 조절 */
+    flex: 1;
+    min-width: 0;
+}
+
+/* 라벨 — 탭 버튼 형태, 세로 절반 */
+.sel-label {
+    background: var(--sel-left-bg);
+    color: var(--sel-text);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.3px;
+    padding: 5px 4px;
+    border-radius: 8px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    text-align: center;
+    transition: background 0.15s;
+}
+
+/* 활성화된 탭 — 아래줄로 이동, 강조 */
+.sel-box.active {
+    flex: none;
+    width: 100%;
+}.sel-box.active .sel-label {
+    background: var(--accent-blue);
+    color: #1a1a1a; /* 활성탭 헤더 글자색 — 검정 */
+    border-radius: 8px 8px 0 0;
+    padding: 7px 12px;
+    justify-content: center; /* 헤더 글자 중앙 정렬 유지 */
+    position: relative; /* 완료버튼 absolute 기준점 */
+}
+/* 드롭다운 헤더 완료버튼 — 비활성 탭엔 숨김, 활성 탭에서만 표시 */
+.sel-confirm-btn {
+    display: none; /* 기본 숨김 */
+}
+.sel-box.active .sel-confirm-btn {
+    display: block; /* 활성 탭에서만 표시 */
+    position: absolute; /* 헤더 우측 끝에 절대 위치 */
+    right: 0;
+    top: 0;
+    width: 40px; /* 클릭 영역 너비 */
+    height: 100%; /* 헤더 높이 전체 */
+    background: transparent; /* 투명 — 헤더 그대로 보임 */
+    border: none; /* 테두리 없음 */
+    cursor: pointer;
+    /* 클릭 시 눌리는 효과 */
+    transition: background 0.1s;
+}
+.sel-box.active .sel-confirm-btn:active {
+    background: rgba(0,0,0,0.15); /* 누르는 순간만 살짝 어둡게 */
+}
+/* 우측 선택값 — 숨김 */
+.sel-value { display: none; }/* 드롭다운 목록 공통 — solo-box 기준 absolute 위치 */
+.sel-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;   /* 탭 바로 아래에 자동으로 붙기 */
+    left: 0;     /* 탭 왼쪽 기준으로 정렬 */
+    width: 100%; /* 탭 너비에 맞춤 */
+    border: 1.5px solid var(--sel-left-bg);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    z-index: 999;
+    overflow: hidden;
+    flex-direction: row;
+}.sel-dropdown.open {
+    display: flex;
+    /* 드롭다운 펼쳐지는 애니메이션 */
+    animation: dropdown-open 0.2s ease forwards;
+}
+/* 드롭다운 펼침 — 위에서 아래로 나타남 */
+@keyframes dropdown-open {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 드롭다운 좌측 고정 영역 — 라벨 or 선택완료 버튼 */
+.sel-dropdown-left {
+    /* 드롭다운 좌측 빈공간 — 라벨보다 1단계 연한 갈색 */
+    background: #a8946f;
+    min-width: 110px;
+    flex-shrink: 0;
+    display: flex;
+}
+/* 파일선택 선택완료 버튼만 표시 */
+.sel-dropdown-left.confirm-btn {
+    background: var(--sel-left-bg);
+    color: var(--sel-text);
+    font-size: 13px;
+    font-weight: 900;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    min-width: 110px;
+    writing-mode: horizontal-tb;
+    letter-spacing: 0;
+    white-space: nowrap;    /* 한 줄로 표시 */
+    cursor: pointer;
+    transition: background 0.15s;
+}.sel-dropdown-left.confirm-btn:hover { background: #6b5640; }
+/* 드롭다운 우측 목록 영역 — 항목 높이(40px) × 5개 고정 */
+.sel-dropdown-right {
+    background: var(--sel-right-bg);
+    flex: 1;
+    overflow-y: auto;
+    max-height: 200px;
+}/* 파일선택 전용 목록 — 스크롤바 숨김 */
+#filelist-list {
+    max-height: 220px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+#filelist-list::-webkit-scrollbar { display: none; }
+/* 드롭다운 항목 공통 */
+.sel-dropdown-item {
+    padding: 11px 16px;
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--sel-val-text);
+    cursor: pointer;
+    transition: background 0.12s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+}.sel-dropdown-item:last-child { border-bottom: none; }
+.sel-dropdown-item:hover { background: rgba(0,0,0,0.08); }
+.sel-dropdown-item.selected { background: var(--sel-left-bg); color: var(--sel-text); }
+/* 구분선 — 사용 안함 유지 */
+.solo-divider { display: none; }
+
+/* 시간모드 — 한 줄 가로 배치 */
+.timemode-input-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 16px;
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--sel-val-text);
+    flex-wrap: nowrap;
+}
+
+/* 전체시간 / 문제당시간 구분선 */
+.timemode-input-divider {
+    color: var(--sel-val-text);
+    opacity: 0.4;
+    margin: 0 6px;
+    font-weight: 300;
+}
+/* 시간모드 — 항목 라벨 */
+.timemode-input-label {
+    min-width: 70px;
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--sel-val-text);
+}
+
+/* 시간 입력 필드 */
+.solo-time-input {
+    width: 56px;
+    padding: 6px 8px;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text-main);
+    background: rgba(255,255,255,0.5);
+    outline: none;
+    text-align: center;
+}
+.solo-time-input:focus { border-color: var(--sel-left-bg); }
+/* 시간 입력창 숫자 화살표 숨김 */
+.solo-time-input::-webkit-inner-spin-button,
+.solo-time-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.solo-time-input { -moz-appearance: textfield; }
+
+/* 시간 단위 텍스트 */
+.solo-time-unit { font-size: 12px; color: var(--sel-val-text); }
+
+/* 슬라이더 영역 — 언어모드 혼합 선택 시 표시 */
+.solo-slider-wrap {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px 16px 14px;
+    background: var(--sel-right-bg);
+    border-radius: 0 0 12px 12px;
+}
+.solo-slider-wrap.visible { display: flex; }
+.solo-slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--sel-val-text);
+}
+.solo-slider { width: 100%; accent-color: var(--sel-left-bg); cursor: pointer; }
+
+/* 시험 시작 버튼 */
+.solo-start-btn {
+    /* 티커 우측 끝 — 높이에 맞는 작은 버튼 */
+    height: 100%;
+    padding: 0 14px;
+    background: var(--accent-green);
+    color: white;
+    border: none;
+    border-left: 1px solid var(--border);
+    border-radius: 0;
+    font-size: 12px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: background 0.15s;
+    font-family: inherit;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.solo-start-btn:hover { background: #15803d; }
+.solo-start-btn:disabled {
+    background: #8a9a5b;
+    color: var(--text-sub);
+    cursor: not-allowed;
+}
+/* 폰 모드 */
+body.phone-mode .solo-body { padding: 16px 5px; }
+body.phone-mode .solo-box  { padding: 20px 5px; gap: 20px; }
+
+/* ══════════════════════════════════════
+   문제/정답 영역 — 탭 아래 독립 배치
+══════════════════════════════════════ */
+
+/* 문제/정답 전체 컨테이너 — 두 창을 하나의 카드로 묶음 */
+.qa-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    padding: 20px 16px 20px 16px;
+    width: 100%;
+    min-height: var(--qa-height);
+    align-self: stretch;
+    background-color: var(--qa-bg); /* 카드 배경색 */
+    /* body와 동일한 다이아몬드 패턴 — 변수로 색상 조절 가능 */
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M12 2 L22 12 L12 22 L2 12 Z' fill='none' stroke='rgba(255,255,255,0.18)' stroke-width='0.8'/%3E%3Cpath d='M12 4 L20 12 L12 20 L4 12 Z' fill='none' stroke='rgba(0,0,0,0.10)' stroke-width='0.5'/%3E%3C/svg%3E");
+    background-size: 24px 24px; /* 패턴 크기 — body와 동일 */
+   border: none;                  /* 테두리 제거 */
+border-radius: var(--qa-radius);
+box-shadow: var(--qa-shadow);  /* 그림자로 경계 표현 — 변수 조절 */
+    margin-top: calc(16px + var(--qa-top));
+    margin-left: var(--qa-left);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}/* 문제 박스 — 왼쪽 정렬 */
+.qa-question {
+    align-self: flex-start;
+    background: var(--sel-right-bg);
+    border: 1.5px solid var(--border);
+    border-left: 4px solid var(--qa-q-color);
+    border-radius: 14px 14px 14px 4px;
+    padding: 14px 18px;
+    width: var(--qa-q-width);
+    min-height: var(--qa-q-height);
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-main);
+    box-shadow: 2px 4px 10px rgba(0,0,0,0.12);
+    margin-top: var(--qa-q-top);   /* 문제창 위아래 이동 — 독립 변수 */
+    margin-left: var(--qa-q-left); /* 문제창 좌우 이동 — 독립 변수 */
+}/* 문제창 Q. 라벨 영역 */
+.qa-question-label {
+    background: var(--qa-q-color); /* Q. 라벨 배경색 — 변수 적용 */
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 6px 18px;
+    margin: -14px -18px 10px -18px;
+    border-radius: 10px 10px 0 0;
+}.qa-answer-wrap {
+    align-self: flex-end;
+    background: #f0f5fb;
+    border: 1.5px solid var(--border);
+    border-right: 4px solid var(--qa-a-color);
+    border-radius: 14px 14px 4px 14px;
+    box-shadow: -2px 4px 10px rgba(0,0,0,0.12);
+    overflow: hidden;
+    min-height: var(--qa-a-height);
+    margin-top:   var(--qa-a-top);   /* 정답창 위아래 이동 — 독립 변수 */
+    margin-right: var(--qa-a-right); /* 정답창 좌우 이동 — 독립 변수 */
+}
+/* 정답 입력창 */
+/* 정답 입력창 */
+.qa-answer-input {
+    width: var(--qa-a-width);
+    padding: 14px 18px; /* 세로 높이는 qa-answer-wrap에서 제어 */
+    border: none;
+    border-radius: 0;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--text-main);
+    background: transparent;
+    outline: none;
+    box-sizing: border-box;
+}/* 정답 입력창 포커스 시 */
+.qa-answer-input:focus {
+    border-color: var(--accent-blue);
+    background: rgba(255,255,255,0.9);
+}
+/* 정답창 A. 라벨 영역 */
+.qa-answer-label {
+background: var(--qa-a-color); /* A. 라벨 배경색 — 변수 적용 */
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 6px 18px;
+    border-radius: 10px 10px 0 0;
+text-align: right; /* A. 글자 오른쪽 끝으로 이동 */
+}
+
+/* ══════════════════════════════════════
+   타임어택 전체창 — 타이머 영역
+══════════════════════════════════════ */
+
+/* 타임어택 전체창 — qa-container 가로와 동일하게 맞춤 */
+.qa-timer-wrap {
+    width: 100%;                            /* qa-container 가로와 동일 */
+    display: flex;
+    justify-content: center;               /* 중앙 정렬 */
+    align-items: center;
+    gap: 24px;                             /* 전체시간 / 단어당시간 간격 */
+    padding: 10px 16px;
+    background: var(--timer-bg);           /* 타임어택 전체창 배경색 — 변수 적용 */
+    border: none;                      /* 테두리 제거 */
+border-radius: var(--timer-radius);
+box-shadow: var(--timer-shadow);   /* 그림자로 경계 표현 — 변수 조절 */
+    margin-top: calc(16px + var(--timer-top));  /* 위아래 이동 — 기본 16px 유지 */
+    margin-left: var(--timer-left);             /* 좌우 이동 */
+    margin-bottom: 8px;                    /* qa-container 와 간격 */
+position: sticky;  /* 드롭다운에 밀리지 않고 고정 */
+    top: 0;            /* 화면 상단 기준으로 고정 */
+    z-index: 10;       /* 드롭다운 뒤로 안 숨도록 레이어 위로 */
+}
+
+/* 타이머 항목 — 라벨 + 숫자 묶음 */
+.qa-timer-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 타이머 라벨 — ⏱ 남은시간 / 📋 단어당 */
+.qa-timer-label {
+    font-size: 12px;
+    font-weight: 900;
+    color: var(--text-sub);
+    white-space: nowrap;
+}
+
+/* 타이머 숫자 — 분:초 표시 */
+.qa-timer-num {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--text-main);
+    font-variant-numeric: tabular-nums;    /* 숫자 너비 고정 — 자리수 바뀌어도 안 떨림 */
+    letter-spacing: 1px;
+    min-width: 60px;
+    text-align: center;
+}
+
+/* 전체시간 30초 이하 — 펄스 애니메이션 */
+.qa-timer-num.pulse {
+    animation: timer-pulse 0.7s ease-in-out infinite; /* 반복 펄스 */
+    color: var(--accent-red);              /* 빨간색으로 강조 */
+}
+
+/* 펄스 — 커졌다 작아짐 */
+@keyframes timer-pulse {
+    0%   { transform: scale(1);    }
+    50%  { transform: scale(1.18); }
+    100% { transform: scale(1);    }
+}
+
+/* 전체시간 / 단어당시간 구분선 */
+.qa-timer-divider {
+    width: 1px;
+    height: 28px;
+    background: var(--border);
+    opacity: 0.5;
+}
+
+/* ══════════════════════════════════════
+   단어 게이지바 — QA카드 상단
+══════════════════════════════════════ */
+
+/* 게이지바 전체 감싸는 영역 */
+.qa-gauge-wrap {
+    width: 100%;
+    position: relative;          /* 숫자 absolute 기준점 */
+    height: 24px;                /* 게이지바 높이 */
+    border-radius: 8px;          /* 게이지바 모서리 둥글기 */
+    overflow: hidden;            /* 바가 밖으로 안 나가게 */
+    margin-bottom: 12px;         /* 문제창과 간격 */
+    background: rgba(0,0,0,0.08); /* 게이지 빈 배경 */
+}
+
+/* 게이지바 채워지는 바 — 남은 단어 비율만큼 */
+.qa-gauge-bar {
+    height: 100%;
+    width: 100%;                 /* JS에서 비율로 조절 */
+    transition: width 0.4s ease, background-color 0.4s ease; /* 부드러운 변화 */
+    border-radius: 8px;
+}
+
+/* 게이지바 왼쪽 끝 — 전체 단어수 */
+.qa-gauge-total {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4); /* 글자 그림자 — 배경과 구분 */
+    pointer-events: none;        /* 클릭 방해 안 하게 */
+}
+
+/* 게이지바 오른쪽 끝 — 남은 단어수 */
+.qa-gauge-remain {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4); /* 글자 그림자 — 배경과 구분 */
+    pointer-events: none;        /* 클릭 방해 안 하게 */
+}
+
+/* ══════════════════════════════════════
+   결과 화면 — screen-result
+══════════════════════════════════════ */
+
+/* 결과 화면 본문 — 화면 밖으로 안 나가게 고정 */
+.result-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 28px;
+    overflow: hidden;
+    gap: 20px;
+    min-height: 0; /* flex 자식이 부모 넘치는 것 방지 — 필수 */
+}/* 상단 요약 박스 가로 한 줄 */
+.result-summary-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+/* 요약 개별 박스 공통 */
+.result-summary-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.15s;
+    gap: 6px;
+    border: 2px solid transparent;
+}
+.result-summary-box:hover { opacity: 0.85; transform: translateY(-2px); }
+.result-summary-box.active { border-color: #1a1a1a; }
+
+/* 요약 박스 이름 */
+.result-summary-name {
+    font-size: 12px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.3px;
+}
+
+/* 요약 박스 숫자 */
+.result-summary-num {
+    font-size: 26px;
+    font-weight: 900;
+    color: #fff;
+}
+
+/* 요약 박스 개별 색상 */
+.result-box-total   { background: #64748b; } /* 전체 — 슬레이트 */
+.result-box-correct { background: #16a34a; } /* 정답 — 초록 */
+.result-box-wrong   { background: #ef4444; } /* 오답 — 빨강 */
+.result-box-timeout { background: #d97706; } /* 시간초과 — 앰버 */
+.result-box-blank1  { background: #94a3b8; opacity: 0.4; cursor: default; } /* 빈칸1 — 준비중 */
+.result-box-blank2  { background: #94a3b8; opacity: 0.4; cursor: default; } /* 빈칸2 — 준비중 */
+
+/* 결과 리스트 테이블 감싸는 영역 — 남은 공간 채우고 스크롤 */
+.result-table-wrap {
+    flex: 1;
+    min-height: 0; /* flex 자식이 부모 넘치는 것 방지 — 필수 */
+    overflow-y: auto;          /* 마우스휠 스크롤 가능 */
+    scrollbar-width: none;     /* Firefox — 스크롤바 숨김 */
+    -ms-overflow-style: none;  /* IE — 스크롤바 숨김 */
+    border-radius: 8px;
+}.result-table-wrap::-webkit-scrollbar { display: none; } /* Chrome — 스크롤바 숨김 */
+
+/* 결과 리스트 테이블 */
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+/* 테이블 헤더 */
+.result-table th {
+    background: var(--surface);
+    color: var(--text-main);
+    font-weight: 900;
+    padding: 10px 12px;
+    text-align: center;
+    border-bottom: 2px solid var(--border);
+    position: sticky;
+    top: 0;
+}
+
+/* 테이블 행 */
+.result-table td {
+    padding: 9px 12px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    color: var(--text-main);
+    background: #fff;
+}
+.result-table tr:hover td { background: #f5f5f5; }
+
+/* 결과 뱃지 — 정답/오답/시간초과 */
+.result-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 900;
+    color: #fff;
+}
+.result-badge.correct { background: #16a34a; }
+.result-badge.wrong   { background: #ef4444; }
+.result-badge.timeout { background: #d97706; }
+</style></head>
+
+<!-- ══════════════════════════════════════
+     JS — 화면 전환 + 컴/폰 전환
+══════════════════════════════════════ -->
+<script type="module">
+   /* ══════════════════════════════════════
+   Firebase 초기화 — study.html과 동일한 프로젝트 연결
+══════════════════════════════════════ */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+/* getDoc 추가 — keywords/{uid} 단일 문서 읽기용 */
+import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAO_rIAb9QmHQlXUg44wE772gzOOqWDAsc",
+    authDomain: "vocabulary-study-49a47.firebaseapp.com",
+    projectId: "vocabulary-study-49a47",
+    storageBucket: "vocabulary-study-49a47.firebasestorage.app",
+    appId: "1:646463283208:web:586c34e3c1f88da37231bd"
+};
+
+const _app = initializeApp(firebaseConfig);
+const _db  = getFirestore(_app);
+
+/* Firebase 함수 window에 등록 — loadSharedFiles + 제외단어 로드에서 사용 */
+window._db           = _db;
+window._fsCollection = collection;
+window._fsGetDocs    = getDocs;
+window._fsDoc        = doc;     /* 단일 문서 참조 — keywords/{uid} 읽기용 */
+window._fsGetDoc     = getDoc;  /* 단일 문서 읽기 — keywords/{uid} 읽기용 */
+/* ── 현재 폰 모드 여부 ── */
+let isPhoneMode = false;
+
+    /* ── 컴/폰 전환 버튼 토글 ── */
+       function toggleViewMode() {
+        isPhoneMode = !isPhoneMode;
+        document.body.classList.toggle('phone-mode', isPhoneMode);
+        /* 모든 폰전환 버튼 아이콘 동시 변경 — 클래스로 일괄 처리 */
+        document.querySelectorAll('.btn-view-toggle')
+            .forEach(btn => btn.textContent = isPhoneMode ? '💻' : '📱');
+    }
+
+    /* ── 화면 전환 — 대상 screen id 지정 ── */
+    function showScreen(id) {
+        /* 모든 화면 숨기기 */
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        /* 대상 화면만 표시 */
+        document.getElementById(id).classList.add('active');
+        /* 혼자 시험 설정 화면 진입 시 파일 목록 자동 로드 */
+        if (id === 'screen-solo') loadSharedFiles();
+    }
+
+    /* ── 메인 화면으로 돌아가기 ── */
+    function goMain() {
+        showScreen('screen-main');
+    }
+
+/* ══════════════════════════════════════
+   시험 설정 — 전역 상태
+══════════════════════════════════════ */
+let soloConfig = {
+    files:      [],   /* 선택된 파일 tag 목록 */
+    excludeBy:  '',   /* 제외단어 적용 기준 */
+    playMode:   '',   /* 진행모드 */
+    examMode:   '',   /* 출제모드 */
+    timeMode:   '',   /* 시간모드 */
+    lang:       ''    /* 언어모드 */
+};
+
+/* 임시 선택값 저장 — 완료버튼 누르기 전 상태 보관, 취소 시 복귀용 */
+let _pendingSelect = {
+    files:      null,  /* 파일 — 임시 tag 배열 */
+    excludeBy:  null,  /* 범위 — 임시 값 */
+    playMode:   null,  /* 진행모드 — 임시 값 */
+    examMode:   null,  /* 출제모드 — 임시 값 */
+    timeMode:   null,  /* 시간모드 — 임시 값 */
+    lang:       null   /* 언어모드 — 임시 값 */
+};
+
+/* 파일별 단어 데이터 저장 — tag: [{en, kr}] 구조 */
+let _fileWordMap = {};/* 현재 출제 중인 단어 목록 */
+let _wordList    = [];
+/* 현재 문제 인덱스 */
+let _wordIdx     = 0;
+/* ── 파일목록 스크롤 위치 기준 — 위아래 테두리 색 표시 ── */
+function updateFilelistBorder() {
+    const el  = document.getElementById('filelist-list');
+    const box = document.getElementById('filelist-dropdown');
+    if (!el || !box) return;
+    const atTop    = el.scrollTop <= 0;
+    const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 2;
+      /* 위에 내용 있으면 상단 테두리 보라색+두껍게, 없으면 원래 상태 */
+    box.style.borderTopColor  = atTop    ? '' : '#a855f7';
+    box.style.borderTopWidth  = atTop    ? '' : '3px';
+    /* 아래에 내용 있으면 하단 테두리 보라색+두껍게, 없으면 원래 상태 */
+    box.style.borderBottomColor = atBottom ? '' : '#a855f7';
+    box.style.borderBottomWidth = atBottom ? '' : '3px';
+}
+
+/* ── 임시 선택 전부 취소 — 완료버튼 없이 닫힐 때 호출 ── */
+function cancelAllPending() {
+    /* 파일 — 임시 하이라이트만 제거, soloConfig.files는 유지 */
+    document.querySelectorAll('#filelist-dropdown .sel-dropdown-item')
+        .forEach(el => {
+            const tag = el.dataset.tag;
+            /* 확정된 tag면 selected 유지, 아니면 제거 */
+            if (soloConfig.files.includes(tag)) {
+                el.classList.add('selected');
+            } else {
+                el.classList.remove('selected');
+            }
+        });
+    /* 범위 — 임시 하이라이트 원복 */
+    document.querySelectorAll('#filemode-dropdown .sel-dropdown-item')
+        .forEach(el => {
+            const confirmed = el.dataset.confirmedVal;
+            if (confirmed === 'yes') el.classList.add('selected');
+            else el.classList.remove('selected');
+        });
+    /* 진행모드 — 임시 하이라이트 원복 */
+    document.querySelectorAll('#playmode-dropdown .sel-dropdown-item')
+        .forEach(el => {
+            const confirmed = el.dataset.confirmedVal;
+            if (confirmed === 'yes') el.classList.add('selected');
+            else el.classList.remove('selected');
+        });
+    /* 출제모드 — 임시 하이라이트 원복 */
+    document.querySelectorAll('#exammode-dropdown .sel-dropdown-item')
+        .forEach(el => {
+            const confirmed = el.dataset.confirmedVal;
+            if (confirmed === 'yes') el.classList.add('selected');
+            else el.classList.remove('selected');
+        });
+    /* 언어모드 — 임시 하이라이트 원복 */
+    document.querySelectorAll('#langmode-dropdown .sel-dropdown-item')
+        .forEach(el => {
+            const confirmed = el.dataset.confirmedVal;
+            if (confirmed === 'yes') el.classList.add('selected');
+            else el.classList.remove('selected');
+        });
+    /* 시간모드 — 임시 입력값 원복 */
+    const tp = _pendingSelect;
+    if (tp.timeMode !== null) {
+        /* 확정된 시간값으로 입력창 복귀 */
+        const prev = soloConfig._timeSaved || { totalMin:'', totalSec:'', perMin:'', perSec:'' };
+        document.getElementById('total-min').value = prev.totalMin;
+        document.getElementById('total-sec').value = prev.totalSec;
+        document.getElementById('per-min').value   = prev.perMin;
+        document.getElementById('per-sec').value   = prev.perSec;
+    }
+    /* 임시 저장 초기화 */
+    _pendingSelect = { files: null, excludeBy: null, playMode: null, examMode: null, timeMode: null, lang: null };
+}
+
+/* 완료버튼으로 닫힌 경우 타이머가 다시 열지 못하게 막는 플래그 */
+let _skipNextOpen = false;
+
+/* ── 드롭다운 열기/닫기 공통 — fixed 위치 계산 후 열기 ── */
+function toggleDropdown(id) {    const target = document.getElementById(id);
+    const isOpen = target.classList.contains('open');
+      /* 열려있는 드롭다운 모두 닫기 + active 제거 */
+    document.querySelectorAll('.sel-dropdown.open')
+        .forEach(d => d.classList.remove('open'));
+    document.querySelectorAll('.sel-box.active')
+        .forEach(b => b.classList.remove('active'));
+    /* 완료버튼 누르지 않고 닫힌 경우 — 임시 선택 전부 취소 */
+    cancelAllPending();
+
+        /* 기존 placeholder 전체 제거 + 이전 활성 탭 원래 자리로 복귀 — 딱 한 번만 실행 */
+    const prevActive = document.querySelector('#solo-tab-row-active .sel-box');
+    const firstPh = document.querySelector('.sel-box-placeholder');
+    if (prevActive && firstPh) {
+        /* fixed 애니메이션 중이면 즉시 해제 후 복귀 */
+        prevActive.style.position      = '';
+        prevActive.style.zIndex        = '';
+        prevActive.style.pointerEvents = '';
+        prevActive.style.margin        = '';
+        prevActive.style.width         = '';
+        prevActive.style.top           = '';
+        prevActive.style.left          = '';
+        prevActive.style.transition    = '';
+        firstPh.parentNode.insertBefore(prevActive, firstPh);
+        prevActive.classList.remove('active');
+    }
+    /* 남은 placeholder 전체 제거 — 누적 방지 */
+    document.querySelectorAll('.sel-box-placeholder').forEach(ph => ph.remove());
+
+      if (!isOpen) {
+        const box = target.closest('.sel-box');
+        const activeRow = document.getElementById('solo-tab-row-active');
+
+        if (activeRow) {
+            /* ① 클릭한 탭 현재 위치 기억 */
+            const boxRect = box.getBoundingClientRect();
+
+                       /* ② 원래 자리에 같은 너비의 placeholder 삽입 — 빈 공간 유지 */
+            const placeholder = document.createElement('div');
+            placeholder.className = 'sel-box-placeholder';
+            placeholder.style.width       = boxRect.width + 'px';
+            placeholder.style.height      = boxRect.height + 'px';
+            placeholder.style.flexShrink  = '0';
+            placeholder.style.opacity  = '0'; /* 자리만 차지, 보이지 않음 + 클릭 가능 */
+            /* 빈공간 클릭 시 탭 원래 자리 복귀 + 드롭다운 닫기 */
+            placeholder.onclick = function(e) {
+                e.stopPropagation();
+                /* 드롭다운 닫기 */
+                document.querySelectorAll('.sel-dropdown.open')
+                    .forEach(d => d.classList.remove('open'));
+                /* 아래 줄 탭 원래 자리로 복귀 */
+                const activeBox = document.querySelector('#solo-tab-row-active .sel-box');
+                if (activeBox) {
+                    activeBox.style.position      = '';
+                    activeBox.style.zIndex        = '';
+                    activeBox.style.pointerEvents = '';
+                    activeBox.style.margin        = '';
+                    activeBox.style.width         = '';
+                    activeBox.style.top           = '';
+                    activeBox.style.left          = '';
+                    activeBox.style.transition    = '';
+                    activeBox.classList.remove('active');
+                    placeholder.parentNode.insertBefore(activeBox, placeholder);
+                }
+                placeholder.remove();
+            };
+            box.parentNode.insertBefore(placeholder, box);
+
+            /* ③ 아래 줄로 탭 이동 */
+            activeRow.appendChild(box);
+            box.classList.add('active');
+
+            /* ④ 목표 위치(아래 줄) 좌표 기억 */
+            const destRect = box.getBoundingClientRect();
+
+            /* ⑤ 애니메이션 시작 — 탭을 출발 위치에 fixed로 띄움 */
+            box.style.position      = 'fixed';
+            box.style.zIndex        = '9999';
+            box.style.pointerEvents = 'none';
+            box.style.margin        = '0';
+            box.style.width         = boxRect.width + 'px';
+            box.style.top           = boxRect.top  + 'px';
+            box.style.left          = boxRect.left + 'px';
+            box.style.transition    = 'none'; /* 출발 위치 순간 이동 — 애니 없이 */
+
+            /* ⑥ 한 프레임 뒤 목표 위치로 transition 이동 */
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    box.style.transition = 'top 0.25s ease, left 0.25s ease, width 0.25s ease';
+                    box.style.top   = destRect.top  + 'px';
+                    box.style.left  = destRect.left + 'px';
+                    box.style.width = destRect.width + 'px';
+
+                    /* ⑦ 탭 애니메이션 끝난 후 — fixed 해제 + 드롭다운 열기 */
+                    setTimeout(() => {
+                        /* fixed 스타일 전부 해제 */
+                        box.style.position      = '';
+                        box.style.zIndex        = '';
+                        box.style.pointerEvents = '';
+                        box.style.margin        = '';
+                        box.style.width         = '';
+                        box.style.top           = '';
+                        box.style.left          = '';
+                        box.style.transition    = '';
+
+                                                                      /* CSS top/left/width로 자동 위치 — 수동 계산 불필요 */
+                        /* 완료버튼으로 이미 닫힌 경우 다시 열지 않음 */
+                       if (!_skipNextOpen) {
+    target.classList.add('open'); /* 드롭다운 열기 */
+}
+                        _skipNextOpen = false;
+                    }, 260);
+                });
+            });
+        }
+    }
+}
+/* ── 파일 목록 불러오기 (뼈대 — 경로 확정 후 연결) ── */
+async function loadSharedFiles() {
+    /* 목록 삽입 대상 — filelist-list(우측 영역)로 변경 */
+    const listEl = document.getElementById('filelist-list');
+    listEl.innerHTML = '<div style="padding:12px 16px;font-size:13px;color:var(--sel-val-text)">불러오는 중...</div>';
+    try {
+        const snapshot = await window._fsGetDocs(
+            window._fsCollection(window._db, 'shared', 'tabs', 'list')
+        );
+        if (snapshot.empty) {
+            listEl.innerHTML = '<div style="padding:12px 16px;font-size:13px;color:var(--sel-val-text)">공유된 파일이 없습니다</div>';
+            return;
+        }
+               listEl.innerHTML = '';
+        /* 목록 로드 시 스크롤 맨 위로 초기화 — 이전 스크롤 위치 잔류 방지 */
+        listEl.scrollTop = 0;
+        let idx = 0;
+        snapshot.forEach(docSnap => {
+            const data = docSnap.data();
+            const tag  = data.tag || docSnap.id;  /* 태그 — data.tag 우선, 없으면 docId */
+
+            /* 파일명 추출 — fileName 우선, 없으면 docId */
+            const fileList = (data.fileName || '').split(',').map(f => f.trim()).filter(Boolean);
+            const summaryText = fileList.length > 1
+                ? fileList[0] + ' 외 ' + (fileList.length - 1) + '건'
+                : (fileList[0] || tag);
+
+            /* 날짜·시간 추출 — savedAt 우선, 없으면 id에서 파싱 */
+            const savedAt = data.savedAt || '';
+            const dateStr = savedAt ? savedAt.slice(2,10).replace(/-/g,'-') : '-';
+            const timeStr = savedAt ? savedAt.slice(11,16) : '-';
+
+           /* 페이지수·단어수 — wsPages 기준 */
+const pageCount = (data.wsPages || []).length;
+const wordCount = (data.wsPages || []).reduce(
+    (sum, p) => sum + (p.rows || []).filter(r => r.en || r.kr).length, 0);
+
+/* 단어 데이터 전역 저장 — tag 기준으로 보관 */
+_fileWordMap[tag] = (data.wsPages || [])
+    .flatMap(p => (p.rows || []).filter(r => r.en || r.kr)
+    .map(r => ({ en: r.en || '', kr: r.kr || '' }))); /* en/kr 쌍으로 저장 */
+
+            idx++;
+            const item = document.createElement('div');
+            item.className = 'sel-dropdown-item';
+            item.dataset.tag = tag;
+            /* 카드 글자 공통 스타일 */
+           /* 드롭다운 항목 글자색 — 배경과 구분되도록 진한 색으로 변경 */
+const sp = 'font-size:11px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#3a2e22;';
+            /* study.html 기준 7항목 — 태그/파일명/날짜/시간/파일수/페이지수/단어수 */
+                       /* 행 클릭으로 선택/해제 — 체크박스 제거 */
+            item.onclick = (e) => {
+                e.stopPropagation();
+                toggleFilelistItem(tag, item, summaryText);
+            };
+                       /* 파일명만 표시 */
+            item.innerHTML =
+                `<span style="${sp}">${summaryText}</span>`;
+
+                                               listEl.appendChild(item);
+        });
+              /* 모든 항목 추가 완료 후 스크롤 맨 위 강제 초기화 + 테두리 초기 상태 반영 */
+        setTimeout(() => { listEl.scrollTop = 0; updateFilelistBorder(); }, 0);
+    } catch(e) {
+        listEl.innerHTML = `<div style="padding:12px 16px;font-size:13px;color:var(--sel-val-text)">불러오기 실패: ${e.message}</div>`;
+    }
+}
+/* ── 파일선택 항목 클릭 — 임시 하이라이트만, 확정은 완료버튼에서 ── */
+function toggleFilelistItem(tag, item, name) {
+    /* 행 클릭 선택/해제 — 하이라이트 토글만 (soloConfig 미반영) */
+    const isSelected = item.classList.contains('selected');
+    if (isSelected) {
+        item.classList.remove('selected');
+    } else {
+        item.classList.add('selected');
+    }
+}/* ── 범위선택 항목 클릭 — 임시 하이라이트만, 확정은 완료버튼에서 ── */
+function selectFilemode(val, label, el, event) {
+    event.stopPropagation();
+    /* 임시 선택값 저장 */
+    _pendingSelect.excludeBy = { val, label };
+    /* 하이라이트만 변경 — soloConfig 미반영 */
+    document.querySelectorAll('#filemode-dropdown .sel-dropdown-item')
+        .forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+}
+/* ── 진행모드 항목 클릭 — 임시 하이라이트만, 확정은 완료버튼에서 ── */
+function selectPlaymode(val, label, el, event) {
+    event.stopPropagation();
+    /* 임시 선택값 저장 */
+    _pendingSelect.playMode = { val, label };
+    /* 하이라이트만 변경 — soloConfig 미반영 */
+    document.querySelectorAll('#playmode-dropdown .sel-dropdown-item')
+        .forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+}/* ── 출제모드 항목 클릭 — 임시 하이라이트만, 확정은 완료버튼에서 ── */
+function selectExammode(val, label, el, event) {
+    event.stopPropagation();
+    /* 임시 선택값 저장 */
+    _pendingSelect.examMode = { val, label };
+    /* 하이라이트만 변경 — soloConfig 미반영 */
+    document.querySelectorAll('#exammode-dropdown .sel-dropdown-item')
+        .forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+}
+/* ── 시간모드 입력값 변경 — 임시 저장만, 확정은 완료버튼에서 ── */
+function updateTimemodeDisplay() {
+    const totalMin = document.getElementById('total-min').value || 0;
+    const totalSec = document.getElementById('total-sec').value || 0;
+    const perMin   = document.getElementById('per-min').value || 0;
+    const perSec   = document.getElementById('per-sec').value || 0;
+    /* 임시 시간값 저장 — soloConfig 미반영 */
+    _pendingSelect.timeMode = { totalMin, totalSec, perMin, perSec };
+}/* ══════════════════════════════════════
+   타임어택 — 카운트다운 타이머
+══════════════════════════════════════ */
+
+let _timerTotal = 0;   /* 전체시간 남은 초 */
+let _timerPer   = 0;   /* 단어당시간 남은 초 */
+let _timerTotalId = null; /* 전체시간 인터벌 ID */
+let _timerPerId   = null; /* 단어당시간 인터벌 ID */
+
+/* 초 → 분:초 문자열 변환 */
+function secToStr(sec) {
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return m + ':' + String(s).padStart(2, '0');
+}
+
+/* 전체시간 타이머 시작 */
+function startTotalTimer(totalSec) {
+    /* 기존 타이머 초기화 */
+    clearInterval(_timerTotalId);
+    _timerTotal = totalSec;
+    const el = document.getElementById('timer-total');
+    el.textContent = secToStr(_timerTotal);
+    el.classList.remove('pulse');
+
+       _timerTotalId = setInterval(() => {
+        /* 30초 이하 — 펄스 애니메이션 시작 */
+        if (_timerTotal <= 30) el.classList.add('pulse');
+
+             /* 0:00 — 시험 종료 → 결과 화면으로 이동 */
+        if (_timerTotal <= 0) {
+            clearInterval(_timerTotalId);
+            clearInterval(_timerPerId);
+            el.textContent = '0:00';
+            el.classList.remove('pulse');
+            /* 남은 단어 전부 시간초과로 기록 */
+            for (let i = _wordIdx; i < _wordList.length; i++) {
+                const cur = _wordList[i];
+                _resultList.push({
+                    no:       i + 1,
+                    question: getQuestion(cur),
+                    answer:   getAnswer(cur),
+                    myAnswer: '',
+                    status:   'timeout'
+                });
+            }
+            showResult();
+            return;
+        }
+
+        _timerTotal--;
+        el.textContent = secToStr(_timerTotal);
+    }, 1000);
+}
+
+/* 단어당 타이머 시작 — 0:00 되면 다음 단어로 이동 */
+function startPerTimer(perSec) {
+    /* 기존 타이머 초기화 */
+    clearInterval(_timerPerId);
+    _timerPer = perSec;
+    const el = document.getElementById('timer-per');
+    el.textContent = secToStr(_timerPer);
+
+    _timerPerId = setInterval(() => {
+        _timerPer--;
+        el.textContent = secToStr(_timerPer);
+
+        /* 0:00 — 다음 단어로 이동 */
+        if (_timerPer <= 0) {
+            clearInterval(_timerPerId);
+            el.textContent = '0:00';
+            /* 다음 단어 이동 함수 — 추후 연결 */
+            // nextWord();
+        }
+    }, 1000);
+}
+
+/* 시간모드 설정값으로 타이머 시작 */
+function startTimerFromConfig() {
+    const totalMin = Number(document.getElementById('total-min').value) || 0;
+    const totalSec = Number(document.getElementById('total-sec').value) || 0;
+    const perMin   = Number(document.getElementById('per-min').value)   || 0;
+    const perSec   = Number(document.getElementById('per-sec').value)   || 0;
+
+    const totalAll = totalMin * 60 + totalSec; /* 전체시간 총 초 */
+    const perAll   = perMin   * 60 + perSec;   /* 단어당시간 총 초 */
+
+    if (totalAll > 0) startTotalTimer(totalAll); /* 전체시간 타이머 시작 */
+    if (perAll   > 0) startPerTimer(perAll);     /* 단어당시간 타이머 시작 */
+}
+
+/* 타이머 전체 정지 — 시험 종료/나가기 시 호출 */
+function stopAllTimers() {
+    clearInterval(_timerTotalId);
+    clearInterval(_timerPerId);
+    document.getElementById('timer-total').classList.remove('pulse');
+}
+
+/* window에 등록 — 외부에서 호출 가능하게 */
+window.startTimerFromConfig = startTimerFromConfig;
+window.stopAllTimers        = stopAllTimers;
+window.startPerTimer        = startPerTimer;
+
+/* ══════════════════════════════════════
+   단어 게이지바 — 남은 단어 비율 업데이트
+══════════════════════════════════════ */
+
+/* 게이지바 색상 — 남은 비율별 반환 */
+function getGaugeColor(ratio) {
+    /* ratio: 0.0 ~ 1.0 (남은단어/전체단어) */
+    if (ratio > 0.69) return '#ef4444'; /* 70%~100% — 빨강 */
+    if (ratio > 0.30) return '#60b8d4'; /* 31%~69%  — 하늘색 */
+    return '#16a34a';                   /* 0%~30%   — 초록 */
+}
+
+/* 게이지바 업데이트 — 문제 넘길 때마다 호출 */
+function updateGauge(total, remain) {
+    const ratio = total > 0 ? remain / total : 0; /* 남은 비율 계산 */
+    const bar   = document.getElementById('qa-gauge-bar');
+    const elTotal  = document.getElementById('qa-gauge-total');
+    const elRemain = document.getElementById('qa-gauge-remain');
+
+    bar.style.width           = (ratio * 100) + '%'; /* 바 너비 — 남은 비율 */
+    bar.style.backgroundColor = getGaugeColor(ratio); /* 바 색상 — 비율별 */
+    elTotal.textContent  = total;   /* 전체 단어수 표시 */
+    elRemain.textContent = remain;  /* 남은 단어수 표시 */
+}
+
+/* window에 등록 — 외부에서 호출 가능하게 */
+window.updateGauge = updateGauge;
+
+/* 초기값 — 테스트용 (실제 시험 시작 시 updateGauge(전체수, 남은수) 호출) */
+updateGauge(20, 20);
+/* ── 언어모드 항목 클릭 — 임시 하이라이트만, 확정은 완료버튼에서 ── */
+function selectLangmode(val, label, el, event) {
+    event.stopPropagation();
+    /* 임시 선택값 저장 */
+    _pendingSelect.lang = { val, label };
+    /* 하이라이트만 변경 — soloConfig 미반영 */
+    document.querySelectorAll('#langmode-dropdown .sel-dropdown-item')
+        .forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+    /* mix일 때 슬라이더 표시 — 미리보기 목적 유지 */
+    document.getElementById('lang-slider-wrap')
+        .classList.toggle('visible', val === 'mix');
+}/* ── 티커 배너 — 항목 순환 표시 ── */
+let _tickerTimer  = null;   /* 타이머 ID */
+let _tickerIdx    = 0;      /* 현재 항목 인덱스 */
+/* 티커에 표시할 항목 목록 수집 */
+function getTickerItems() {
+    const files = [...document.querySelectorAll('#filelist-dropdown .sel-dropdown-item.selected')]
+        .map(i => i.querySelector('span')?.textContent || '');
+    const items = [];
+    /* 파일 — 여러 개면 각각 추가, 라벨은 동일 */
+    if (files.length > 0) files.forEach(f => items.push({ lbl: '📂 파일', val: f }));
+    else items.push({ lbl: '📂 파일', val: '' });
+    /* 나머지 항목 */
+    const get = id => { const t = document.getElementById(id)?.textContent; return t !== '선택하세요' ? t : ''; };
+    items.push({ lbl: '📂 범위', val: get('filemode-value') });
+    items.push({ lbl: '🔀 진행', val: get('playmode-value') });
+    items.push({ lbl: '📝 출제', val: get('exammode-value') });
+    items.push({ lbl: '⏱ 시간', val: get('timemode-value') });
+    items.push({ lbl: '🌐 언어', val: get('langmode-value') });
+    return items;
+}
+
+/* 티커 슬라이드 전환 */
+function tickerNext() {
+    const items = getTickerItems();
+    if (!items.length) return;
+    const item = items[_tickerIdx % items.length];
+    _tickerIdx++;
+    const lbl = document.getElementById('ticker-lbl');
+    const val = document.getElementById('ticker-val');
+    if (!lbl || !val) return;
+       const prevLbl = lbl.textContent;
+    const lblChanged = prevLbl !== item.lbl;
+    /* 내용 슬라이드 아웃 */
+    val.classList.remove('ticker-in');
+    val.classList.add('ticker-out');
+    /* 라벨은 다를 때만 슬라이드 */
+    if (lblChanged) {
+        lbl.classList.remove('ticker-in');
+        lbl.classList.add('ticker-out');
+    }
+    setTimeout(() => {
+        val.textContent = item.val;
+        val.classList.remove('ticker-out');
+        val.classList.add('ticker-in');
+        if (lblChanged) {
+            lbl.textContent = item.lbl;
+            lbl.classList.remove('ticker-out');
+            lbl.classList.add('ticker-in');
+        }
+    }, 400);
+    /* 펼침 드롭다운 내용 업데이트 */
+    updateTickerDropdown();
+}
+
+/* 티커 시작 */
+function startTicker() {
+    if (_tickerTimer) clearInterval(_tickerTimer);
+    _tickerIdx = 0;
+    tickerNext();
+    _tickerTimer = setInterval(tickerNext, 2000);
+}
+
+/* 펼침 드롭다운 내용 업데이트 */
+function updateTickerDropdown() {
+    const get = id => { const t = document.getElementById(id)?.textContent; return t !== '선택하세요' ? t : ''; };
+    const files = [...document.querySelectorAll('#filelist-dropdown .sel-dropdown-item.selected')]
+        .map(i => i.querySelector('span')?.textContent || '').join(', ');
+    const el = id => document.getElementById(id);
+    if (el('td-file')) el('td-file').textContent = files;
+    if (el('td-range')) el('td-range').textContent = get('filemode-value');
+    if (el('td-play'))  el('td-play').textContent  = get('playmode-value');
+    if (el('td-exam'))  el('td-exam').textContent  = get('exammode-value');
+    if (el('td-time'))  el('td-time').textContent  = get('timemode-value');
+    if (el('td-lang'))  el('td-lang').textContent  = get('langmode-value');
+}
+
+/* 티커 드롭다운 열기/닫기 */
+function toggleTickerDropdown(event) {
+    event.stopPropagation();
+    const dd = document.getElementById('ticker-dropdown');
+    if (!dd) return;
+    dd.classList.toggle('open');
+    if (dd.classList.contains('open')) updateTickerDropdown();
+}
+
+
+/* ── 시작 버튼 활성화 조건 ── */
+function updateStartBtn() {
+    const btn = document.getElementById('solo-start-btn');
+    const ok = soloConfig.files.length > 0
+             && soloConfig.excludeBy !== ''
+             && soloConfig.playMode  !== ''
+             && soloConfig.examMode  !== ''
+             && soloConfig.timeMode  !== ''
+             && soloConfig.lang      !== '';
+        btn.disabled = !ok;
+    /* 선택 항목 변경 시 티커 드롭다운 내용 갱신 */
+    updateTickerDropdown();
+}
+/* ══════════════════════════════════════
+   시험 결과 데이터 — 전역 저장
+══════════════════════════════════════ */
+let _resultList = []; /* 결과 항목 배열 — { no, question, answer, myAnswer, status } */
+
+/* ── 결과 화면 표시 — 시험 종료 시 호출 ── */
+function showResult() {
+    /* 결과 화면으로 전환 */
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-result').classList.add('active');
+
+    /* 요약 숫자 계산 */
+    const total   = _resultList.length;
+    const correct = _resultList.filter(r => r.status === 'correct').length;
+    const wrong   = _resultList.filter(r => r.status === 'wrong').length;
+    const timeout = _resultList.filter(r => r.status === 'timeout').length;
+
+    /* 요약 박스 숫자 업데이트 */
+    document.getElementById('result-num-total').textContent   = total;
+    document.getElementById('result-num-correct').textContent = correct;
+    document.getElementById('result-num-wrong').textContent   = wrong;
+    document.getElementById('result-num-timeout').textContent = timeout;
+
+    /* 기본 필터 — 전체 */
+    renderResultTable('all');
+    /* 전체 박스 active 표시 */
+    document.querySelectorAll('.result-summary-box').forEach(b => b.classList.remove('active'));
+    document.getElementById('result-box-total').classList.add('active');
+}
+
+/* ── 결과 테이블 렌더링 — 필터 기준으로 행 표시 ── */
+function renderResultTable(filter) {
+    const tbody = document.getElementById('result-tbody');
+    tbody.innerHTML = '';
+
+    /* 필터에 맞는 항목만 추출 */
+    const list = filter === 'all' ? _resultList
+               : _resultList.filter(r => r.status === filter);
+
+    list.forEach((r, i) => {
+        const badgeClass = r.status === 'correct' ? 'correct'
+                         : r.status === 'timeout' ? 'timeout' : 'wrong';
+        const badgeText  = r.status === 'correct' ? '정답'
+                         : r.status === 'timeout' ? '시간초과' : '오답';
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${i + 1}</td>
+            <td>${r.question}</td>
+            <td>${r.answer}</td>
+            <td>${r.myAnswer || '—'}</td>
+            <td><span class="result-badge ${badgeClass}">${badgeText}</span></td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    /* 항목 없을 때 안내 */
+    if (list.length === 0) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = '<td colspan="5" style="padding:24px;color:#999;">해당 항목이 없습니다.</td>';
+        tbody.appendChild(tr);
+    }
+}
+
+/* ── 요약 박스 클릭 — 필터 전환 ── */
+function filterResult(filter, boxEl) {
+    /* 빈칸 박스는 클릭 무시 */
+    if (!filter) return;
+    /* active 표시 전환 */
+    document.querySelectorAll('.result-summary-box').forEach(b => b.classList.remove('active'));
+    boxEl.classList.add('active');
+    /* 테이블 필터링 */
+    renderResultTable(filter);
+}
+window.filterResult = filterResult;
+window.showResult   = showResult;
+
+/* ── 언어 모드에 따라 문제 텍스트 결정 — 전역 함수 (시험 중 다음 단어 이동에도 사용) ── */
+function getQuestion(word) {    const lang = soloConfig.lang;
+    if (lang === 'en') return word.en;
+    if (lang === 'ko') return word.kr;
+    /* mix — 슬라이더 비율대로 랜덤 결정 */
+    const enRatio = Number(document.getElementById('lang-slider')?.value ?? 50);
+    return Math.random() * 100 < enRatio ? word.en : word.kr;
+}
+
+/* ── 다음 단어로 이동 — status: 'correct'/'wrong'/'timeout' ── */
+function nextWord(status, myAnswer) {
+    /* 현재 단어 결과 기록 */
+    const cur = _wordList[_wordIdx];
+    _resultList.push({
+        no:       _wordIdx + 1,
+        question: getQuestion(cur),           /* 제시된 문제 텍스트 */
+        answer:   getAnswer(cur),             /* 정답 텍스트 */
+        myAnswer: myAnswer || '',             /* 내가 입력한 답 */
+        status:   status || 'wrong'           /* correct / wrong / timeout */
+    });
+
+    _wordIdx++;
+    const remain = _wordList.length - _wordIdx;
+
+    /* 단어 모두 소진 — 결과 화면으로 이동 */
+    if (_wordIdx >= _wordList.length) {
+        stopAllTimers();
+        updateGauge(_wordList.length, 0);
+        showResult();
+        return;
+    }
+
+    /* 다음 단어 문제창에 표시 */
+    document.getElementById('qa-question').querySelector('.qa-question-text')
+        .textContent = getQuestion(_wordList[_wordIdx]);
+
+    /* 정답 입력창 초기화 */
+    document.getElementById('qa-answer-input').value = '';
+
+    /* 게이지바 업데이트 */
+    updateGauge(_wordList.length, remain);
+
+    /* 단어당 타이머 재시작 */
+    const perMin = Number(document.getElementById('per-min').value) || 0;
+    const perSec = Number(document.getElementById('per-sec').value) || 0;
+    const perAll = perMin * 60 + perSec;
+    if (perAll > 0) startPerTimer(perAll);
+}
+/* ── 현재 문제의 정답 텍스트 반환 — 언어모드 반대쪽 ── */
+function getAnswer(word) {
+    const lang = soloConfig.lang;
+    if (lang === 'en') return word.kr; /* 문제가 영어면 정답은 한국어 */
+    if (lang === 'ko') return word.en; /* 문제가 한국어면 정답은 영어 */
+    /* mix — 현재 문제가 en이면 정답은 kr, 반대도 동일 */
+    const curQ = document.getElementById('qa-question').querySelector('.qa-question-text').textContent;
+    return curQ === word.en ? word.kr : word.en;
+}
+
+/* ── 띄어쓰기 제거 비교 — 공백만 무시, 글자 다르면 틀림 ── */
+function normalizeAnswer(str) {
+    return str.replace(/\s/g, '').toLowerCase();
+}
+
+/* ── 시험 시작 ── */
+async function startSoloExam() {
+    console.log('시험 설정:', soloConfig);
+
+    /* 파일이 선택되지 않으면 시작 불가 */
+    const rawList = soloConfig.files.flatMap(t => _fileWordMap[t] || []);
+    if (rawList.length === 0) {
+        alert('파일을 선택하면 단어가 불러와집니다.');
+        return;
+    }
+
+    /* 시험 시작 시점에 제외단어 필터링 — 범위선택 확정 순서 무관하게 항상 정확히 적용 */
+    if (soloConfig.excludeBy === 'mine') {
+        const user = JSON.parse(localStorage.getItem('vocabCurrentUser')); /* localStorage에서 로그인 상태 확인 */
+        let excludedSet = new Set();
+        if (user && window._db) {
+            try {
+                const docRef = window._fsDoc(window._db, 'keywords', user.uid);
+                const snap   = await window._fsGetDoc(docRef);
+                const kwWords = snap.exists() ? (snap.data().words || []) : [];
+                excludedSet = new Set(kwWords.map(w => w.toLowerCase()));
+            } catch(e) {
+                console.warn('제외단어 로드 실패:', e);
+            }
+        }
+        _wordList = rawList.filter(row => {
+            if (!row.en) return true;
+            const words = row.en.toLowerCase().split(/\s+/);
+            return !words.some(w => excludedSet.has(w));
+        });
+    } else {
+        _wordList = rawList;
+    }
+
+    if (_wordList.length === 0) {
+        alert('제외단어를 적용하면 출제할 단어가 없습니다.');
+        return;
+    }
+
+    /* 첫 번째 단어 문제창에 표시 */
+    _wordIdx = 0;
+    document.getElementById('qa-question').querySelector('.qa-question-text')
+        .textContent = getQuestion(_wordList[_wordIdx]);
+
+    /* 정답 입력창 초기화 + 활성화 */
+    const answerInput = document.getElementById('qa-answer-input');
+    answerInput.value       = '';
+    answerInput.disabled    = false;
+    answerInput.placeholder = '정답을 입력하세요';
+    answerInput.focus();
+
+      /* 시험 시작 시 결과 초기화 */
+    _resultList = [];
+
+    /* Enter 입력 시 정답 체크 후 다음 단어 이동 */
+    answerInput.onkeydown = function(e) {
+        if (e.key !== 'Enter') return;
+        const input  = normalizeAnswer(answerInput.value);
+        const answer = normalizeAnswer(getAnswer(_wordList[_wordIdx]));
+        if (input === answer) {
+            /* 정답 — correct로 기록 후 다음 단어 */
+            nextWord('correct', answerInput.value);
+        } else {
+            /* 오답 — wrong으로 기록 후 빨간 테두리 + 초기화 */
+            answerInput.style.border = '2px solid #ef4444';
+            setTimeout(() => { answerInput.style.border = ''; }, 600);
+            nextWord('wrong', answerInput.value);
+        }
+    };
+
+    /* 게이지바 초기화 */
+    updateGauge(_wordList.length, _wordList.length);
+
+    /* 타이머 시작 */
+    startTimerFromConfig();
+}
+ /* ── 로그아웃 ── */
+  
+  function doLogout() {
+        localStorage.removeItem('vocabCurrentUser'); /* localStorage에서 로그인 상태 제거 */
+        location.href = 'common.html';
+    }
+
+                 /* ── 완료버튼 확정 함수 — 파일선택 ── */
+async function confirmFilelist(event) {
+    event.stopPropagation(); /* 버블링 차단 — sel-box의 toggleDropdown 재실행 방지 */
+    /* 260ms 후 toggleDropdown 타이머가 다시 열지 못하도록 플래그 설정 */
+    _skipNextOpen = true; /* 현재 하이라이트된 항목을 soloConfig.files에 확정 */
+    soloConfig.files = [...document.querySelectorAll('#filelist-dropdown .sel-dropdown-item.selected')]
+        .map(el => el.dataset.tag);
+      /* 확정 후 단어 목록 갱신 — 제외단어 필터링 포함 */
+    _wordIdx = 0;
+
+    /* 범위 선택이 '내 제외단어'면 Firebase에서 키워드 로드 후 필터링 */
+    if (soloConfig.excludeBy === 'mine') {
+        /* 로그인 유저 정보 확인 */
+        const user = JSON.parse(localStorage.getItem('vocabCurrentUser')); /* localStorage에서 로그인 상태 확인 */
+        let excludedSet = new Set();
+
+        if (user && window._db) {
+            try {
+                /* keywords/{uid} 문서에서 제외단어 배열 읽기 */
+                const docRef = window._fsDoc(window._db, 'keywords', user.uid);
+                const snap   = await window._fsGetDoc(docRef);
+                const kwWords = snap.exists() ? (snap.data().words || []) : [];
+                /* 소문자 Set으로 변환 — 대소문자 무관 비교 */
+                excludedSet = new Set(kwWords.map(w => w.toLowerCase()));
+            } catch(e) {
+                console.warn('제외단어 로드 실패:', e);
+            }
+        }
+
+        /* 전체 단어 목록에서 제외단어 포함 행 필터링 */
+        _wordList = soloConfig.files.flatMap(t => _fileWordMap[t] || []).filter(row => {
+            if (!row.en) return true; /* 영어 없는 행은 유지 */
+            /* en을 공백으로 split — 한 단어라도 제외단어 Set에 있으면 제거 */
+            const words = row.en.toLowerCase().split(/\s+/);
+            return !words.some(w => excludedSet.has(w));
+        });
+    } else {
+        /* 제외단어 없이 전체 출제 */
+        _wordList = soloConfig.files.flatMap(t => _fileWordMap[t] || []);
+    }
+
+    /* 파일 선택 시 문제창은 항상 대기 문구만 표시 — 시험 시작 전까지 단어 노출 안 함 */
+    document.getElementById('qa-question').querySelector('.qa-question-text')
+        .textContent = '문제가 여기에 표시됩니다.';
+    updateGauge(_wordList.length, _wordList.length);
+    updateStartBtn(); /* 시작버튼 활성화 조건 갱신 */
+       _pendingSelect.files = null;
+        /* 드롭다운 닫기 + 탭 복귀 */
+    document.getElementById('filelist-dropdown').classList.remove('open');
+    const activeBox = document.querySelector('#solo-tab-row-active .sel-box');
+    const ph = document.querySelector('.sel-box-placeholder');
+       if (activeBox) {
+        /* 260ms 타이머 충돌 방지 — style 전부 미리 초기화 */
+        activeBox.style.position      = '';
+        activeBox.style.zIndex        = '';
+        activeBox.style.pointerEvents = '';
+        activeBox.style.margin        = '';
+        activeBox.style.width         = '';
+        activeBox.style.top           = '';
+        activeBox.style.left          = '';
+        activeBox.style.transition    = '';
+        activeBox.classList.remove('active');
+        if (ph) { ph.parentNode.insertBefore(activeBox, ph); ph.remove(); }
+    }
+    /* 탭 복귀 완료 후 플래그 즉시 리셋 — 다음 탭 클릭 시 드롭다운 정상 열림 */
+    _skipNextOpen = false;
+}
+/* ── 완료버튼 확정 함수 — 범위선택 ── */
+function confirmFilemode(event) {
+    event.stopPropagation();
+    if (!_pendingSelect.excludeBy) return; /* 선택 없으면 무시 */
+    const { val, label } = _pendingSelect.excludeBy;
+    soloConfig.excludeBy = val;
+    document.getElementById('filemode-value').textContent = label;
+    /* 확정 항목에 data 마킹 — 취소 시 복귀 기준 */
+    document.querySelectorAll('#filemode-dropdown .sel-dropdown-item')
+        .forEach(el => { el.dataset.confirmedVal = el.classList.contains('selected') ? 'yes' : ''; });
+    _pendingSelect.excludeBy = null;
+    updateStartBtn();
+    document.getElementById('filemode-dropdown').classList.remove('open');
+    const activeBox = document.querySelector('#solo-tab-row-active .sel-box');
+    if (activeBox) {
+        activeBox.classList.remove('active');
+        const ph = document.querySelector('.sel-box-placeholder');
+        if (ph) { ph.parentNode.insertBefore(activeBox, ph); ph.remove(); }
+    }
+}
+/* ── 완료버튼 확정 함수 — 진행모드 ── */
+function confirmPlaymode(event) {
+    event.stopPropagation();
+    if (!_pendingSelect.playMode) return;
+    const { val, label } = _pendingSelect.playMode;
+    soloConfig.playMode = val;
+    document.getElementById('playmode-value').textContent = label;
+    document.querySelectorAll('#playmode-dropdown .sel-dropdown-item')
+        .forEach(el => { el.dataset.confirmedVal = el.classList.contains('selected') ? 'yes' : ''; });
+    _pendingSelect.playMode = null;
+    updateStartBtn();
+    document.getElementById('playmode-dropdown').classList.remove('open');
+    const activeBox = document.querySelector('#solo-tab-row-active .sel-box');
+    if (activeBox) {
+        activeBox.classList.remove('active');
+        const ph = document.querySelector('.sel-box-placeholder');
+        if (ph) { ph.parentNode.insertBefore(activeBox, ph); ph.remove(); }
+    }
+}
+/* ── 완료버튼 확정 함수 — 출제모드 ── */
+function confirmExammode(event) {
+    event.stopPropagation();
+    if (!_pendingSelect.examMode) return;
+    const { val, label } = _pendingSelect.examMode;
+    soloConfig.examMode = val;
+    document.getElementById('exammode-value').textContent = label;
+    document.querySelectorAll('#exammode-dropdown .sel-dropdown-item')
+        .forEach(el => { el.dataset.confirmedVal = el.classList.contains('selected') ? 'yes' : ''; });
+    _pendingSelect.examMode = null;
+    updateStartBtn();
+    document.getElementById('exammode-dropdown').classList.remove('open');
+    const activeBox = document.querySelector('#solo-tab-row-active .sel-box');
+    if (activeBox) {
+        activeBox.classList.remove('active');
+        const ph = document.querySelector('.sel-box-placeholder');
+        if (ph) { ph.parentNode.insertBefore(activeBox, ph); ph.remove(); }
+    }
+}
+/* ── 완료버튼 확정 함수 — 시간모드 ── */
+function confirmTimemode(event) {
+    event.stopPropagation();
+    if (!_pendingSelect.timeMode) return;
+    const { totalMin, totalSec, perMin, perSec } = _pendingSelect.timeMode;
+    soloConfig.timeMode = 'set';
+    /* 확정된 시간값 저장 — 취소 시 복귀용 */
+    soloConfig._timeSaved = { totalMin, totalSec, perMin, perSec };
+    const pad = n => String(n).padStart(2,'0');
+    document.getElementById('timemode-value').textContent =
+        `⏱${totalMin}:${pad(totalSec)} / 📋${perMin}:${pad(perSec)}`;
+    document.getElementById('timer-total').textContent = `${totalMin}:${pad(totalSec)}`;
+    document.getElementById('timer-per').textContent   = `${perMin}:${pad(perSec)}`;
+    _pendingSelect.timeMode = null;
+    updateStartBtn();
+    document.getElementById('timemode-dropdown').classList.remove('open');
+    const activeBox = document.querySelector('#solo-tab-row-active .sel-box');
+    if (activeBox) {
+        activeBox.classList.remove('active');
+        const ph = document.querySelector('.sel-box-placeholder');
+        if (ph) { ph.parentNode.insertBefore(activeBox, ph); ph.remove(); }
+    }
+}
+/* ── 완료버튼 확정 함수 — 언어모드 ── */
+function confirmLangmode(event) {
+    event.stopPropagation();
+    if (!_pendingSelect.lang) return;
+    const { val, label } = _pendingSelect.lang;
+    soloConfig.lang = val;
+    document.getElementById('langmode-value').textContent = label;
+    document.querySelectorAll('#langmode-dropdown .sel-dropdown-item')
+        .forEach(el => { el.dataset.confirmedVal = el.classList.contains('selected') ? 'yes' : ''; });
+    _pendingSelect.lang = null;
+    updateStartBtn();
+    document.getElementById('langmode-dropdown').classList.remove('open');
+    const activeBox = document.querySelector('#solo-tab-row-active .sel-box');
+    if (activeBox) {
+        activeBox.classList.remove('active');
+        const ph = document.querySelector('.sel-box-placeholder');
+        if (ph) { ph.parentNode.insertBefore(activeBox, ph); ph.remove(); }
+    }
+}
+
+    /* ── 함수 전역 등록 — type="module" 스코프 탈출용 ── */
+      window.toggleViewMode        = toggleViewMode;
+    window.showScreen            = showScreen;
+    window.goMain                = goMain;
+    window.toggleDropdown        = toggleDropdown;
+    window.toggleFilelistItem    = toggleFilelistItem;
+    window.selectFilemode        = selectFilemode;
+    window.selectPlaymode        = selectPlaymode;
+    window.selectExammode        = selectExammode;
+    window.selectLangmode        = selectLangmode;
+    window.updateTimemodeDisplay = updateTimemodeDisplay;
+    window.startSoloExam         = startSoloExam;
+    window.doLogout              = doLogout;
+
+    window.confirmFilelist          = confirmFilelist;          /* 파일선택 완료확정 */
+    window.confirmFilemode          = confirmFilemode;          /* 범위선택 완료확정 */
+    window.confirmPlaymode          = confirmPlaymode;          /* 진행모드 완료확정 */
+    window.confirmExammode          = confirmExammode;          /* 출제모드 완료확정 */
+    window.confirmTimemode          = confirmTimemode;          /* 시간모드 완료확정 */
+    window.confirmLangmode          = confirmLangmode;          /* 언어모드 완료확정 */
+    window.updateFilelistBorder     = updateFilelistBorder;     /* 테두리 색 업데이트 */
+          window.toggleTickerDropdown     = toggleTickerDropdown;     /* 티커 드롭다운 열기/닫기 */
+    window.updateTickerDropdown     = updateTickerDropdown;     /* 티커 드롭다운 내용 갱신 */
+     /* 페이지 로드 시 티커 시작 */
+    startTicker();
+
+    /* ── 드롭다운 열린 상태에서 Enter → 현재 활성 탭 완료버튼 실행 ── */
+    document.addEventListener('keydown', function(e) {
+        if (e.key !== 'Enter') return;
+        /* 열린 드롭다운 확인 */
+        const openDd = document.querySelector('.sel-dropdown.open');
+        if (!openDd) return;
+        /* 정답 입력창이 포커스 중이면 무시 — 시험 중 Enter와 충돌 방지 */
+        if (document.activeElement === document.getElementById('qa-answer-input')) return;
+        e.preventDefault();
+        /* 열린 드롭다운 id로 어떤 탭인지 판별 후 해당 confirm 함수 호출 */
+        const id = openDd.id;
+        if (id === 'filelist-dropdown') confirmFilelist(e);
+        else if (id === 'filemode-dropdown')  confirmFilemode(e);
+        else if (id === 'playmode-dropdown')  confirmPlaymode(e);
+        else if (id === 'exammode-dropdown')  confirmExammode(e);
+        else if (id === 'timemode-dropdown')  confirmTimemode(e);
+        else if (id === 'langmode-dropdown')  confirmLangmode(e);
+    });
+
+
+        
+    /* ── 초기 진입 — 로그인 체크 후 메인 화면 표시 ── */
+window.addEventListener('DOMContentLoaded', function () {
+    /* 비로그인 상태면 common.html로 이동 */
+    const user = JSON.parse(localStorage.getItem('vocabCurrentUser')); /* localStorage에서 로그인 상태 확인 */
+    if (!user) {
+        location.href = 'common.html';
+        return;
+    }
+    showScreen('screen-main');
+});
+</script>
+
+<!-- ══════════════════════════════════════
+     HTML
+══════════════════════════════════════ -->
+<body><!-- ────────────────────────────────────
+     ① 메인 화면
+──────────────────────────────────────── -->
+<div id="screen-main" class="screen">
+
+             <!-- 헤더 -->
+    <div class="header">
+        <div class="header-logo-wrap">
+            <div class="header-logo">EXAM</div>
+            <div class="header-logo-btns">
+                <button class="header-logo-btn btn-view-toggle" onclick="toggleViewMode()" title="컴/폰 화면 전환">📱</button>
+                <button class="header-logo-btn" onclick="doLogout()" title="로그아웃">◀</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 본문 -->
+    <div class="main-body">
+
+        <!-- 타이틀
+        <div class="main-title">
+            <h1>무엇을 시작할까요?</h1>
+            <p>모드를 선택하세요</p>
+        </div>-->
+
+        <!-- 카드 4개 -->
+        <div class="main-card-row">
+
+            <!-- 혼자 시험 -->
+            <div class="main-card card-solo" onclick="showScreen('screen-solo')">
+                <div class="card-icon-wrap">📖</div>
+                <div class="card-label">혼자 시험</div>
+                <div class="card-desc">파일 선택 후<br>나만의 시험 진행</div>
+            </div>
+
+            <!-- 대결 하기 -->
+            <div class="main-card card-battle" onclick="showScreen('screen-battle')">
+                <div class="card-icon-wrap">⚔️</div>
+                <div class="card-label">대결 하기</div>
+                <div class="card-desc">친구와 실시간<br>점수 대결</div>
+            </div>
+
+            <!-- 저장된 결과 -->
+            <div class="main-card card-saved" onclick="showScreen('screen-saved')">
+                <div class="card-icon-wrap">📊</div>
+                <div class="card-label">저장된 결과</div>
+                <div class="card-desc">이전 시험 결과<br>불러오기</div>
+            </div>
+
+            <!-- 친구 관리 -->
+            <div class="main-card card-friend" onclick="showScreen('screen-friend')">
+                <div class="card-icon-wrap">👥</div>
+                <div class="card-label">친구 관리</div>
+                <div class="card-desc">친구 추가 및<br>목록 관리</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ────────────────────────────────────
+     ② 혼자 시험 화면
+──────────────────────────────────────── -->
+<div id="screen-solo" class="screen">
+
+          <!-- 헤더 -->
+    <div class="header">
+                <div class="header-logo-wrap">
+            <div class="header-logo">EXAM</div>
+            <div class="header-logo-btns">
+                <button class="header-logo-btn btn-view-toggle" onclick="toggleViewMode()" title="컴/폰 화면 전환">📱</button>
+                <button class="header-logo-btn" onclick="goMain()" title="메인으로">◀</button>
+            </div>
+        </div>
+           </div>
+
+       <!-- 티커 배너 — 헤더 바로 아래, solo-body 위 -->
+    <div class="ticker-wrap" onclick="toggleTickerDropdown(event)">
+        <!-- 라벨 배경은 고정, 텍스트만 슬라이드 -->
+        <div class="ticker-lbl-wrap">
+            <div class="ticker-lbl" id="ticker-lbl">📂 파일</div>
+        </div>
+                <div class="ticker-val-wrap">
+            <div class="ticker-val" id="ticker-val"></div>
+        </div>
+        <!-- 시험 시작 버튼 — 티커 우측 끝 -->
+        <button id="solo-start-btn" class="solo-start-btn" onclick="startSoloExam()" disabled>
+            시험 시작 →
+        </button>
+        <!-- 펼침 드롭다운 — 6개 항목 고정 표시 -->
+        <div class="ticker-dropdown" id="ticker-dropdown">
+            <div class="ticker-dropdown-item"><span class="lbl">📂 파일</span><span class="val" id="td-file"></span></div>
+            <div class="ticker-dropdown-item"><span class="lbl">📂 범위</span><span class="val" id="td-range"></span></div>
+            <div class="ticker-dropdown-item"><span class="lbl">🔀 진행</span><span class="val" id="td-play"></span></div>
+            <div class="ticker-dropdown-item"><span class="lbl">📝 출제</span><span class="val" id="td-exam"></span></div>
+            <div class="ticker-dropdown-item"><span class="lbl">⏱ 시간</span><span class="val" id="td-time"></span></div>
+            <div class="ticker-dropdown-item"><span class="lbl">🌐 언어</span><span class="val" id="td-lang"></span></div>
+        </div>
+    </div>
+
+    <!-- 설정 본문 -->
+          <div class="solo-body">
+        <div class="solo-box">
+            <!-- 위쪽 탭 줄 — 비활성 탭들 -->
+            <div class="solo-tab-row" id="solo-tab-row">
+                      <!-- ① 파일 선택 -->
+                      <div class="sel-box" onclick="toggleDropdown('filelist-dropdown')">
+                <div class="sel-label">📂 파일 선택<button class="sel-confirm-btn" onclick="confirmFilelist(event)"></button></div>
+                <div class="sel-value" id="filelist-value">선택하세요</div>
+                                               <div id="filelist-dropdown" class="sel-dropdown">
+                    <!-- 파일 목록 — 직접 배치, 스크롤바로 위아래 이동 -->
+                    <div id="filelist-list" class="sel-dropdown-right" onscroll="updateFilelistBorder()">
+                        <div style="padding:12px 16px;font-size:13px;color:var(--sel-val-text)">파일 목록 준비 중...</div>
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- ② 범위 선택 -->
+                        <div class="sel-box" onclick="toggleDropdown('filemode-dropdown')">
+                                <div class="sel-label">📂 범위 선택<button class="sel-confirm-btn" onclick="confirmFilemode(event)"></button></div>
+                <div class="sel-value" id="filemode-value">선택하세요</div>
+                                <div id="filemode-dropdown" class="sel-dropdown">
+                    <div class="sel-dropdown-right">
+                        <div class="sel-dropdown-item" onclick="selectFilemode('mine','내 제외단어',this,event)">내 제외단어</div>
+                        <div class="sel-dropdown-item" onclick="selectFilemode('opponent','상대 제외단어',this,event)">상대 제외단어</div>
+                        <div class="sel-dropdown-item" onclick="selectFilemode('intersect','교집합',this,event)">교집합</div>
+                        <div class="sel-dropdown-item" onclick="selectFilemode('none','원본',this,event)">원본</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ③ 진행 모드 -->
+                      <div class="sel-box" onclick="toggleDropdown('playmode-dropdown')">
+                                <div class="sel-label">🔀 진행 모드<button class="sel-confirm-btn" onclick="confirmPlaymode(event)"></button></div>
+                <div class="sel-value" id="playmode-value">선택하세요</div>
+                               <div id="playmode-dropdown" class="sel-dropdown">
+                    <div class="sel-dropdown-right">
+                        <div class="sel-dropdown-item" onclick="selectPlaymode('seq','순차적',this,event)">순차적</div>
+                        <div class="sel-dropdown-item" onclick="selectPlaymode('section','구간별',this,event)">구간별</div>
+                        <div class="sel-dropdown-item" onclick="selectPlaymode('random','무작위',this,event)">무작위</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ④ 출제 모드 -->
+                      <div class="sel-box" onclick="toggleDropdown('exammode-dropdown')">
+                                <div class="sel-label">📝 출제 모드<button class="sel-confirm-btn" onclick="confirmExammode(event)"></button></div>
+                <div class="sel-value" id="exammode-value">선택하세요</div>
+                                <div id="exammode-dropdown" class="sel-dropdown">
+                    <div class="sel-dropdown-right">
+                        <div class="sel-dropdown-item" onclick="selectExammode('timed','문제당 시간안에',this,event)">문제당 시간안에</div>
+                        <div class="sel-dropdown-item" onclick="selectExammode('allwrite','영어·한국어 뜻 모두 적기',this,event)">영어·한국어 뜻 모두 적기</div>
+                        <div class="sel-dropdown-item" onclick="selectExammode('snapshot','스냅샷 배틀',this,event)">스냅샷 배틀</div>
+                        <div class="sel-dropdown-item" onclick="selectExammode('first','먼저 다 맞추면 종료',this,event)">먼저 다 맞추면 종료</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ⑤ 시간 모드 -->
+                        <div class="sel-box" onclick="toggleDropdown('timemode-dropdown')">
+                              <div class="sel-label">⏱ 시간 모드<button class="sel-confirm-btn" onclick="confirmTimemode(event)"></button></div>
+                <div class="sel-value" id="timemode-value">선택하세요</div>
+                               <div id="timemode-dropdown" class="sel-dropdown">
+                    <div class="sel-dropdown-right">
+                                                <div class="timemode-input-row">
+                            <!-- ⏱ 전체 시간 아이콘 -->
+                            <span class="timemode-input-label" title="전체 시간">⏱</span>
+                            <input class="solo-time-input" type="number" min="0" placeholder="0" id="total-min"
+                                oninput="updateTimemodeDisplay()" onclick="event.stopPropagation()">
+                            <span class="solo-time-unit">분</span>
+                            <input class="solo-time-input" type="number" min="0" placeholder="0" id="total-sec"
+                                oninput="updateTimemodeDisplay()" onclick="event.stopPropagation()">
+                            <span class="solo-time-unit">초</span>
+                            <span class="timemode-input-divider">|</span>
+                            <!-- 📋 문제당 시간 아이콘 -->
+                            <span class="timemode-input-label" title="문제당 시간">📋</span>
+                            <input class="solo-time-input" type="number" min="0" placeholder="0" id="per-min"
+                                oninput="updateTimemodeDisplay()" onclick="event.stopPropagation()">
+                            <span class="solo-time-unit">분</span>
+                            <input class="solo-time-input" type="number" min="0" placeholder="0" id="per-sec"
+                                oninput="updateTimemodeDisplay()" onclick="event.stopPropagation()">
+                            <span class="solo-time-unit">초</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ⑥ 언어 모드 -->
+                 <div class="sel-box" onclick="toggleDropdown('langmode-dropdown')">
+                               <div class="sel-label">🌐 언어 모드<button class="sel-confirm-btn" onclick="confirmLangmode(event)"></button></div>
+                <div class="sel-value" id="langmode-value">선택하세요</div>
+                                <div id="langmode-dropdown" class="sel-dropdown">
+                    <div class="sel-dropdown-right">
+                        <div class="sel-dropdown-item" onclick="selectLangmode('en','영어 ',this,event)">영어</div>
+                        <div class="sel-dropdown-item" onclick="selectLangmode('ko','한국어 ',this,event)">한국어</div>
+                        <div class="sel-dropdown-item" onclick="selectLangmode('mix','영어<>한국어',this,event)">영어<>한국어</div>
+                        <div id="lang-slider-wrap" class="solo-slider-wrap">
+                            <div class="solo-slider-labels">
+                                <span>영어 100%</span>
+                                <span id="lang-ratio-label">50 : 50</span>
+                                <span>한국어 100%</span>
+                            </div>
+                                                                                   <!-- 슬라이더 조절 시 비율 표시 + 상단 배너 언어 항목만 직접 업데이트 -->
+                            <input id="lang-slider" class="solo-slider" type="range" min="0" max="100" value="50"
+                                oninput="
+                                    const en = this.value; const kr = 100 - this.value;
+                                    document.getElementById('lang-ratio-label').textContent = en + ' : ' + kr;
+                                    const txt = '영어' + en + '%/한국어' + kr + '%';
+                                    document.getElementById('langmode-value').textContent = txt;
+                                    soloConfig.lang = 'mix';
+                                                                        /* 티커 드롭다운 언어 항목 갱신 */
+                                    updateTickerDropdown();
+                                "
+                                onclick="event.stopPropagation()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+                                 </div><!-- 위쪽 탭 줄 닫기 -->
+
+            <!-- 아래쪽 활성 탭 줄 — 클릭한 탭이 여기로 이동 -->
+                       <div class="solo-tab-row-active" id="solo-tab-row-active"></div>
+
+            <!-- 타임어택 전체창 — 타이머 영역 -->
+<div class="qa-timer-wrap" id="qa-timer-wrap">
+    <!-- 전체시간 타이머 -->
+    <div class="qa-timer-item">
+        <span class="qa-timer-label">⏱ 남은시간</span>
+        <span class="qa-timer-num" id="timer-total">0:00</span>
+    </div>
+    <!-- 전체시간 / 단어당시간 구분선 -->
+    <div class="qa-timer-divider"></div>
+    <!-- 단어당 타이머 -->
+    <div class="qa-timer-item">
+        <span class="qa-timer-label">📋 단어당</span>
+        <span class="qa-timer-num" id="timer-per">0:00</span>
+    </div>
+</div>
+
+<!-- 문제/정답 영역 — 탭 아래 독립 배치 -->
+<div class="qa-container">
+    <!-- 단어 게이지바 — 남은 단어 진행 표시 -->
+    <div class="qa-gauge-wrap" id="qa-gauge-wrap">
+        <!-- 게이지 채워지는 바 -->
+        <div class="qa-gauge-bar" id="qa-gauge-bar"></div>
+        <!-- 왼쪽 끝 — 전체 단어수 -->
+        <span class="qa-gauge-total" id="qa-gauge-total">0</span>
+        <!-- 오른쪽 끝 — 남은 단어수 -->
+        <span class="qa-gauge-remain" id="qa-gauge-remain">0</span>
+    </div>
+                <!-- 문제 박스 — 왼쪽 말풍선 -->                                <div class="qa-question" id="qa-question">
+                    <!-- Q. 라벨 영역 — 배경색 분리 -->
+                    <div class="qa-question-label">Q.</div>
+                    <!-- 문제 텍스트 영역 -->
+                    <div class="qa-question-text">문제가 여기에 표시됩니다.</div>
+                </div>
+                <!-- 정답 입력창 — 오른쪽 말풍선 -->
+                                             <div class="qa-answer-wrap">
+                    <!-- A. 라벨 영역 — 배경색 분리 -->
+                    <div class="qa-answer-label">A.</div>
+                    <!-- 정답 입력창 -->
+                                       <input class="qa-answer-input" id="qa-answer-input"
+                           type="text" placeholder="정답을 입력하세요"
+                           autocomplete="off" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ────────────────────────────────────
+     ② 시험 결과 화면
+──────────────────────────────────────── -->
+<div id="screen-result" class="screen">
+    <div class="header">
+        <div class="header-logo-wrap">
+            <div class="header-logo">EXAM</div>
+            <div class="header-logo-btns">
+                <button class="header-logo-btn btn-view-toggle" onclick="toggleViewMode()" title="컴/폰 화면 전환">📱</button>
+                <button class="header-logo-btn" onclick="goMain()" title="메인으로">◀</button>
+            </div>
+        </div>
+    </div>    
+    <div class="result-body">
+
+        <!-- 상단 요약 박스 가로 한 줄 -->
+        <div class="result-summary-row">
+            <!-- 전체 -->
+            <div class="result-summary-box result-box-total active" id="result-box-total"
+                 onclick="filterResult('all', this)">
+                <span class="result-summary-name">전체</span>
+                <span class="result-summary-num" id="result-num-total">0</span>
+            </div>
+            <!-- 정답 -->
+            <div class="result-summary-box result-box-correct" id="result-box-correct"
+                 onclick="filterResult('correct', this)">
+                <span class="result-summary-name">정답</span>
+                <span class="result-summary-num" id="result-num-correct">0</span>
+            </div>
+            <!-- 오답 -->
+            <div class="result-summary-box result-box-wrong" id="result-box-wrong"
+                 onclick="filterResult('wrong', this)">
+                <span class="result-summary-name">오답</span>
+                <span class="result-summary-num" id="result-num-wrong">0</span>
+            </div>
+            <!-- 시간초과 -->
+            <div class="result-summary-box result-box-timeout" id="result-box-timeout"
+                 onclick="filterResult('timeout', this)">
+                <span class="result-summary-name">시간초과</span>
+                <span class="result-summary-num" id="result-num-timeout">0</span>
+            </div>
+            <!-- 빈칸1 — 추후 추가 예정 -->
+            <div class="result-summary-box result-box-blank1">
+                <span class="result-summary-name">—</span>
+                <span class="result-summary-num">—</span>
+            </div>
+            <!-- 빈칸2 — 추후 추가 예정 -->
+            <div class="result-summary-box result-box-blank2">
+                <span class="result-summary-name">—</span>
+                <span class="result-summary-num">—</span>
+            </div>
+        </div>
+
+             <!-- 결과 리스트 테이블 — 스크롤 영역으로 감싸기 -->
+        <div class="result-table-wrap">
+            <table class="result-table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>제시단어</th>
+                        <th>정답</th>
+                        <th>내 답</th>
+                        <th>결과</th>
+                    </tr>
+                </thead>
+                <tbody id="result-tbody"></tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<!-- ────────────────────────────────────
+     ③ 대결 화면 (뼈대)
+──────────────────────────────────────── --><div id="screen-battle" class="screen">
+    <div class="header">
+        <div class="header-logo-wrap">
+            <div class="header-logo">EXAM</div>
+            <div class="header-logo-btns">
+                <button class="header-logo-btn btn-view-toggle" onclick="toggleViewMode()" title="컴/폰 화면 전환">📱</button>
+                <button class="header-logo-btn" onclick="goMain()" title="메인으로">◀</button>
+            </div>
+        </div>
+    </div>
+    <div class="empty-body">
+        <div class="empty-icon">⚔️</div>
+        <div class="empty-title">대결 하기</div>
+        <div class="empty-desc">대결 기능 — 준비 중</div>
+    </div>
+</div>
+
+<!-- ────────────────────────────────────
+     ④ 저장된 결과 화면 (뼈대)
+──────────────────────────────────────── -->
+<div id="screen-saved" class="screen">
+    <div class="header">
+        <div class="header-logo-wrap">
+            <div class="header-logo">EXAM</div>
+            <div class="header-logo-btns">
+                <button class="header-logo-btn btn-view-toggle" onclick="toggleViewMode()" title="컴/폰 화면 전환">📱</button>
+                <button class="header-logo-btn" onclick="goMain()" title="메인으로">◀</button>
+            </div>
+        </div>
+    </div>    <div class="empty-body">
+        <div class="empty-icon">📊</div>
+        <div class="empty-title">저장된 결과</div>
+        <div class="empty-desc">결과 불러오기 — 준비 중</div>
+    </div>
+</div>
+
+<!-- ────────────────────────────────────
+     ⑤ 친구 관리 화면 (뼈대)
+──────────────────────────────────────── -->
+<div id="screen-friend" class="screen">
+    <div class="header">
+        <div class="header-logo-wrap">
+            <div class="header-logo">EXAM</div>
+            <div class="header-logo-btns">
+                <button class="header-logo-btn btn-view-toggle" onclick="toggleViewMode()" title="컴/폰 화면 전환">📱</button>
+                <button class="header-logo-btn" onclick="goMain()" title="메인으로">◀</button>
+            </div>
+        </div>
+    </div>    <div class="empty-body">
+        <div class="empty-icon">👥</div>
+        <div class="empty-title">친구 관리</div>
+        <div class="empty-desc">친구 추가 및 목록 — 준비 중</div>
+    </div>
+</div>
+
+</body>
+</html>

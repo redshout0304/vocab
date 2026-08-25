@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>암기카드 시스템</title>
+    <style>
+             :root {
+    --admin-panel-width: min(500px, 96vw); /* 계정관리 창 가로 너비 — 핸드폰에서 화면 밖 삐져나오지 않게 */
+    --admin-panel-max-height: 80vh;        /* 계정관리 창 최대 세로 높이 */
+--mode-card-width: 230px;             /* 모드 카드 가로 너비 */
+    --mode-card-height: 360px;            /* 모드 카드 세로 높이 */
+}
+/* LED 막대 깜빡임 애니메이션 — 연한 보라 ↔ 진한 보라 반복 */
+@keyframes ledPulse {
+    0%   { opacity: 0.3; }
+    50%  { opacity: 1; }
+    100% { opacity: 0.3; }
+}
+/* LED 막대 공통 스타일 — 기본 숨김 */
+.led-bar {
+    width: 100%;
+    height: 3px;
+    border-radius: 2px;
+    background: #a78bfa;
+    animation: ledPulse 1.5s ease-in-out infinite;
+    display: none; /* 기본 숨김 — 스크롤 감지 시 표시 */
+    flex-shrink: 0; /* LED바 높이 찌그러지지 않게 고정 */
+    background-color: white; /* 리스트와 겹치지 않게 배경 분리 */
+    position: relative; /* LED바가 리스트 위에 뜨지 않게 흐름 유지 */
+    z-index: 1; /* 리스트보다 위에 표시 */
+}
+
+/* 핸드폰 화면(500px 이하) — 관리자 패널 내부 크기 축소 */
+@media (max-width: 500px) {
+    /* 패널 내부 여백 축소 */
+    #admin-panel > div {
+        padding: 16px 12px; /* 기존 32px → 핸드폰에서 16px 12px로 축소 */
+    }
+    /* 패널 제목 폰트 축소 */
+    #admin-panel h3 {
+        font-size: 14px; /* 기존 17px → 14px */
+    }
+    /* 승인요청/승인된계정 헤드 폰트 축소 */
+    #admin-pending-title,
+    #admin-approved-title {
+        font-size: 11px; /* 기존 13px → 11px */
+        padding: 4px 8px; /* 기존 6px 10px → 4px 8px */
+    }
+    /* 목록 row 안 폰트/버튼 축소 — grid 칸 비율도 핸드폰에 맞게 재조정 */
+    #admin-pending-list .admin-row,
+    #admin-user-list .admin-row {
+        grid-template-columns: 0.5fr 1.6fr 1.6fr 1.6fr 0.6fr 0.6fr; /* 칸 비율 축소 */
+        gap: 4px; /* 기존 6px → 4px */
+        font-size: 11px; /* 기존 12~13px → 11px */
+    }
+}
+/* 승인요청 목록 스크롤 영역 — 스크롤바 숨김 + row 단위 스냅 */
+#admin-pending-list {
+    scrollbar-width: none; /* Firefox 스크롤바 숨김 */
+    -ms-overflow-style: none; /* IE 스크롤바 숨김 */
+    scroll-snap-type: y mandatory; /* y축 방향으로 row 단위 딱딱 이동 */
+}
+#admin-pending-list::-webkit-scrollbar {
+    display: none; /* Chrome/Safari 스크롤바 숨김 */
+}
+
+/* 승인된 계정 목록 스크롤 영역 — 스크롤바 숨김 + row 단위 스냅 */
+#admin-user-list {
+    scrollbar-width: none; /* Firefox 스크롤바 숨김 */
+    -ms-overflow-style: none; /* IE 스크롤바 숨김 */
+    scroll-snap-type: y mandatory; /* y축 방향으로 row 단위 딱딱 이동 */
+}
+#admin-user-list::-webkit-scrollbar {
+    display: none; /* Chrome/Safari 스크롤바 숨김 */
+}/* 수정요청 팝업 오버레이 */
+#changeRequestOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 999999;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 수정요청 팝업 박스 */
+#changeRequestBox {
+    background: white;
+    border-radius: 16px;
+    padding: 28px 28px 24px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+
+/* 수정요청 팝업 제목 */
+#changeRequestBox .cr-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #2a2a2a;
+    margin-bottom: 4px;
+}
+
+/* 수정요청 입력창 */
+#changeRequestBox input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    color: #2a2a2a;
+}
+
+/* 수정요청 안내 텍스트 */
+#changeRequestBox .cr-guide {
+    font-size: 12px;
+    color: #888;
+    margin-top: -6px;
+}
+
+/* 수정요청 버튼 영역 */
+#changeRequestBox .cr-btns {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+/* 수정요청 요청 버튼 */
+#changeRequestBox .cr-btn-ok {
+    flex: 1;
+    padding: 12px;
+    background: #2a9d76;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* 수정요청 취소 버튼 */
+#changeRequestBox .cr-btn-cancel {
+    flex: 1;
+    padding: 12px;
+    background: #e5e7eb;
+    color: #4a3b32;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Malgun Gothic', sans-serif;
+            margin: 0; padding: 0;
+            background-color: #fdfbf7; color: #4a3b32;
+        }
+
+        /* 메인 앱 (로그인 후 표시될 허브 화면) */
+        .hub-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            gap: 20px;
+        }
+        .hub-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #7c2d12;
+            margin-bottom: 10px;
+        }
+        .hub-btn {
+            width: 220px;
+            height: 54px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: #ea580c;
+            color: white;
+            transition: background-color 0.2s;
+        }
+        .hub-btn:hover { background-color: #c2410c; }
+        .logout-btn {
+            margin-top: 10px;
+            background: #f5efe6;
+            color: #9a3412;
+            border: 1px solid #e8dfd8;
+            padding: 6px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+/* ── 모드 선택 오버레이 ── */
+#mode-select-overlay {
+    display: none;                        /* 기본 숨김 — 학생 로그인 시 표시 */
+    position: fixed;
+    inset: 0;
+    background: #e8edf2;
+    z-index: 99998;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 로그아웃 버튼 — 우측 상단 고정 */
+#mode-logout-btn {
+    position: fixed;
+    top: 18px;
+    right: 22px;
+    background: white;
+    border: 1.5px solid #d1d5db;
+    color: #6b7280;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 7px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    z-index: 99999;
+    transition: background 0.15s;
+}
+#mode-logout-btn:hover { background: #f3f4f6; }
+
+/* 카드 2열 가로 배치 영역 */
+#mode-card-row {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    justify-content: center;
+    align-items: stretch;
+}
+
+/* 카드 공통 스타일 */
+.mode-card {
+    width: var(--mode-card-width);        /* root 변수로 가로 조절 */
+    height: var(--mode-card-height);      /* root 변수로 세로 조절 */
+    padding: 20px;    border-radius: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.10);
+}
+.mode-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 32px rgba(0,0,0,0.15);
+}
+
+/* 카드 아이콘 */
+.mode-card-icon {
+    font-size: 48px;
+    line-height: 1;
+}
+
+/* 카드 라벨 */
+.mode-card-label {
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: -0.3px;
+}
+
+/* 스터디 카드 — 초록 */
+.mode-card-study {
+    background: #2a9d76;
+    color: white;
+}
+
+/* 시험 카드 — 주황 */
+.mode-card-exam {
+    background: #ea580c;
+    color: white;
+}
+
+/* 폰 화면 — 카드 너비 축소 */
+@media (max-width: 440px) {
+    .mode-card { width: 140px; padding: 32px 14px 28px; }
+    .mode-card-icon { font-size: 38px; }
+    .mode-card-label { font-size: 15px; }
+    #mode-card-row { gap: 16px; }
+}    </style>
+</head>
+
+<!-- ==================== Firebase 초기화 ==================== -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, doc, setDoc, getDoc, collection, getDocs, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAO_rIAb9QmHQlXUg44wE772gzOOqWDAsc",
+        authDomain: "vocabulary-study-49a47.firebaseapp.com",
+        projectId: "vocabulary-study-49a47",
+        storageBucket: "vocabulary-study-49a47.firebasestorage.app",
+        messagingSenderId: "646463283208",
+        appId: "1:646463283208:web:586c34e3c1f88da37231bd"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    window._db = db;
+    window._fsDoc = doc;
+    window._fsSetDoc = setDoc;
+    window._fsGetDoc = getDoc;
+    window._fsCollection = collection;
+    window._fsGetDocs = getDocs;
+    window._fsDeleteDoc = deleteDoc;
+</script>
+
+<!-- ==================== 전역변수 + JS ==================== -->
+<script>
+    const ADMIN_PASSWORD = "0000";
+    let currentUser = null;
+
+    function db() { return window._db; }
+    function fsDoc(...a) { return window._fsDoc(...a); }
+    function fsSetDoc(...a) { return window._fsSetDoc(...a); }
+    function fsGetDoc(...a) { return window._fsGetDoc(...a); }
+    function fsGetDocs(...a) { return window._fsGetDocs(...a); }
+    function fsCollection(...a) { return window._fsCollection(...a); }
+    function fsDeleteDoc(...a) { return window._fsDeleteDoc(...a); }
+
+/* 회원가입 */
+    async function doSignup() {
+        const username = document.getElementById('login-username').value.trim();
+        const password = document.getElementById('login-password').value;
+        if (!username || !password) { showLoginError('아이디와 비밀번호를 입력해주세요.'); return; }
+        if (password.length < 6) { showLoginError('비밀번호는 6자 이상이어야 합니다.'); return; }
+        try {
+            const userDoc = await fsGetDoc(fsDoc(db(), "vocab_users", username));
+            if (userDoc.exists()) {
+                showLoginError('이미 사용 중인 아이디입니다.');
+            } else {
+                await fsSetDoc(fsDoc(db(), "vocab_users", username), {
+                    pw: password,
+                    approved: false,
+                    date: new Date().toLocaleString('ko-KR')
+                });
+                showLoginError('회원가입 요청이 완료되었습니다. 관리자 승인 후 로그인 가능합니다.');
+            }
+        } catch(e) {
+            showLoginError('회원가입 실패: ' + e.message);
+        }
+    }
+
+/* 로그인 */
+    async function doLogin() {
+        const username = document.getElementById('login-username').value.trim();
+        const password = document.getElementById('login-password').value;
+        if (!username || !password) { showLoginError('아이디와 비밀번호를 입력해주세요.'); return; }
+        try {
+            const userDoc = await fsGetDoc(fsDoc(db(), "vocab_users", username));
+            if (!userDoc.exists()) { showLoginError('아이디 또는 비밀번호가 올바르지 않습니다.'); return; }
+            const userData = userDoc.data();
+            if (String(userData.pw) !== String(password)) { showLoginError('아이디 또는 비밀번호가 올바르지 않습니다.'); return; }
+            if (userData.approved !== true) { showLoginError('아직 관리자 승인이 되지 않은 계정입니다.'); return; }
+            /* role 포함해서 저장 — admin이면 words.html, student면 study.html로 분기 */
+currentUser = { uid: username, displayName: username, role: userData.role || 'student' };
+localStorage.setItem('vocabCurrentUser', JSON.stringify(currentUser)); /* 파일 간 이동해도 유지되도록 localStorage 사용 */
+hideLoginScreen();
+        } catch(e) {
+            showLoginError('로그인 실패: ' + e.message);
+        }
+    }
+
+/* 관리자 패널 표시 */
+   async function showAdminPanel() {
+    const panel = document.getElementById('admin-panel');
+    panel.style.display = 'flex';
+
+    /* 승인요청 목록 영역 */
+    const pendingList = document.getElementById('admin-pending-list');
+    /* 승인된 계정 목록 영역 */
+    const approvedList = document.getElementById('admin-user-list');
+
+    pendingList.innerHTML = '<p style="color:#7c2d12; font-size:13px;">불러오는 중...</p>';
+    approvedList.innerHTML = '';
+
+    try {
+        /* 가입요청(vocab_users) + 수정요청(changeRequests) 동시 로드 */
+        const [userSnapshot, changeSnapshot] = await Promise.all([
+            fsGetDocs(fsCollection(db(), "vocab_users")),
+            fsGetDocs(fsCollection(db(), "changeRequests"))
+        ]);
+
+        pendingList.innerHTML = '';
+        const pendingUsers = [];
+        const approvedUsers = [];
+        const changeRequests = [];
+
+        /* 가입요청 분류 */
+        userSnapshot.forEach(docSnap => {
+            const data = docSnap.data();
+            if (data.approved === true) approvedUsers.push({ id: docSnap.id, ...data });
+            else pendingUsers.push({ id: docSnap.id, ...data });
+        });
+
+        /* 수정요청 분류 — pending 상태만 */
+        changeSnapshot.forEach(docSnap => {
+            const data = docSnap.data();
+            if (data.status === 'pending') changeRequests.push({ docId: docSnap.id, ...data });
+        });
+
+        /* 승인요청 헤드 — 고정 div에 건수만 업데이트 */
+        const totalPending = pendingUsers.length + changeRequests.length;
+        document.getElementById('admin-pending-title').innerText = `⏳ 승인 요청 (${totalPending}건)`;
+
+        if (totalPending === 0) {
+            /* 대기 요청 없을 때 안내 문구 */
+            const empty = document.createElement('p');
+            empty.style.cssText = 'color:#8c7e72; font-size:13px; margin:4px 0 10px 0;';
+            empty.innerText = '대기 중인 요청이 없습니다.';
+            pendingList.appendChild(empty);
+        } else {
+                       /* 가입요청 목록 표시 — 승인요청 스크롤 영역에 추가 */
+            pendingUsers.forEach(user => {
+                               /* [가입요청 row] — 미디어쿼리 적용 대상 */
+                const row = document.createElement('div');
+                row.className = 'admin-row';
+                row.style.cssText = 'display:grid; grid-template-columns:0.7fr 2fr 2fr 2fr 0.65fr 0.65fr; align-items:center; gap:6px; padding:8px 0; border-bottom:1px solid #f5efe6; width:100%; scroll-snap-align:start;'; /* scroll-snap — 이 row 위쪽 기준으로 딱 멈춤 */
+                row.innerHTML = `
+                    <!-- 태그 칸 — grid 1번째 칸 -->
+                    <span style="font-size:11px; font-weight:bold; background:#dbeafe; color:#1d4ed8; padding:2px 4px; border-radius:6px; white-space:nowrap; text-align:center;">가입</span>
+                    <!-- 아이디 칸 — grid 2번째 칸 -->
+                    <span style="font-size:13px; font-weight:bold; color:#4a3b32; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">👤 ${user.id}</span>
+                    <!-- 비번 칸 — grid 3번째 칸 -->
+                    <span style="font-size:12px; color:#9a3412; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${user.pw || ''}</span>
+                    <!-- 역할 칸 — grid 4번째 칸 -->
+                    <span class="pending-role-toggle" data-id="${user.id}" data-role="student"
+                        style="font-size:11px; font-weight:bold; padding:3px 8px; border-radius:10px; white-space:nowrap; text-align:center; cursor:pointer; background:#dcfce7; color:#166534;">🎓 학생</span>
+                    <!-- 승인 버튼 — grid 5번째 칸 -->
+                    <button onclick="adminApproveUser('${user.id}', this.previousElementSibling)"
+                        style="padding:4px 0; background:#22c55e; color:white; border:none; border-radius:6px; font-size:12px; font-weight:bold; cursor:pointer; white-space:nowrap; text-align:center;">승인</button>
+                    <!-- 거절 버튼 — grid 6번째 칸 -->
+                    <button onclick="if(confirm('${user.id} 가입 요청을 거절하시겠습니까?')) fsDeleteDoc(fsDoc(db(),'vocab_users','${user.id}')).then(()=>this.closest('div').remove())"
+                        style="padding:4px 0; background:#ef4444; color:white; border:none; border-radius:6px; font-size:12px; font-weight:bold; cursor:pointer; white-space:nowrap; text-align:center;">거절</button>`;
+                pendingList.appendChild(row);
+            });
+
+            /* 수정요청 목록 표시 — 승인요청 스크롤 영역에 추가 */
+            changeRequests.forEach(req => {
+                const changeDesc = [
+                    req.newId ? `아이디→${req.newId}` : '',
+                    req.newPw ? `비번→${req.newPw}` : ''
+                ].filter(Boolean).join(' / ');
+
+                                             /* [수정요청 row] — 미디어쿼리 적용 대상 */
+                const row = document.createElement('div');
+                row.className = 'admin-row';
+                row.style.cssText = 'display:grid; grid-template-columns:0.7fr 2fr 2fr 2fr 0.65fr 0.65fr; align-items:center; gap:6px; padding:8px 0; border-bottom:1px solid #f5efe6; width:100%; scroll-snap-align:start;'; /* scroll-snap — 이 row 위쪽 기준으로 딱 멈춤 */
+                row.innerHTML = `
+                    <!-- 태그 칸 — grid 1번째 칸 -->
+                    <span style="font-size:11px; font-weight:bold; background:#fef9c3; color:#854d0e; padding:2px 4px; border-radius:6px; white-space:nowrap; text-align:center;">수정</span>
+                    <!-- 아이디 칸 — grid 2번째 칸 -->
+                    <span style="font-size:13px; font-weight:bold; color:#4a3b32; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">👤 ${req.uid}</span>
+                    <!-- 변경내용 칸 — grid 3~4번째 칸 병합 -->
+                    <span style="grid-column:3/5; font-size:12px; color:#9a3412; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${changeDesc}</span>
+                    <!-- 승인 버튼 — grid 5번째 칸 -->
+                    <button onclick="adminApproveChange('${req.docId}', '${req.uid}', '${req.newId}', '${req.newPw}')"
+                        style="padding:4px 0; background:#f59e0b; color:white; border:none; border-radius:6px; font-size:12px; font-weight:bold; cursor:pointer; white-space:nowrap; text-align:center;">승인</button>
+                    <!-- 거절 버튼 — grid 6번째 칸 -->
+                    <button onclick="if(confirm('${req.uid} 수정 요청을 거절하시겠습니까?')) fsDeleteDoc(fsDoc(db(),'changeRequests','${req.docId}')).then(()=>this.closest('div').remove())"
+                        style="padding:4px 0; background:#ef4444; color:white; border:none; border-radius:6px; font-size:12px; font-weight:bold; cursor:pointer; white-space:nowrap; text-align:center;">거절</button>`;
+                pendingList.appendChild(row);
+            });
+        }
+
+        /* 승인된 계정 헤드 — 고정 div에 인원수만 업데이트 */
+        document.getElementById('admin-approved-title').innerText = `✅ 승인된 계정 (${approvedUsers.length}명)`;
+
+        if (approvedUsers.length === 0) {
+            /* 승인된 계정 없을 때 안내 문구 */
+            const empty = document.createElement('p');
+            empty.style.cssText = 'color:#8c7e72; font-size:13px; margin:4px 0;';
+            empty.innerText = '승인된 계정이 없습니다.';
+            approvedList.appendChild(empty);
+        } else {
+                      /* 승인된 계정 목록 표시 — 승인된 계정 스크롤 영역에 추가 */
+            approvedUsers.forEach(user => {
+                                /* [승인된계정 row] — 미디어쿼리 적용 대상 */
+                const row = document.createElement('div');
+                row.className = 'admin-row';
+                row.style.cssText = 'display:grid; grid-template-columns:0.7fr 2fr 2fr 2fr 0.65fr 0.65fr; align-items:center; gap:6px; padding:8px 0; border-bottom:1px solid #f5efe6; width:100%; scroll-snap-align:start;'; /* scroll-snap — 이 row 위쪽 기준으로 딱 멈춤 */
+                row.innerHTML = `
+                    <!-- 태그 칸 — grid 1번째 칸 -->
+                    <span style="font-size:11px; font-weight:bold; background:#dcfce7; color:#166534; padding:2px 4px; border-radius:6px; white-space:nowrap; text-align:center;">승인</span>
+                    <!-- 아이디 칸 — grid 2번째 칸 -->
+                    <span style="font-size:13px; font-weight:bold; color:#4a3b32; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">👤 ${user.id}</span>
+                    <!-- 비번 칸 — grid 3번째 칸 -->
+                    <span style="font-size:12px; color:#9a3412; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${user.pw || ''}</span>
+                    <!-- 역할 칸 — grid 4번째 칸 -->
+                    <span style="font-size:11px; font-weight:bold; padding:3px 8px; border-radius:10px; white-space:nowrap; text-align:center; background:#dcfce7; color:#166534;">${user.role === 'admin' ? '🔐 관리자' : '🎓 학생'}</span>
+                    <!-- 삭제 버튼 — grid 5~6번째 칸 병합 -->
+                    <button onclick="adminDeleteUser('${user.id}', this)" style="grid-column:5/7; padding:4px 0; background:#ef4444; color:white; border:none; border-radius:6px; font-size:12px; font-weight:bold; cursor:pointer; white-space:nowrap; text-align:center;">삭제</button>`;
+                approvedList.appendChild(row);
+            });
+        }
+
+    } catch(e) {
+        pendingList.innerHTML = '<p style="color:red;">불러오기 실패: ' + e.message + '</p>';
+    }
+
+    /* 승인요청 목록 LED 스크롤 감지 */
+    function updatePendingLed() {
+        /* 위로 숨겨진 내용 있으면 위쪽 LED 표시 */
+        document.getElementById('led-top').style.display = pendingList.scrollTop > 0 ? 'block' : 'none';
+        /* 아래로 숨겨진 내용 있으면 아래쪽 LED 표시 */
+        document.getElementById('led-bottom').style.display = (pendingList.scrollTop + pendingList.clientHeight < pendingList.scrollHeight - 1) ? 'block' : 'none';
+    }
+
+    /* 승인된 계정 목록 LED 스크롤 감지 */
+    function updateApprovedLed() {
+        /* 위로 숨겨진 내용 있으면 위쪽 LED 표시 */
+        document.getElementById('led-approved-top').style.display = approvedList.scrollTop > 0 ? 'block' : 'none';
+        /* 아래로 숨겨진 내용 있으면 아래쪽 LED 표시 */
+        document.getElementById('led-approved-bottom').style.display = (approvedList.scrollTop + approvedList.clientHeight < approvedList.scrollHeight - 1) ? 'block' : 'none';
+    }
+
+    /* 패널 열릴 때 초기 LED 상태 적용 */
+    setTimeout(() => { updatePendingLed(); updateApprovedLed(); }, 0);
+    /* 스크롤 시 실시간 LED 업데이트 */
+    pendingList.addEventListener('scroll', updatePendingLed);
+    approvedList.addEventListener('scroll', updateApprovedLed);
+}
+/* 관리자 - 승인 */
+   /* role 선택 후 승인 — btn 바로 앞 select에서 role 값 읽어서 같이 저장 */
+async function adminApproveUser(username, roleSpan) {
+    const role = roleSpan ? roleSpan.dataset.role : 'student';
+    /* 확인 알림 — 취소 시 중단 */
+    if (!confirm(`'${username}'를 ${role === 'admin' ? '관리자' : '학생'}로 승인하시겠습니까?`)) return;
+    roleSpan.style.pointerEvents = 'none';    try {
+        await fsSetDoc(fsDoc(db(), "vocab_users", username), { approved: true, role: role }, { merge: true });
+        showAdminPanel();
+       } catch(err) {
+        roleSpan.style.pointerEvents = '';
+        alert('승인 실패: ' + err.message);
+    }
+}
+/* 관리자 - 수정요청 승인 — 아이디/비번 변경 후 요청 문서 상태 완료로 업데이트 */
+async function adminApproveChange(docId, uid, newId, newPw) {
+    const changeDesc = [newId ? `아이디→${newId}` : '', newPw ? `비번→${newPw}` : ''].filter(Boolean).join(', ');
+    if (!confirm(`'${uid}'의 수정요청을 승인하시겠습니까?\n(${changeDesc})`)) return;
+
+    try {
+        const updateData = {};
+        /* 새 아이디가 있으면 — 기존 문서 복사 후 새 아이디로 재생성, 기존 문서 삭제 */
+        if (newId) {
+            const oldDoc = await fsGetDoc(fsDoc(db(), "vocab_users", uid));
+            const oldData = oldDoc.data();
+            /* 새 아이디 문서 생성 */
+            await fsSetDoc(fsDoc(db(), "vocab_users", newId), {
+                ...oldData,
+                pw: newPw || oldData.pw   /* 비번도 바꾸면 같이 반영 */
+            });
+            /* 기존 아이디 문서 삭제 */
+            await fsDeleteDoc(fsDoc(db(), "vocab_users", uid));
+        } else if (newPw) {
+            /* 비번만 변경 */
+            await fsSetDoc(fsDoc(db(), "vocab_users", uid), { pw: newPw }, { merge: true });
+        }
+
+        /* 수정요청 문서 상태 → 완료 */
+        await fsSetDoc(fsDoc(db(), "changeRequests", docId), { status: 'done' }, { merge: true });
+
+        alert('수정 승인이 완료되었습니다.');
+        showAdminPanel();   /* 패널 새로고침 */
+
+    } catch(e) {
+        alert('수정 승인 실패: ' + e.message);
+    }
+}
+
+window.adminApproveChange = adminApproveChange;
+
+/* 관리자 - 계정 삭제 */
+    async function adminDeleteUser(username, btn) {        if (!confirm(`'${username}' 계정을 삭제하시겠습니까?`)) return;
+        btn.disabled = true;
+        btn.innerText = '삭제 중...';
+        try {
+            await fsDeleteDoc(fsDoc(db(), "vocab_users", username));
+            btn.closest('div').remove();
+            alert(`'${username}' 계정이 삭제되었습니다.`);
+        } catch(err) {
+            btn.disabled = false;
+            btn.innerText = '삭제';
+            alert('삭제 실패: ' + err.message);
+        }
+    }
+
+
+/* 관리자 모드 진입 — 커스텀 비번 팝업 */
+    function openAdminMode() {
+        /* 기존 팝업 있으면 제거 */
+        const existing = document.getElementById('admin-pw-popup');
+        if (existing) existing.remove();
+
+        /* 팝업 오버레이 생성 */
+        const overlay = document.createElement('div');
+        overlay.id = 'admin-pw-popup';
+        overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:9999999;display:flex;justify-content:center;align-items:center;';
+        overlay.innerHTML = `
+            <div style="background:white;border-radius:12px;padding:28px;width:280px;display:flex;flex-direction:column;gap:12px;box-shadow:0 8px 32px rgba(0,0,0,0.2);">
+                <div style="font-size:15px;font-weight:bold;color:#7c2d12;">🔐 관리자 비밀번호</div>
+                <input id="admin-pw-input" type="password" placeholder="비밀번호 입력"
+                    style="padding:10px 12px;border:1px solid #e8dfd8;border-radius:8px;font-size:14px;outline:none;">
+                <div style="display:flex;gap:8px;">
+                    <button onclick="confirmAdminPw()" style="flex:1;padding:10px;background:#a16207;color:white;border:none;border-radius:8px;font-size:13px;font-weight:bold;cursor:pointer;">확인</button>
+                    <button onclick="document.getElementById('admin-pw-popup').remove()" style="flex:1;padding:10px;background:#e5e7eb;color:#4a3b32;border:none;border-radius:8px;font-size:13px;font-weight:bold;cursor:pointer;">취소</button>
+                </div>
+            </div>`;
+        document.body.appendChild(overlay);
+        /* 엔터키로 확인 */
+        document.getElementById('admin-pw-input').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') confirmAdminPw();
+        });
+        document.getElementById('admin-pw-input').focus();
+    }
+
+/* 관리자 비번 확인 */
+    function confirmAdminPw() {
+        const pw = document.getElementById('admin-pw-input').value;
+        document.getElementById('admin-pw-popup').remove();
+        if (pw !== ADMIN_PASSWORD) { alert('비밀번호가 올바르지 않습니다.'); return; }
+        showAdminPanel();
+    }
+/* 관리자 패널 닫기 */
+    function closeAdminPanel() {
+        document.getElementById('admin-panel').style.display = 'none';
+    }
+
+/* 로그인 에러 메시지 표시 — visibility 방식으로 창 크기 고정 */
+    function showLoginError(msg) {
+        const el = document.getElementById('login-error-msg');
+        if (el) { el.innerText = msg; el.style.visibility = 'visible'; }
+    }
+/* 로그인 화면 표시 */
+    function showLoginScreen() {
+        document.getElementById('login-screen').style.display = 'flex';
+        document.getElementById('main-app').style.display = 'none';
+        document.getElementById('login-error-msg').style.visibility = 'hidden';
+        document.getElementById('login-username').value = '';
+        document.getElementById('login-password').value = '';
+    }
+/* 로그인 화면 숨기기 → 메인 허브 표시 */
+    /* 로그인 후 role에 따라 페이지 분기 — admin: words.html / student: study.html */
+/* 로그인 화면 숨기기 → role에 따라 분기 */
+function hideLoginScreen() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('main-app').style.display = 'block';
+    if (currentUser && currentUser.role === 'admin') {
+        /* 관리자 → words.html 직행 */
+        location.href = 'words.html';
+    } else if (currentUser && currentUser.role === 'student') {
+        /* 학생 → 모드 선택 오버레이 표시 */
+        document.getElementById('mode-select-overlay').style.display = 'flex';
+    }
+}
+/* 로그아웃 */
+    function doLogout() {
+        currentUser = null;
+        localStorage.removeItem('vocabCurrentUser'); /* localStorage에서 제거 */
+        showLoginScreen();
+    }
+
+/* 단어 학습 페이지로 이동 */
+    function goToWords() {
+        location.href = 'words.html';
+    }
+
+/* 전역 함수 등록 */
+    window.doLogin = doLogin;
+    window.doSignup = doSignup;
+    window.doLogout = doLogout;
+    window.openAdminMode = openAdminMode;
+    window.closeAdminPanel = closeAdminPanel;
+    window.adminApproveUser = adminApproveUser;
+    window.adminDeleteUser = adminDeleteUser;
+
+    window.confirmAdminPw = confirmAdminPw;   /* 관리자 비번 확인 전역 등록 */
+    window.goToWords = goToWords;
+
+/* 수정요청 팝업 열기 — 로그인 화면의 기존 아이디/비번 확인 후 진입 */
+async function openChangeRequest() {
+    const username = document.getElementById('login-username').value.trim();
+    const password = document.getElementById('login-password').value;
+
+    /* 아이디/비번 미입력 시 안내 */
+    if (!username || !password) {
+        showLoginError('수정 요청 전 현재 아이디와 비밀번호를 입력해주세요.');
+        return;
+    }
+
+    /* Firestore에서 기존 아이디/비번 확인 */
+    try {
+        const userDoc = await fsGetDoc(fsDoc(db(), "vocab_users", username));
+        if (!userDoc.exists()) { showLoginError('아이디 또는 비밀번호가 올바르지 않습니다.'); return; }
+        const userData = userDoc.data();
+        if (String(userData.pw) !== String(password)) { showLoginError('아이디 또는 비밀번호가 올바르지 않습니다.'); return; }
+
+        /* 확인 완료 → 팝업 표시 */
+        document.getElementById('changeRequestOverlay').style.display = 'flex';
+        document.getElementById('cr-new-id').value = '';
+        document.getElementById('cr-new-pw').value = '';
+
+    } catch(e) {
+        showLoginError('오류: ' + e.message);
+    }
+}
+
+/* 수정요청 팝업 닫기 */
+function closeChangeRequest() {
+    document.getElementById('changeRequestOverlay').style.display = 'none';
+}
+
+/* 수정요청 제출 — Firestore changeRequests 컬렉션에 저장 */
+async function submitChangeRequest() {
+    const username = document.getElementById('login-username').value.trim();
+    const newId = document.getElementById('cr-new-id').value.trim();
+    const newPw = document.getElementById('cr-new-pw').value;
+
+    /* 아이디/비번 둘 다 미입력 시 안내 */
+    if (!newId && !newPw) {
+        alert('변경할 아이디 또는 비밀번호를 입력해주세요.');
+        return;
+    }
+
+    /* Firestore changeRequests 컬렉션에 요청 저장 */
+    try {
+        await fsSetDoc(fsDoc(db(), "changeRequests", username + '_' + Date.now()), {
+            uid: username,                          /* 요청한 사용자 아이디 */
+            newId: newId || '',                     /* 바꿀 아이디 (없으면 빈값) */
+            newPw: newPw || '',                     /* 바꿀 비번 (없으면 빈값) */
+            status: 'pending',                      /* 요청 상태: 대기중 */
+            date: new Date().toLocaleString('ko-KR')
+        });
+
+        closeChangeRequest();
+        alert('수정 요청이 완료되었습니다.\n관리자 승인 후 반영됩니다.');
+
+    } catch(e) {
+        alert('요청 실패: ' + e.message);
+    }
+}
+
+window.openChangeRequest = openChangeRequest;
+window.closeChangeRequest = closeChangeRequest;
+window.submitChangeRequest = submitChangeRequest;
+
+/* DOMContentLoaded */
+    window.addEventListener('DOMContentLoaded', function() {
+        const saved = JSON.parse(localStorage.getItem('vocabCurrentUser')); /* localStorage에서 로그인 상태 복원 */
+        if (saved) {
+            currentUser = saved;
+            hideLoginScreen();
+        } else {
+            showLoginScreen();
+        }
+
+        ['login-username', 'login-password'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+        });
+    });
+</script>
+
+<!-- ==================== HTML ==================== -->
+<body>
+
+<!-- 로그인 화면 -->
+<!-- 로그인 화면 — Dotcom 스타일 디자인 -->
+<div id="login-screen" style="display:none; position:fixed; inset:0; background:#e8edf2; z-index:99999; justify-content:center; align-items:center;">
+    <div style="background:#f0f2f5; border-radius:36px; box-shadow:0 8px 40px rgba(0,0,0,0.13); padding:48px 36px 40px; width:340px; display:flex; flex-direction:column; align-items:center; gap:0;">
+
+        <!-- 로고 영역 — S만 크게 강조, tudy Mode 소문자 -->
+        <div style="display:flex; align-items:flex-end; margin-bottom:28px;">
+            <span style="font-size:52px; font-weight:900; color:#2a9d76; line-height:1;">S</span>
+            <span style="font-size:26px; font-weight:700; color:#2a2a2a; line-height:1; margin-bottom:6px;">tudy Mode</span>
+        </div>
+
+
+        <!-- 아이디 입력 -->
+        <input id="login-username" type="text" placeholder="아이디"
+            style="width:100%; padding:14px 16px; border:1.5px solid #e0e0e0; border-radius:12px; font-size:14px; font-family:inherit; outline:none; background:white; margin-bottom:12px; color:#2a2a2a;">
+
+        <!-- 비밀번호 입력 -->
+        <input id="login-password" type="password" placeholder="비밀번호"
+            style="width:100%; padding:14px 16px; border:1.5px solid #e0e0e0; border-radius:12px; font-size:14px; font-family:inherit; outline:none; background:white; margin-bottom:22px; color:#2a2a2a;">
+
+        <!-- 로그인 버튼 -->
+        <button onclick="doLogin()"
+            style="width:100%; padding:15px; background:#2a9d76; color:white; border:none; border-radius:14px; font-size:16px; font-weight:bold; cursor:pointer; margin-bottom:22px; letter-spacing:0.5px;">
+            Login
+        </button>
+
+        <!-- Or Login with 텍스트 -->
+        <div style="font-size:13px; color:#888; margin-bottom:16px;">Or Login with</div>
+
+        <!-- 3개 원형 아이콘 버튼 -->
+        <div style="display:flex; gap:20px; margin-bottom:8px;">
+
+            <!-- 수정요청 버튼 -->
+            <button onclick="openChangeRequest()"
+                title="수정 요청"
+                style="width:52px; height:52px; border-radius:50%; background:#2a9d76; border:none; cursor:pointer; font-size:22px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(42,157,118,0.25);">
+                🔧
+            </button>
+
+            <!-- 회원가입 버튼 -->
+            <button onclick="doSignup()"
+                title="회원가입"
+                style="width:52px; height:52px; border-radius:50%; background:#2a9d76; border:none; cursor:pointer; font-size:22px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(42,157,118,0.25);">
+                📝
+            </button>
+
+            <!-- 관리자 버튼 -->
+            <button onclick="openAdminMode()"
+                title="관리자"
+                style="width:52px; height:52px; border-radius:50%; background:#2a9d76; border:none; cursor:pointer; font-size:22px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(42,157,118,0.25);">
+                🔐
+            </button>
+        </div>
+
+           <!-- 에러 메시지 — 고정 높이로 창 크기 변하지 않게 유지 -->
+        <p id="login-error-msg" style="visibility:hidden; color:#ef4444; font-size:13px; text-align:center; margin:16px 0 0; min-height:36px;"></p>
+    </div>
+</div>
+<!-- 수정요청 팝업 -->
+<div id="changeRequestOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:999999; justify-content:center; align-items:center;">
+    <div id="changeRequestBox">
+        <div class="cr-title">✏️ 수정 요청</div>
+        <p class="cr-guide">아이디/비번 중 하나만 또는 둘 다 변가능</p>
+        <!-- 새 아이디 입력 -->
+        <input id="cr-new-id" type="text" placeholder="새 아이디 (변경 원할 시 입력)">
+        <!-- 새 비번 입력 -->
+        <input id="cr-new-pw" type="password" placeholder="새 비밀번호 (변경 원할 시 입력)">
+        <div class="cr-btns">
+            <!-- 요청 버튼 -->
+            <button class="cr-btn-ok" onclick="submitChangeRequest()">요청</button>
+            <!-- 취소 버튼 -->
+            <button class="cr-btn-cancel" onclick="closeChangeRequest()">취소</button>
+        </div>
+    </div>
+</div>
+<!-- 모드 선택 오버레이 — 학생 로그인 후 표시 -->
+<div id="mode-select-overlay">
+
+    <!-- 로그아웃 버튼 — 우측 상단 고정 -->
+    <button id="mode-logout-btn" onclick="doLogout()">로그아웃</button>
+
+    <!-- 카드 가로 2열 -->
+    <div id="mode-card-row">
+
+        <!-- 스터디 카드 -->
+        <button class="mode-card mode-card-study" onclick="location.href='study.html'">
+            <span class="mode-card-icon">📚</span>
+            <span class="mode-card-label">스터디</span>
+        </button>
+
+        <!-- 시험 카드 -->
+        <button class="mode-card mode-card-exam" onclick="location.href='exam.html'">
+            <span class="mode-card-icon">📝</span>
+            <span class="mode-card-label">시험</span>
+        </button>
+
+    </div>
+</div>
+<!-- 관리자 패널 -->
+<div id="admin-panel" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:999999; justify-content:center; align-items:center;">
+    <div style="background:white; border-radius:14px; border:1px solid #e8dfd8; box-shadow:0 8px 32px rgba(0,0,0,0.15); padding:32px; width:var(--admin-panel-width); height:var(--admin-panel-max-height); display:flex; flex-direction:column; gap:0;">
+
+        <!-- 패널 제목 + 닫기 버튼 — 항상 고정 -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <h3 style="margin:0; color:#7c2d12; font-size:17px;">🔐계정 관리</h3>
+            <button onclick="closeAdminPanel()" style="background:none; border:none; font-size:20px; cursor:pointer; color:#8c7e72;">×</button>
+        </div>
+
+                <!-- 승인요청 섹션 wrapper — 헤드+LED+목록을 하나의 독립 블록으로 묶어 높이 고정 -->
+        <div style="flex:1; min-height:0; display:flex; flex-direction:column;">
+            <!-- 승인 요청 헤드 — 고정 (스크롤 영역 밖) -->
+            <div id="admin-pending-title" style="font-size:13px; font-weight:bold; color:#9a3412; background:#ffedd5; padding:6px 10px; border-radius:4px; margin-bottom:4px; flex-shrink:0;"></div>
+            <!-- LED 위쪽 막대 — 승인요청 목록 위 -->
+            <div id="led-top" class="led-bar"></div>
+            <!-- 승인 요청 목록만 스크롤 — scroll-padding-top으로 첫 row가 LED 뒤에 숨지 않게 -->
+            <div id="admin-pending-list" style="overflow-y:auto; flex:1; min-height:40px; scroll-padding-top:4px;"></div>
+            <!-- LED 아래쪽 막대 — 승인요청 목록 아래 -->
+            <div id="led-bottom" class="led-bar"></div>
+        </div>
+
+        <!-- 두 섹션 사이 구분선 -->
+        <div style="height:1px; background:#e8dfd8; margin:8px 0; flex-shrink:0;"></div>
+
+        <!-- 승인된계정 섹션 wrapper — 헤드+LED+목록을 하나의 독립 블록으로 묶어 높이 고정 -->
+        <div style="flex:1; min-height:0; display:flex; flex-direction:column;">
+            <!-- 승인된 계정 헤드 — 고정 (스크롤 영역 밖) -->
+            <div id="admin-approved-title" style="font-size:13px; font-weight:bold; color:#1d4ed8; background:#dbeafe; padding:6px 10px; border-radius:4px; margin-bottom:4px; flex-shrink:0;"></div>
+            <!-- LED 위쪽 막대 — 승인된 계정 목록 위 -->
+            <div id="led-approved-top" class="led-bar"></div>
+            <!-- 승인된 계정 목록만 스크롤 — scroll-padding-top으로 첫 row가 LED 뒤에 숨지 않게 -->
+            <div id="admin-user-list" style="overflow-y:auto; flex:1; min-height:40px; scroll-padding-top:4px;"></div>
+            <!-- LED 아래쪽 막대 — 승인된 계정 목록 아래 -->
+            <div id="led-approved-bottom" class="led-bar"></div>
+        </div>
+
+    </div>
+</div><!-- 메인 앱 (허브) -->
+<div id="main-app" style="display:none;">
+    <div class="hub-container">
+        <div class="hub-title">📚 암기카드 시스템</div>
+        <button class="hub-btn" onclick="goToWords()">📝 단어 학습</button>
+        <!-- 추후 문장, 한글 버튼 추가 가능 -->
+        <button class="logout-btn" onclick="doLogout()">로그아웃</button>
+    </div>
+</div>
+
+</body>
+</html>
