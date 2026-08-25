@@ -1481,7 +1481,7 @@ function fsOrderBy(...a)   { return window._fsOrderBy(...a); }
 /* 로그아웃 */    function doLogout() {
         if (!confirm('저장하지 않은 데이터는 삭제됩니다.\n로그아웃 하시겠습니까?')) return;
         currentUser = null;
-        sessionStorage.removeItem('vocabCurrentUser');
+        localStorage.removeItem('vocabCurrentUser'); /* localStorage에서 로그인 상태 제거 */
         location.href = 'common.html';
     }
 
@@ -4554,7 +4554,7 @@ function openTestPage() {
         });
     });
     if (words.length === 0) { alert('테스트할 단어가 없습니다.\n단어를 먼저 추가하세요.'); return; }
-    sessionStorage.setItem('testWords', JSON.stringify(words));
+    localStorage.setItem('testWords', JSON.stringify(words)); /* localStorage에 시험단어 저장 */
     window.open('test.html', '_blank');
 }
 window.openTestPage = openTestPage;
@@ -5028,7 +5028,7 @@ window.deleteAllRecords = deleteAllRecords;
    window.addEventListener('DOMContentLoaded', async function() {
 
         /* sessionStorage에서 로그인 유저 복원 */
-        const savedUser = sessionStorage.getItem('vocabCurrentUser');
+        const savedUser = localStorage.getItem('vocabCurrentUser'); /* localStorage에서 로그인 상태 확인 */
         if (!savedUser) { location.href = 'common.html'; return; }
         currentUser = JSON.parse(savedUser);
 
