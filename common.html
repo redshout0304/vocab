@@ -283,6 +283,11 @@
     background: #ea580c;
     color: white;
 }
+/* 단어관리 카드 — 파란 계열 */
+.mode-card-words {
+    background: #1d4ed8;
+    color: white;
+}
 
 /* 폰 화면 — 카드 너비 축소 */
 @media (max-width: 440px) {
@@ -860,7 +865,13 @@ window.submitChangeRequest = submitChangeRequest;
     <button id="mode-logout-btn" onclick="doLogout()">로그아웃</button>
 
     <!-- 카드 가로 2열 -->
-    <div id="mode-card-row">
+       <div id="mode-card-row">
+
+        <!-- 단어관리 카드 — 스터디 왼쪽 -->
+        <button class="mode-card mode-card-words" onclick="location.href='words.html'">
+            <span class="mode-card-icon">📖</span>
+            <span class="mode-card-label">단어관리</span>
+        </button>
 
         <!-- 스터디 카드 -->
         <button class="mode-card mode-card-study" onclick="location.href='study.html'">
