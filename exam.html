@@ -8,61 +8,225 @@
         /* ══════════════════════════════════════
            ROOT 변수 — 전체 디자인 토큰
         ══════════════════════════════════════ */
-    :root {
-       --bg:          #ccc7c3;        /* 전체 배경 — 황토 베이지 */
-    --surface:      #939fab;        /* 카드/패널 배경 */
-    --surface2:     #8a939f;        /* hover 배경 */
-    --border:       #7a8490;        /* 테두리 */
-    --accent-blue:  #dbc76c;        /* 포인트 — 파란 */
-    --accent-green: #16a34a;        /* 포인트 — 초록 (혼자시험) */
-    --accent-red:   #ef4444;        /* 포인트 — 빨강 (대결) */
-    --accent-yellow:#d97706;        /* 포인트 — amber (저장결과) */
-    --accent-purple:#7c3aed;        /* 포인트 — 보라 (친구관리) */
-    --text-main:    #1a1a1a;        /* 본문 텍스트 — 진한 차콜 */
-    --text-sub:     #2e3540;        /* 보조 텍스트 — 다크 블루그레이 */
-    --radius-card:  20px;           /* 카드 모서리 반경 */
-    --radius-btn:   12px;           /* 버튼 모서리 반경 */
+   :root {
 
-    --card-w: 200px;                /* 카드 가로 너비 */
-    --card-h: 420px;                /* 카드 세로 높이 */
+/* ╔══════════════════════════════════════════╗
+   ║   전체 페이지 기본 배경 / 표면 / 테두리  ║
+   ╚══════════════════════════════════════════╝ */
+    --bg:          #ccc7c3;   /* 페이지 전체 바탕 배경색 — 황토 베이지 */
+    --surface:     #939fab;   /* 메인화면 카드·패널 등 올라오는 요소 배경색 */
+    --surface2:    #8a939f;   /* surface 위에서 hover 시 바뀌는 배경색 */
+    --border:      #7a8490;   /* 카드·버튼·입력창 등 전체 테두리색 */
 
-    /* ── 선택박스 색상 — 배경 #c3b091 기준 ── */
-    --sel-left-bg:  #ccc9a7;        /* 좌측 라벨 — 배경보다 진한 갈색 */
-    --sel-right-bg: #ecebde;        /* 우측 선택값 — 좌측보다 1단계 연한 갈색 */
-    --sel-text:     #1a1a1a;        /* 라벨 텍스트 — 검정색 */
-       --sel-val-text: #4a3f32;        /* 선택값 텍스트 — 진한 갈색 */
+/* ╔══════════════════════════════════════╗
+   ║  포인트 색상 (버튼·강조·카드 색)  ║
+   ╚══════════════════════════════════════╝ */
+    --accent-blue:   #dbc76c;  /* 전체 포인트색 — EXAM 로고·완료버튼 등에 사용 */
+    --accent-green:  #16a34a;  /* 혼자시험 카드·시작버튼 기본 배경색 */
+    --accent-red:    #ef4444;  /* 대결 카드·오답 표시 등 빨강 강조색 */
+    --accent-yellow: #d97706;  /* 저장결과 카드 amber 강조색 */
+    --accent-purple: #7c3aed;  /* 친구관리 카드 보라 강조색 */
 
-    --summary-lbl-w: 48px;          /* 상단 헤더 요약 좌측 라벨 너비 */
-    --summary-val-w: 157px;         /* 상단 헤더 요약 우측 내용 너비 */
---qa-width:   500px;            /* 문제/정답창 가로 너비 */
---qa-q-width: 400px;            /* 문제창 가로 너비 — 독립 */
---qa-a-width: 400px;            /* 정답창 가로 너비 — 독립 */
---qa-q-height: 80px;            /* 문제창 세로 최소 높이 — 독립 */
---qa-a-height: 80px;            /* 정답창 세로 최소 높이 — 독립 */
---qa-q-color: #8aab6e;          /* 문제창 Q. 라벨 배경색 */
---qa-a-color: #6a9abf;          /* 정답창 A. 라벨 배경색 */
---qa-q-top:    20px;             /* 문제창 위아래 이동 — 독립 */
---qa-q-left:   0px;             /* 문제창 좌우 이동 — 독립 */
---qa-a-top:    30px;             /* 정답창 위아래 이동 — 독립 */
---qa-a-right:  0px;             /* 정답창 좌우 이동 — 독립 */
---qa-height:   300px;           /* 전체 감싸는 카드 세로 최소 높이 */
---qa-top:      10px;             /* 전체창 위아래 이동 — 문제/정답창 함께 이동 */
---qa-left:     0px;             /* 전체창 좌우 이동 — 문제/정답창 함께 이동 */
---qa-bg: #ccc7c3;          /* 전체 감싸는 카드 배경색 */
---qa-bg-pattern-line: rgba(255,255,255,0.18); /* 다이아몬드 선 색상 — 밝은 선 */
---qa-bg-pattern-shadow: rgba(0,0,0,0.10);     /* 다이아몬드 선 색상 — 어두운 선 */
---qa-radius:   10px;  /* QA카드 모서리 둥글기 */
---qa-shadow:    0 6px 24px rgba(0,0,0,0.42); /* QA카드 그림자 */
+/* ╔══════════════════════════════════════╗
+   ║  텍스트 색상                      ║
+   ╚══════════════════════════════════════╝ */
+    --text-main:   #1a1a1a;   /* 제목·본문 등 주요 텍스트색 — 진한 차콜 */
+    --text-sub:    #2e3540;   /* 카드설명·보조안내 등 서브 텍스트색 — 다크 블루그레이 */
+    --text-empty:  #999;      /* 파일목록 등 항목 없을 때 안내 텍스트색 */
+    --btn-text-light:   #fff; /* 초록·빨강 버튼 위 글자색 — 흰색 */
+    --label-text-light: #fff; /* 문제창 Q./정답창 A. 라벨 + 게이지 숫자 글자색 — 흰색 */
+    --result-text-light: #fff;/* 결과화면 요약박스 위 글자색 — 흰색 */
 
---timer-top:   0px;   /* 타임어택 전체창 위아래 이동 — 독립 */
---timer-left:  0px;   /* 타임어택 전체창 좌우 이동 — 독립 */
---timer-bg:   #7fbfbf;   /* 타임어택 전체창 배경색 */
---timer-radius: 10px;  /* 타임어택 전체창 모서리 둥글기 */
---timer-shadow: 0 6px 24px rgba(0,0,0,0.42); /* 타임창 그림자 */
+/* ╔══════════════════════════════════════╗
+   ║  모서리 반경 / 카드 크기          ║
+   ╚══════════════════════════════════════╝ */
+    --radius-card: 20px;      /* 메인화면 카드 4개(혼자시험·대결·저장·친구) 모서리 둥글기 */
+    --radius-btn:  12px;      /* 시작버튼·뒤로가기버튼 등 버튼류 모서리 둥글기 */
+    --card-w:      200px;     /* 메인화면 카드 4개 가로 너비 */
+    --card-h:      420px;     /* 메인화면 카드 4개 세로 높이 */
 
---tab-shadow:   0 4px 12px rgba(0,0,0,0.28); /* 탭 그림자 */
-   }
-        /* ══════════════════════════════════════
+/* ╔══════════════════════════════════════════════════╗
+   ║  시험설정 화면 — 탭 선택박스 좌측라벨/우측값  ║
+   ╚══════════════════════════════════════════════════╝ */
+    --sel-left-bg:  #ccc9a7;  /* 탭 선택박스 좌측 라벨 배경색 — 진한 갈색 */
+    --sel-right-bg: #ecebde;  /* 탭 선택박스 우측 선택값 배경색 — 연한 갈색 */
+    --sel-text:     #1a1a1a;  /* 탭 선택박스 좌측 라벨 글자색 — 검정 */
+    --sel-val-text: #4a3f32;  /* 탭 선택박스 우측 선택값 글자색 — 진한 갈색 */
+
+/* ╔════════════════════════════════════════════════════╗
+   ║  시험설정 화면 상단 헤더 요약바 너비            ║
+   ╚════════════════════════════════════════════════════╝ */
+    --summary-lbl-w: 48px;    /* 시험설정 화면 상단 헤더 요약바 좌측 라벨(범위·모드 등) 너비 */
+    --summary-val-w: 157px;   /* 시험설정 화면 상단 헤더 요약바 우측 내용값 너비 */
+
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  파일선택 드롭다운 — 진행모드 버튼 배경색 (순차·랜덤·전체) ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+    --dd-seq-bg:    #7fbdd3;  /* 진행모드 드롭다운 안 순차적 버튼 배경색 */
+    --dd-rnd-bg:    #7fbdd3;  /* 진행모드 드롭다운 안 랜덤 버튼 배경색 */
+    --dd-all-bg:    #7FD3B5;  /* 진행모드 드롭다운 안 전체 버튼 배경색 */
+    --dd-val-bg:    #b7dae6;  /* 진행모드 드롭다운 시작·끝 숫자 입력창 배경색 */
+    --dd-val-color: var(--sel-val-text); /* 진행모드 드롭다운 시작·끝 숫자 입력창 글자색 */
+    --dd-tilde-bg:  #C9CCCD;  /* 진행모드 드롭다운 시작~끝 사이 "~" 기호 배경색 */
+    --dd-tilde-color: #1a1a1a;/* 진행모드 드롭다운 "~" 기호 글자색 */
+    --dd-cnt-bg:    #85ECA8;  /* 진행모드 드롭다운 끝입력창 옆 수량(몇 개) 표시 배경색 */
+    --dd-cnt-color: #1a1a1a;  /* 진행모드 드롭다운 수량 표시 글자색 */
+   /* ╔══════════════════════════════════════════════════════════════╗
+   ║  헤더 아래 티커 배너 드롭다운 색상                        ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+    --ticker-lbl-bg:    #7fbdd3;         /* 티커 배너 드롭다운 좌측 라벨 배경색 */
+    --ticker-lbl-color: var(--sel-text); /* 티커 배너 드롭다운 좌측 라벨 글자색 */
+
+
+
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  파일선택 드롭다운 — hover·락·입력완료 상태 배경색        ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+        --dd-seq-hover-bg:  color-mix(in srgb, #7fbdd3 55%, white); /* 순차적 버튼 hover색 — 기본색 기준 1단계 연하게 */
+    --dd-rnd-hover-bg:  color-mix(in srgb, #7fbdd3 55%, white); /* 랜덤 버튼 hover색 — 기본색 기준 1단계 연하게 */
+    --dd-all-hover-bg:  color-mix(in srgb, #7FD3B5 55%, white); /* 전체 버튼 hover색 — 기본색 기준 1단계 연하게 */
+    --dd-val-hover-bg:  color-mix(in srgb, #b7dae6 55%, white); /* 시작·끝 입력창 hover색 — 기본색 기준 1단계 연하게 */
+    --dd-cnt-hover-bg:  color-mix(in srgb, #85ECA8 55%, white); /* 수량칸 hover색 — 기본색 기준 1단계 연하게 */
+    --dd-locked-bg:    #ccc;     /* 전체버튼 선택 시 시작·끝 입력창 비활성(락) 배경색 */
+    --dd-filled-bg:    #7fffff;  /* 시작·끝 입력창에 숫자를 입력했을 때 바뀌는 배경색 */
+    --dd-filled-color: var(--sel-text); /* 시작·끝 입력창에 숫자 입력 후 글자색 */
+
+/* ╔══════════════════════════════════════════════════╗
+   ║  시험설정 화면 — 시작버튼 상태별 색상        ║
+   ╚══════════════════════════════════════════════════╝ */
+    --start-btn-hover:    #15803d; /* 시험설정 화면 하단 시작버튼에 마우스 올렸을 때 색 */
+    --start-btn-disabled: #8a9a5b; /* 파일 미선택 등 시작버튼 비활성 상태일 때 색 */
+
+/* ╔══════════════════════════════════════════════════╗
+   ║  공통 버튼 색상                              ║
+   ╚══════════════════════════════════════════════════╝ */
+    --btn-green-hover: #15803d;  /* 결과화면 다시풀기 등 초록 버튼 hover 색 */
+    --btn-red-hover:   #b91c1c;  /* 결과화면 종료 등 빨강 버튼 hover 색 */
+
+/* ╔══════════════════════════════════════════════════╗
+   ║  메인화면 카드 4개 — 배경·테두리·hover       ║
+   ╚══════════════════════════════════════════════════╝ */
+    --card-solo-bg:         #e8f5ee; /* 혼자시험 카드 기본 배경색 */
+    --card-solo-border:     #b6dfc8; /* 혼자시험 카드 테두리색 */
+    --card-solo-hover-bg:   #d4eddf; /* 혼자시험 카드에 마우스 올렸을 때 배경색 */
+    --card-battle-bg:       #fdecea; /* 대결 카드 기본 배경색 */
+    --card-battle-border:   #f5b8b3; /* 대결 카드 테두리색 */
+    --card-battle-hover-bg: #fcd9d6; /* 대결 카드에 마우스 올렸을 때 배경색 */
+    --card-saved-bg:        #fef8e7; /* 저장결과 카드 기본 배경색 */
+    --card-saved-border:    #f5dfa0; /* 저장결과 카드 테두리색 */
+    --card-saved-hover-bg:  #fdf0c4; /* 저장결과 카드에 마우스 올렸을 때 배경색 */
+    --card-friend-bg:       #f0ecfd; /* 친구관리 카드 기본 배경색 */
+    --card-friend-border:   #c9b8f5; /* 친구관리 카드 테두리색 */
+    --card-friend-hover-bg: #e4dcfb; /* 친구관리 카드에 마우스 올렸을 때 배경색 */
+
+/* ╔══════════════════════════════════════════════════╗
+   ║  시험 진행 화면 — 문제/정답창 색상·크기·위치 ║
+   ╚══════════════════════════════════════════════════╝ */
+    --qa-answer-bg:         #f0f5fb;  /* 정답 입력창 배경색 */
+    --qa-q-color:           #8aab6e;  /* 문제창 좌측 Q. 라벨 배경색 */
+    --qa-a-color:           #6a9abf;  /* 정답창 좌측 A. 라벨 배경색 */
+    --qa-bg:                #ccc7c3;  /* 문제·정답창 전체를 감싸는 카드 배경색 */
+    --qa-bg-pattern-line:   rgba(255,255,255,0.18); /* 카드 배경 다이아몬드 패턴 밝은 선 색 */
+    --qa-bg-pattern-shadow: rgba(0,0,0,0.10);       /* 카드 배경 다이아몬드 패턴 어두운 선 색 */
+    --qa-radius:  10px;     /* 문제·정답창 전체 카드 모서리 둥글기 */
+    --qa-shadow:  0 6px 24px rgba(0,0,0,0.42); /* 문제·정답창 전체 카드 그림자 */
+    --qa-width:   500px;    /* 문제·정답창 전체 카드 가로 너비 */
+    --qa-height:  300px;    /* 문제·정답창 전체 카드 세로 최소 높이 */
+    --qa-top:     10px;     /* 문제·정답창 전체 카드 위아래 위치 이동 */
+    --qa-left:    0px;      /* 문제·정답창 전체 카드 좌우 위치 이동 */
+    --qa-q-width:  400px;   /* 문제창(Q.) 단독 가로 너비 */
+    --qa-q-height: 80px;    /* 문제창(Q.) 단독 세로 최소 높이 */
+    --qa-q-top:    20px;    /* 문제창(Q.) 단독 위아래 위치 이동 */
+    --qa-q-left:   0px;     /* 문제창(Q.) 단독 좌우 위치 이동 */
+    --qa-a-width:  400px;   /* 정답창(A.) 단독 가로 너비 */
+    --qa-a-height: 80px;    /* 정답창(A.) 단독 세로 최소 높이 */
+    --qa-a-top:    30px;    /* 정답창(A.) 단독 위아래 위치 이동 */
+    --qa-a-right:  0px;     /* 정답창(A.) 단독 좌우 위치 이동 */
+
+/* ╔══════════════════════════════════════════════════╗
+   ║  시험 진행 화면 — 타임어택 타이머창 색상·위치 ║
+   ╚══════════════════════════════════════════════════╝ */
+    --timer-bg:     #7fbfbf;  /* 타임어택 타이머 전체창 배경색 */
+    --timer-radius: 10px;     /* 타임어택 타이머 전체창 모서리 둥글기 */
+    --timer-shadow: 0 6px 24px rgba(0,0,0,0.42); /* 타임어택 타이머 전체창 그림자 */
+    --timer-top:    0px;      /* 타임어택 타이머 전체창 위아래 위치 이동 */
+    --timer-left:   0px;      /* 타임어택 타이머 전체창 좌우 위치 이동 */
+
+/* ╔══════════════════════════════════════════════════╗
+   ║  결과 화면 — 요약박스·테이블 색상            ║
+   ╚══════════════════════════════════════════════════╝ */
+    --result-total-bg:       #64748b; /* 결과화면 상단 전체문제 수 요약박스 배경색 */
+    --result-blank-bg:       #94a3b8; /* 결과화면 상단 빈칸(미입력) 수 요약박스 배경색 */
+    --result-active-border:  #1a1a1a; /* 결과화면 요약박스 클릭(active) 시 테두리색 */
+    --result-table-row-bg:   #fff;    /* 결과화면 문제목록 테이블 각 행 배경색 */
+    --result-table-hover-bg: #f5f5f5; /* 결과화면 문제목록 테이블 행에 마우스 올렸을 때 배경색 */
+
+/* ╔══════════════════════════════════════════════════╗
+   ║  대결 화면 — 스코어박스·탭·기타              ║
+   ╚══════════════════════════════════════════════════╝ */
+    --bt-me-bg:         #fdecea;  /* 대결 진행화면 내 스코어박스 배경색 — 연한 빨강 */
+    --tab-active-color: var(--text-main); /* 시험설정 화면 활성 탭 글자색 */
+    --tab-shadow:       0 4px 12px rgba(0,0,0,0.28); /* 시험설정 화면 탭 그림자 */
+    --filelist-scroll-border: #a855f7; /* 파일목록 스크롤 영역 경계 보라색 테두리 */
+
+/* ╔══════════════════════════════════════════════════╗
+   ║  시험 진행 화면 — 게이지바 색상              ║
+   ╚══════════════════════════════════════════════════╝ */
+    --gauge-high: #ef4444;  /* 진행 게이지바 70%~100% 구간 색 — 빨강 (많이 남음) */
+    --gauge-mid:  #60b8d4;  /* 진행 게이지바 31%~69%  구간 색 — 하늘색 (중간) */
+    --gauge-low:  #16a34a;  /* 진행 게이지바 0%~30%   구간 색 — 초록 (거의 끝) */
+
+/* ╔══════════════════════════════════════════════════╗
+   ║  파일선택 테이블 — 열 헤더 배경색            ║
+   ╚══════════════════════════════════════════════════╝ */
+    --col-count-bg: #a0a8b8;  /* 파일선택 테이블 수량 열 헤더 배경색 */
+    --col-range-bg: #7fbdd3;  /* 파일선택 테이블 출제범위 열 헤더 배경색 */
+    --col-play-bg:  #8aab6e;  /* 파일선택 테이블 진행모드 열 헤더 배경색 */
+    --col-exam-bg:  #c4956a;  /* 파일선택 테이블 출제모드 열 헤더 배경색 */
+    --col-lang-bg:  #9b8ec4;  /* 파일선택 테이블 언어모드 열 헤더 배경색 */
+
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  파일선택 테이블 — 열별 셀 드롭다운 기본색 (좌측/우측)  ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+    --col-range-dd-lbl: #7fbdd3;                           /* 출제범위 셀 드롭다운 좌측 라벨 배경색 */
+    --col-range-dd-val: color-mix(in srgb, #7fbdd3 25%, white); /* 출제범위 셀 드롭다운 우측 항목 배경색 */
+    --col-play-dd-lbl:  #8aab6e;                           /* 진행모드 셀 드롭다운 좌측 라벨 배경색 */
+    --col-play-dd-val:  color-mix(in srgb, #8aab6e 25%, white); /* 진행모드 셀 드롭다운 우측 항목 배경색 */
+    --col-exam-dd-lbl:  #c4956a;                           /* 출제모드 셀 드롭다운 좌측 라벨 배경색 */
+    --col-exam-dd-val:  color-mix(in srgb, #c4956a 25%, white); /* 출제모드 셀 드롭다운 우측 항목 배경색 */
+    --col-lang-dd-lbl:  #9b8ec4;                           /* 언어모드 셀 드롭다운 좌측 라벨 배경색 */
+    --col-lang-dd-val:  color-mix(in srgb, #9b8ec4 25%, white); /* 언어모드 셀 드롭다운 우측 항목 배경색 */
+
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  파일선택 테이블 — 열별 셀 드롭다운 hover색 (좌측/우측) ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+    --col-range-dd-hover-lbl: color-mix(in srgb, #7fbdd3 60%, white); /* 출제범위 셀 드롭다운 항목에 마우스 올렸을 때 좌측 라벨 배경색 */
+    --col-range-dd-hover-val: color-mix(in srgb, #7fbdd3 15%, white); /* 출제범위 셀 드롭다운 항목에 마우스 올렸을 때 우측 항목 배경색 */
+    --col-play-dd-hover-lbl:  color-mix(in srgb, #8aab6e 60%, white); /* 진행모드 셀 드롭다운 항목에 마우스 올렸을 때 좌측 라벨 배경색 */
+    --col-play-dd-hover-val:  color-mix(in srgb, #8aab6e 15%, white); /* 진행모드 셀 드롭다운 항목에 마우스 올렸을 때 우측 항목 배경색 */
+    --col-exam-dd-hover-lbl:  color-mix(in srgb, #c4956a 60%, white); /* 출제모드 셀 드롭다운 항목에 마우스 올렸을 때 좌측 라벨 배경색 */
+    --col-exam-dd-hover-val:  color-mix(in srgb, #c4956a 15%, white); /* 출제모드 셀 드롭다운 항목에 마우스 올렸을 때 우측 항목 배경색 */
+    --col-lang-dd-hover-lbl:  color-mix(in srgb, #9b8ec4 60%, white); /* 언어모드 셀 드롭다운 항목에 마우스 올렸을 때 좌측 라벨 배경색 */
+     --col-lang-dd-hover-val:  color-mix(in srgb, #9b8ec4 15%, white); /* 언어모드 셀 드롭다운 항목에 마우스 올렸을 때 우측 항목 배경색 */
+
+/* ╔══════════════════════════════════════════════════════════════╗
+   ║  출제모드 타임워드 — 단어당 시간 설정창 색상              ║
+   ╚══════════════════════════════════════════════════════════════╝ */
+    --tw-lbl-bg:      #D4EF4A;  /* 분·초 이름박스 배경색 — 출제모드 헤더색과 통일 */
+    --tw-lbl-color:   #1a1a1a;     /* 분·초 이름박스 글자색 — 흰색 */
+    --tw-input-bg:    color-mix(in srgb, #c4956a 20%, white); /* 분·초 입력창 배경색 — 헤더색 기준 연하게 */
+    --tw-input-color: #4a3f32;  /* 분·초 입력창 글자색 — 진한 갈색 */
+    --tw-save-bg:     #5ADF6F;  /* 저장버튼 배경색 — 출제모드 헤더색과 통일 */
+    --tw-save-color:  #fff;     /* 저장버튼 글자색 — 흰색 */
+    --tw-save-hover:  color-mix(in srgb, #c4956a 80%, black); /* 저장버튼 hover색 — 기본색보다 한단계 진하게 */
+    --tw-cancel-bg:   #FAA4C4;  /* 취소버튼 배경색 — 공통 서브 배경색 사용 */
+    --tw-cancel-color: var(--sel-val-text); /* 취소버튼 글자색 — 공통 선택값 글자색 사용 */
+    --tw-cancel-hover: var(--border);  /* 취소버튼 hover색 — 공통 테두리색 사용 */
+    --tw-row-bg:      color-mix(in srgb, #c4956a 10%, white); /* 분·초 전체 행 배경색 — 가장 연하게 구분용 */
+
+}
+
+  /* ══════════════════════════════════════
            기본 리셋
         ══════════════════════════════════════ */
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -168,17 +332,17 @@
         }
                   
                       /* 티커 배너 — 헤더 아래 메인창 위 한 줄 */
-        .ticker-wrap {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            background: var(--sel-right-bg);
-            border-bottom: 1px solid var(--border);
-            overflow: hidden;
-            height: 28px;
-            cursor: pointer;
-            position: relative;
-        }
+      /* 티커 배너 — overflow: hidden 제거로 드롭다운 잘림 방지 */
+.ticker-wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: var(--sel-right-bg);
+    border-bottom: 1px solid var(--border);
+    height: 28px;
+    cursor: pointer;
+    position: relative;
+}
                     /* 티커 좌측 라벨 영역 — 배경 고정, 텍스트만 슬라이드 */
         .ticker-lbl-wrap {
            background: #8fad88;
@@ -228,36 +392,42 @@
         .ticker-dropdown {
             display: none;
             position: absolute;
-            top: calc(100% + 4px);
+            top: calc(100% + 0px);
             left: 0;
             right: 0;
             background: var(--surface);
             border: 1.5px solid var(--sel-left-bg);
-            border-radius: 10px;
+           border-radius: 0 0 10px 10px;
             overflow: hidden;
             z-index: 998;
         }
         .ticker-dropdown.open { display: block; }
-        /* 티커 드롭다운 각 항목 */
+               /* 티커 드롭다운 각 항목 — 높이 고정으로 이모지 크기 차이 무관하게 통일 */
         .ticker-dropdown-item {
             display: flex;
             flex-direction: row;
             overflow: hidden;
             font-size: 11px;
+            height: 28px;
+            align-items: stretch;
             border-bottom: 1px solid rgba(0,0,0,0.06);
         }
         .ticker-dropdown-item:last-child { border-bottom: none; }
-        .ticker-dropdown-item span.lbl {
-            background: var(--sel-left-bg);
-            color: var(--sel-text);
-            font-weight: 900;
-            width: 60px;
-            padding: 6px 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
+      /* 드롭다운 좌측 라벨 — 티커 라벨 너비 60px에 맞춰 정렬 */
+/* 드롭다운 좌측 라벨 — 티커 lbl-wrap(60px)과 너비 동일하게 맞춤 */
+/* 드롭다운 좌측 라벨 — line-height 고정으로 이모지 줄높이 밀림 방지 */
+.ticker-dropdown-item span.lbl {
+    background: var(--ticker-lbl-bg);    color: var(--ticker-lbl-color); /* 티커 드롭다운 좌측 라벨 독립 배경색·글자색 */    font-weight: 900;
+    min-width: 60px;
+    width: 60px;
+    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    line-height: 1;
+}              /* 우측 값 — lbl과 세로 글자 위치 통일 */
         .ticker-dropdown-item span.val {
             background: var(--sel-right-bg);
             color: var(--sel-val-text);
@@ -266,6 +436,8 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            display: flex;
+            align-items: center;
         }
        
         /* 뒤로가기 버튼 */
@@ -368,11 +540,10 @@
         }
 
       /* 카드별 배경색 — 각각 독립 색상 */
-.card-solo   { background: #e8f5ee; border-color: #b6dfc8; }  /* 초록 계열 */
-.card-battle { background: #fdecea; border-color: #f5b8b3; }  /* 빨강 계열 */
-.card-saved  { background: #fef8e7; border-color: #f5dfa0; }  /* 노랑 계열 */
-.card-friend { background: #f0ecfd; border-color: #c9b8f5; }  /* 보라 계열 */
-
+.card-solo   { background: var(--card-solo-bg);   border-color: var(--card-solo-border); }   /* 초록 계열 — root 변수 */
+.card-battle { background: var(--card-battle-bg); border-color: var(--card-battle-border); } /* 빨강 계열 — root 변수 */
+.card-saved  { background: var(--card-saved-bg);  border-color: var(--card-saved-border); }  /* 노랑 계열 — root 변수 */
+.card-friend { background: var(--card-friend-bg); border-color: var(--card-friend-border); } /* 보라 계열 — root 변수 */
 /* 카드별 아이콘 wrap 배경 — 카드 배경보다 진하게 */
 .card-solo   .card-icon-wrap { background: rgba(22,163,74,0.15);  }
 .card-battle .card-icon-wrap { background: rgba(239,68,68,0.15);  }
@@ -380,11 +551,10 @@
 .card-friend .card-icon-wrap { background: rgba(124,58,237,0.15); }
 
 /* 카드 hover 시 배경 진하게 */
-.card-solo:hover   { background: #d4eddf; border-color: var(--accent-green); }
-.card-battle:hover { background: #fcd9d6; border-color: var(--accent-red);   }
-.card-saved:hover  { background: #fdf0c4; border-color: var(--accent-yellow);}
-.card-friend:hover { background: #e4dcfb; border-color: var(--accent-purple);}
-
+.card-solo:hover   { background: var(--card-solo-hover-bg);   border-color: var(--accent-green); }  /* 혼자시험 hover — root 변수 */
+.card-battle:hover { background: var(--card-battle-hover-bg); border-color: var(--accent-red);   }  /* 대결 hover — root 변수 */
+.card-saved:hover  { background: var(--card-saved-hover-bg);  border-color: var(--accent-yellow);}  /* 저장결과 hover — root 변수 */
+.card-friend:hover { background: var(--card-friend-hover-bg); border-color: var(--accent-purple);}  /* 친구관리 hover — root 변수 */
         /* 카드 라벨 */
         .card-label {
             font-size: 16px;
@@ -535,32 +705,367 @@ body.phone-mode .result-badge {
             from { transform: translateY(0);    opacity: 1; }
             to   { transform: translateY(100%); opacity: 0; }
         }
-                     /* 파일명 표시 영역 — 고정 박스, 내부 텍스트만 슬라이드 */
-        .file-val {
-            position: relative;
-            overflow: hidden;
-            display: inline-flex;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-        }
-        /* 파일명 텍스트 — 박스 안에 절대 위치 */
-        .file-val-text {
-            position: absolute;
-            width: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        /* 슬라이드 인 — 위에서 아래로 들어옴 */
-        .file-val-text.slide-in {
-            animation: slide-in 0.4s ease forwards;
-        }
-        /* 슬라이드 아웃 — 아래로 나감 */
-        .file-val-text.slide-out {
-            animation: slide-out 0.4s ease forwards;
-        }
-        /* 폰 모드 — 요약 박스 크기 축소 */
+/* ══════════════════════════════════════
+   파일선택 새 테이블 구조 — fs- 접두사, 기존 코드와 완전 독립
+══════════════════════════════════════ */
+
+/* 파일선택 드롭다운 내부 테이블 전체 컨테이너 */
+.fs-table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: var(--sel-right-bg);
+    border-radius: 0 0 12px 12px;
+    overflow: visible; /* 셀 드롭다운이 밖으로 나올 수 있게 */
+}
+
+/* 열 헤더 고유색 — root 변수 기준 */
+.fs-header-cell.fs-col-count { background: var(--col-count-bg); color: var(--btn-text-light); } /* 수량 헤더 */
+.fs-header-cell.fs-col-range { background: var(--col-range-bg); color: var(--btn-text-light); } /* 출제범위 헤더 */
+.fs-header-cell.fs-col-play  { background: var(--col-play-bg);  color: var(--btn-text-light); } /* 진행모드 헤더 */
+.fs-header-cell.fs-col-exam  { background: var(--col-exam-bg);  color: var(--btn-text-light); } /* 출제모드 헤더 */
+.fs-header-cell.fs-col-lang  { background: var(--col-lang-bg);  color: var(--btn-text-light); } /* 언어모드 헤더 */
+
+/* 테이블 헤더 행 — 파일명/출제범위/진행모드/출제모드/언어모드 */
+.fs-header-row {
+    display: flex;
+    flex-direction: row;
+    background: var(--sel-left-bg);
+    border-bottom: 1.5px solid var(--border);
+    height: 26px;
+    position: sticky; /* 스크롤해도 헤더 고정 */
+    top: 0;           /* 스크롤 컨테이너(.fs-body) 상단에 붙음 */
+    z-index: 10;      /* 행 목록 위에 떠있게 */
+}
+/* 헤더 각 셀 공통 */
+.fs-header-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 900;
+    color: var(--sel-text);
+    border-right: 1px solid rgba(0,0,0,0.1);
+    padding: 0 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.fs-header-cell:last-child { border-right: none; }
+
+/* 헤더 너비 비율 — 파일명 40%, 나머지 4개 각 15% */
+.fs-header-cell.fs-col-name  { flex: 0 0 48%; }
+.fs-header-cell.fs-col-count { flex: 0 0 8%; } /* 수량 칸 */
+.fs-header-cell.fs-col-range { flex: 0 0 11%; }
+.fs-header-cell.fs-col-play  { flex: 0 0 11%; }
+.fs-header-cell.fs-col-exam  { flex: 0 0 11%; }
+.fs-header-cell.fs-col-lang  { flex: 0 0 11%; }
+/* 파일 행 목록 스크롤 영역 */
+.fs-body {
+    display: flex;
+    flex-direction: column;
+    max-height: 220px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overflow-x: visible; /* 드롭다운이 가로로도 나올 수 있게 */
+    position: relative; /* 셀 드롭다운 absolute 기준점 */
+}.fs-body::-webkit-scrollbar { display: none; }
+
+/* 파일 한 행 */
+.fs-row {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    height: 36px;
+    position: relative; /* 진행모드 드롭다운 absolute 기준점 */
+}.fs-row:last-child { border-bottom: none; }
+.fs-row:hover { background: rgba(0,0,0,0.04); }
+/* 선택된 행 — 파일명 셀 클릭으로 선택됨 */
+.fs-row.fs-row-selected { background: var(--sel-left-bg); }
+.fs-row.fs-row-selected .fs-cell.fs-col-count { background: color-mix(in srgb, var(--col-count-bg) 50%, white); } /* 선택행 수량 셀 — 헤더색 기준 중간단계 */
+.fs-row.fs-row-selected .fs-cell.fs-col-range { background: color-mix(in srgb, var(--col-range-bg) 50%, white); } /* 선택행 출제범위 셀 — 헤더색 기준 중간단계 */
+.fs-row.fs-row-selected .fs-cell.fs-col-play  { background: color-mix(in srgb, var(--col-play-bg)  50%, white); } /* 선택행 진행모드 셀 — 헤더색 기준 중간단계 */
+.fs-row.fs-row-selected .fs-cell.fs-col-exam  { background: color-mix(in srgb, var(--col-exam-bg)  50%, white); } /* 선택행 출제모드 셀 — 헤더색 기준 중간단계 */
+.fs-row.fs-row-selected .fs-cell.fs-col-lang  { background: color-mix(in srgb, var(--col-lang-bg)  50%, white); } /* 선택행 언어모드 셀 — 헤더색 기준 중간단계 */
+
+/* 행 각 셀 공통 */
+.fs-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--sel-val-text);
+    border-right: 1px solid rgba(0,0,0,0.06);
+    padding: 0 4px;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: visible; /* 드롭다운이 셀 밖으로 나올 수 있게 */
+    transition: background 0.12s;
+    position: relative; /* 셀 드롭다운 기준점 */
+}.fs-cell:last-child { border-right: none; }
+.fs-cell:hover { background: rgba(0,0,0,0.08); }
+
+/* 셀 너비 비율 — 헤더와 동일하게 맞춤 */
+.fs-cell.fs-col-name  { flex: 0 0 48%; justify-content: flex-start; padding-left: 10px; }
+.fs-cell.fs-col-count { flex: 0 0 8%;  font-size: 11px; font-weight: 900; color: var(--sel-text); background: color-mix(in srgb, var(--col-count-bg) 25%, white); } /* 수량 셀 */
+.fs-cell.fs-col-range { flex: 0 0 11%; background: color-mix(in srgb, var(--col-range-bg) 25%, white); } /* 출제범위 셀 */
+.fs-cell.fs-col-play  { flex: 0 0 11%; background: color-mix(in srgb, var(--col-play-bg)  25%, white); } /* 진행모드 셀 */
+.fs-cell.fs-col-exam  { flex: 0 0 11%; background: color-mix(in srgb, var(--col-exam-bg)  25%, white); } /* 출제모드 셀 */
+.fs-cell.fs-col-lang  { flex: 0 0 11%; background: color-mix(in srgb, var(--col-lang-bg)  25%, white); } /* 언어모드 셀 */
+
+/* 파일명 셀 — 선택 시 체크 표시 */
+.fs-cell.fs-col-name::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1.5px solid var(--border);
+    margin-right: 6px;
+    flex-shrink: 0;
+    transition: background 0.12s, border-color 0.12s;
+}
+.fs-row.fs-row-selected .fs-cell.fs-col-name::before {
+    background: var(--accent-green);
+    border-color: var(--accent-green);
+}
+
+/* 설정 셀 — 값 없을 때 회색 점으로 표시 */
+.fs-cell.fs-col-range:empty::after,
+.fs-cell.fs-col-play:empty::after,
+.fs-cell.fs-col-exam:empty::after,
+.fs-cell.fs-col-lang:empty::after {
+    content: '·';
+    color: var(--border);
+    font-size: 16px;
+}
+
+/* 설정 완료된 셀 — 강조 */
+.fs-cell.fs-cell-set {
+    color: var(--sel-text);
+    background: rgba(219,199,108,0.18); /* accent-blue 연하게 */
+}
+/* 타임워드 셀 — 두 줄 표시용 */
+.fs-cell.fs-tw-cell-set {
+    flex-direction: column; /* 세로 방향 — TimeWord + 시간 두 줄 표시 */
+    justify-content: center;
+    line-height: 1.3;
+}
+.fs-cell.fs-tw-cell-set .fs-tw-cell-time {
+    font-size: 9px;        /* 시간 표시 — 작은 글씨 */
+    font-weight: 500;
+    opacity: 0.75;
+}
+/* 셀 드롭다운 기본색상 — 셀 클릭 시 아래로 떠오르는 선택 목록 */
+.fs-cell-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%; /* 셀 바로 아래 */
+    left: 0;
+    width: 100%; /* 셀 너비에 맞춤 — min-width 대신 */
+    background: var(--dd-val-bg); /* root --dd-val-bg로 색 관리 */
+    border: 1.5px solid var(--sel-left-bg);
+    border-radius: 0; /* 모서리 각지게 */
+    box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+    z-index: 1000; /* 다른 행들 위에 떠오름 */
+    overflow: hidden;
+    animation: dropdown-open 0.15s ease forwards;
+}.fs-cell-dropdown.fs-dd-open { display: block; }
+/* 진행모드 범위 입력창 — fs-range- 접두사, 독립 */
+.fs-range-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 10px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    background: var(--sel-right-bg);
+}
+/* 범위 입력창 라벨 */
+.fs-range-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--sel-val-text);
+    white-space: nowrap;
+}
+/* 범위 숫자 입력창 */
+.fs-range-input {
+    width: 44px;
+    height: 24px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--sel-left-bg);
+    color: var(--sel-text);
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    padding: 0 4px;
+    font-family: inherit;
+}
+/* 셀 드롭다운 각 항목 */
+.fs-dd-item {
+    /* 레이아웃만 담당 — 색은 내부 span이 직접 관리 */
+    padding: 0;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+    white-space: nowrap;
+}.fs-dd-item:last-child { border-bottom: none; }
+/* 열별 드롭다운 기본색 — 좌측 라벨(진) / 우측 값(연) */
+.fs-cell-dropdown[data-for-col="excludeBy"] .fs-dd-lbl { background: var(--col-range-dd-lbl); color: var(--btn-text-light); }
+.fs-cell-dropdown[data-for-col="excludeBy"] .fs-dd-val { background: var(--col-range-dd-val); color: var(--sel-val-text); }
+.fs-cell-dropdown[data-for-col="playMode"]  .fs-dd-lbl { background: var(--col-play-dd-lbl);  color: var(--btn-text-light); }
+.fs-cell-dropdown[data-for-col="playMode"]  .fs-dd-val { background: var(--col-play-dd-val);  color: var(--sel-val-text); }
+.fs-cell-dropdown[data-for-col="examMode"]  .fs-dd-lbl { background: var(--col-exam-dd-lbl);  color: var(--btn-text-light); }
+.fs-cell-dropdown[data-for-col="examMode"]  .fs-dd-val { background: var(--col-exam-dd-val);  color: var(--sel-val-text); }
+.fs-cell-dropdown[data-for-col="lang"]      .fs-dd-lbl { background: var(--col-lang-dd-lbl);  color: var(--btn-text-light); }
+.fs-cell-dropdown[data-for-col="lang"]      .fs-dd-val { background: var(--col-lang-dd-val);  color: var(--sel-val-text); }
+
+/* 열별 드롭다운 hover/selected 색 — 기본색보다 연하게 */
+.fs-cell-dropdown[data-for-col="excludeBy"] .fs-dd-item:hover .fs-dd-lbl,
+.fs-cell-dropdown[data-for-col="excludeBy"] .fs-dd-item.fs-dd-selected .fs-dd-lbl { background: var(--col-range-dd-hover-lbl); color: var(--text-main); }
+.fs-cell-dropdown[data-for-col="excludeBy"] .fs-dd-item:hover .fs-dd-val,
+.fs-cell-dropdown[data-for-col="excludeBy"] .fs-dd-item.fs-dd-selected .fs-dd-val { background: var(--col-range-dd-hover-val); color: var(--text-main); }
+
+.fs-cell-dropdown[data-for-col="playMode"]  .fs-dd-item:hover .fs-dd-lbl,
+.fs-cell-dropdown[data-for-col="playMode"]  .fs-dd-item.fs-dd-selected .fs-dd-lbl { background: var(--col-play-dd-hover-lbl);  color: var(--text-main); }
+.fs-cell-dropdown[data-for-col="playMode"]  .fs-dd-item:hover .fs-dd-val,
+.fs-cell-dropdown[data-for-col="playMode"]  .fs-dd-item.fs-dd-selected .fs-dd-val { background: var(--col-play-dd-hover-val);  color: var(--text-main); }
+
+.fs-cell-dropdown[data-for-col="examMode"]  .fs-dd-item:hover .fs-dd-lbl,
+.fs-cell-dropdown[data-for-col="examMode"]  .fs-dd-item.fs-dd-selected .fs-dd-lbl { background: var(--col-exam-dd-hover-lbl);  color: var(--text-main); }
+.fs-cell-dropdown[data-for-col="examMode"]  .fs-dd-item:hover .fs-dd-val,
+.fs-cell-dropdown[data-for-col="examMode"]  .fs-dd-item.fs-dd-selected .fs-dd-val { background: var(--col-exam-dd-hover-val);  color: var(--text-main); }
+
+.fs-cell-dropdown[data-for-col="lang"]      .fs-dd-item:hover .fs-dd-lbl,
+.fs-cell-dropdown[data-for-col="lang"]      .fs-dd-item.fs-dd-selected .fs-dd-lbl { background: var(--col-lang-dd-hover-lbl);  color: var(--text-main); }
+.fs-cell-dropdown[data-for-col="lang"]      .fs-dd-item:hover .fs-dd-val,
+.fs-cell-dropdown[data-for-col="lang"]      .fs-dd-item.fs-dd-selected .fs-dd-val { background: var(--col-lang-dd-hover-val);  color: var(--text-main); }
+/* 셀 드롭다운 완료버튼 — 모든 드롭다운 하단 공통 */
+.fs-dd-confirm-btn {
+    display: block;
+    width: 100%;
+    height: 28px;
+    background: var(--accent-blue);
+    color: var(--sel-text);
+    border: none;
+    border-top: 1px solid rgba(0,0,0,0.10);
+    font-size: 11px;
+    font-weight: 900;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.12s;
+}
+.fs-dd-confirm-btn:hover { background: #c9b35a; }/* 진행모드 한 줄 UI 컨테이너 — gap 없이 붙여서 칸 구분 */
+.fs-play-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+    background: inherit; /* 부모 fs-cell-dropdown 색 상속 */
+    overflow: hidden;
+    border-radius: 0; /* 모서리 각지게 */
+}/* 공통 칸 스타일 — 각 요소를 칸처럼 구분 */
+.fs-play-row .fs-range-label,
+.fs-play-row .fs-range-input,
+.fs-play-row .fs-play-btn {
+    border-right: 1px solid rgba(0,0,0,0.10); /* 칸 구분선 */
+    border-radius: 0;
+}
+.fs-play-row .fs-play-btn:last-child {
+    border-right: none; /* 마지막 칸 오른쪽 선 제거 */
+}
+/* 시작/끝 라벨 칸 */
+.fs-play-row .fs-range-label {
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    background: var(--dd-tilde-bg); color: var(--dd-tilde-color); /* ~ 라벨 root 변수 적용 */    font-size: 11px;
+    font-weight: 900;
+    white-space: nowrap;
+    height: 32px;
+}
+/* 숫자 입력 칸 */
+.fs-play-row .fs-range-input {
+    width: 44px;
+    height: 32px;
+    border: none;
+    border-right: 1px solid rgba(0,0,0,0.10);
+    background: var(--dd-val-bg);   /* 우측색 적용 */
+    color: var(--sel-text);    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    padding: 0 4px;
+        font-family: inherit;
+}
+.fs-play-row .fs-range-cnt:hover { background: var(--dd-cnt-hover-bg); } /* 수량칸 hover색 적용 */
+.fs-play-row .fs-range-input:hover { background: var(--dd-val-hover-bg); } /* 입력창 hover색 적용 */.fs-play-btn {
+    flex: 1;
+    height: 32px;
+    padding: 0;
+    background: transparent;   /* 기본값 — 순차·랜덤 각각 독립 변수로 관리 */    color: var(--sel-text);    border: none;
+    border-right: 1px solid rgba(0,0,0,0.10);
+    font-size: 11px;
+    font-weight: 900;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: background 0.12s;
+}
+/* 순차적 버튼 독립 배경색 */
+.fs-play-btn[data-val="seq"]    { background: var(--dd-seq-bg); }
+/* 랜덤 버튼 독립 배경색 */
+.fs-play-btn[data-val="random"] { background: var(--dd-rnd-bg); }.fs-play-btn:last-child { border-right: none; }
+/* hover 시 다른 드롭다운 항목과 동일한 색으로 통일 */
+.fs-play-btn[data-val="seq"]:hover    { background: var(--dd-seq-hover-bg); color: var(--sel-text); } /* 순차적 버튼 hover색 적용 */
+.fs-play-btn[data-val="random"]:hover { background: var(--dd-rnd-hover-bg); color: var(--sel-text); } /* 랜덤 버튼 hover색 적용 */ /* 좌측 hover색 적용 */
+.fs-play-btn.fs-play-selected { background: var(--accent-blue); color: var(--sel-text); }
+/* 전체 버튼 — 진행모드 드롭다운 범위 라벨 대체 버튼 */
+.fs-all-btn {
+    background: var(--dd-all-bg);  /* 전체 버튼 독립 배경색 */
+    color: var(--sel-text);
+    border: none;
+    border-right: 1px solid rgba(0,0,0,0.10); /* 칸 구분선 — fs-range-label에서 독립 */
+    border-radius: 0;              /* 모서리 각지게 — fs-range-label에서 독립 */
+    display: flex;                 /* 정렬 — fs-range-label에서 독립 */
+    align-items: center;           /* 세로 중앙 정렬 — fs-range-label에서 독립 */
+    padding: 0 8px;                /* 패딩 — fs-range-label에서 독립 */
+    height: 32px;                  /* 높이 — fs-range-label에서 독립 */
+    font-size: 11px;
+    font-weight: 900;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+    white-space: nowrap;
+}.fs-all-btn:hover { background: var(--dd-all-hover-bg); } /* 전체 버튼 hover색 적용 */
+/* 전체버튼 락 상태 — 좌측색 적용 */
+.fs-all-btn.is-locked { background: var(--dd-all-bg); color: var(--sel-text); } /* 전체 버튼 독립 배경색 */
+/* 범위 입력창 락 상태 — 비활성 회색 */
+.fs-range-input.is-locked { background: var(--dd-locked-bg); }
+/* ~ 라벨 락 상태 — 비활성 회색 */
+.fs-range-label.is-locked { background: var(--dd-locked-bg); color: var(--sel-text); }
+/* 범위 입력창 값 있을 때 — 배경색 변경 */
+.fs-range-input.has-value { background: var(--dd-filled-bg); color: var(--dd-filled-color); }
+/* 범위 라벨 둘 다 입력됐을 때 — 배경색 변경 */
+.fs-range-label.has-value { background: var(--dd-filled-bg); color: var(--dd-filled-color); }
+/* 수량 표시 — 끝 입력창과 순차 버튼 사이 */
+.fs-range-cnt {
+    font-size: 11px;
+    font-weight: 900;
+    color: var(--dd-cnt-color);     /* 수량 글자색 root 변수 적용 */
+    background: var(--dd-cnt-bg);   /* 수량 배경색 root 변수 적용 */
+    min-width: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 칸 중앙 정렬 */
+    white-space: nowrap;
+}                           /* 폰 모드 — 요약 박스 크기 축소 */
         body.phone-mode .header-summary {
             gap: 2px;
         }
@@ -648,8 +1153,7 @@ body.phone-mode .result-badge {
     width: 100%;
 }.sel-box.active .sel-label {
     background: var(--accent-blue);
-    color: #1a1a1a; /* 활성탭 헤더 글자색 — 검정 */
-    border-radius: 8px 8px 0 0;
+    color: var(--tab-active-color); /* 활성탭 헤더 글자색 — root 변수 */    border-radius: 8px 8px 0 0;
     padding: 7px 12px;
     justify-content: center; /* 헤더 글자 중앙 정렬 유지 */
     position: relative; /* 완료버튼 absolute 기준점 */
@@ -683,7 +1187,7 @@ body.phone-mode .result-badge {
     left: 0;     /* 탭 왼쪽 기준으로 정렬 */
     width: 100%; /* 탭 너비에 맞춤 */
     border: 1.5px solid var(--sel-left-bg);
-    border-radius: 12px;
+    border-radius: 0 0 12px 12px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.18);
     z-index: 999;
     overflow: hidden;
@@ -739,21 +1243,6 @@ body.phone-mode .result-badge {
     -ms-overflow-style: none;
 }
 #filelist-list::-webkit-scrollbar { display: none; }
-/* 드롭다운 항목 공통 */
-.sel-dropdown-item {
-    padding: 11px 16px;
-    font-size: 13px;
-    font-weight: bold;
-    color: var(--sel-val-text);
-    cursor: pointer;
-    transition: background 0.12s;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border-bottom: 1px solid rgba(0,0,0,0.06);
-}.sel-dropdown-item:last-child { border-bottom: none; }
-.sel-dropdown-item:hover { background: rgba(0,0,0,0.08); }
-.sel-dropdown-item.selected { background: var(--sel-left-bg); color: var(--sel-text); }
 /* 구분선 — 사용 안함 유지 */
 .solo-divider { display: none; }
 
@@ -806,9 +1295,59 @@ body.phone-mode .result-badge {
 /* 시간 단위 텍스트 */
 .solo-time-unit { font-size: 12px; color: var(--sel-val-text); }
 
-/* 슬라이더 영역 — 언어모드 혼합 선택 시 표시 */
-.solo-slider-wrap {
-    display: none;
+
+/* 구간분할랜덤 구간수 입력창 행 */
+.random-split-row {    display: none;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--sel-val-text);
+    padding: 8px 16px;
+    background: rgba(255,255,255,0.3);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+/* 구간분할랜덤 선택 시 입력창 표시 */
+.random-split-row.visible { display: flex; }
+
+/* 번호 기반 입력 행 — 번호기반 버튼 아래 바로 표시 */
+.section-range-row {
+    display: flex; /* 항상 표시 */
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--sel-val-text);
+    padding: 8px 16px;
+    background: rgba(255,255,255,0.3);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+/* 번호 입력창 */
+.section-range-input {
+    width: 52px;
+    padding: 5px 6px;
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: inherit;
+    color: var(--text-main);
+    background: rgba(255,255,255,0.5);
+    outline: none;
+    text-align: center;
+}
+.section-range-input:focus { border-color: var(--sel-left-bg); }
+/* 번호 입력창 화살표 숨김 */
+.section-range-input::-webkit-inner-spin-button,
+.section-range-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.section-range-input { -moz-appearance: textfield; }
+
+/* 전체 단어수 힌트 텍스트 */
+.section-total-hint {
+    font-size: 11px;
+    color: var(--sel-val-text);
+    opacity: 0.7;
+    margin-left: 4px;
+}    display: none;
     flex-direction: column;
     gap: 6px;
     padding: 10px 16px 14px;
@@ -842,13 +1381,12 @@ body.phone-mode .result-badge {
     white-space: nowrap;
     flex-shrink: 0;
 }
-.solo-start-btn:hover { background: #15803d; }
+.solo-start-btn:hover { background: var(--start-btn-hover); } /* 시작버튼 hover — root 변수 */
 .solo-start-btn:disabled {
-    background: #8a9a5b;
+    background: var(--start-btn-disabled); /* 시작버튼 비활성 — root 변수 */
     color: var(--text-sub);
     cursor: not-allowed;
-}
-/* 폰 모드 */
+}/* 폰 모드 */
 body.phone-mode .solo-body { padding: 16px 5px; }
 body.phone-mode .solo-box  { padding: 20px 5px; gap: 20px; }
 
@@ -861,7 +1399,8 @@ body.phone-mode .solo-box  { padding: 20px 5px; gap: 20px; }
     display: flex;
     flex-direction: column;
     gap: 1px;
-    padding: 20px 16px 20px 16px;
+        padding: 0 16px 20px 16px; /* 상단 padding 제거 — 게이지바 상단 밀착 */
+    overflow: hidden; /* border-radius 안쪽으로 게이지 잘리게 */
     width: 100%;
     min-height: var(--qa-height);
     align-self: stretch;
@@ -897,15 +1436,14 @@ box-shadow: var(--qa-shadow);  /* 그림자로 경계 표현 — 변수 조절 *
 }/* 문제창 Q. 라벨 영역 */
 .qa-question-label {
     background: var(--qa-q-color); /* Q. 라벨 배경색 — 변수 적용 */
-    color: #fff;
-    font-size: 12px;
+    color: var(--label-text-light); /* Q. 라벨 텍스트 — root 변수 */    font-size: 12px;
     font-weight: bold;
     padding: 6px 18px;
     margin: -14px -18px 10px -18px;
     border-radius: 10px 10px 0 0;
 }.qa-answer-wrap {
     align-self: flex-end;
-    background: #f0f5fb;
+    background: var(--qa-answer-bg); /* 정답 입력창 배경 — root 변수 */
     border: 1.5px solid var(--border);
     border-right: 4px solid var(--qa-a-color);
     border-radius: 14px 14px 4px 14px;
@@ -936,8 +1474,7 @@ box-shadow: var(--qa-shadow);  /* 그림자로 경계 표현 — 변수 조절 *
 /* 정답창 A. 라벨 영역 */
 .qa-answer-label {
 background: var(--qa-a-color); /* A. 라벨 배경색 — 변수 적용 */
-    color: #fff;
-    font-size: 12px;
+    color: var(--label-text-light); /* A. 라벨 텍스트 — root 변수 */    font-size: 12px;
     font-weight: bold;
     padding: 6px 18px;
     border-radius: 10px 10px 0 0;
@@ -1021,23 +1558,21 @@ position: sticky;  /* 드롭다운에 밀리지 않고 고정 */
 
 /* 게이지바 전체 감싸는 영역 */
 .qa-gauge-wrap {
-    width: 100%;
-    position: relative;          /* 숫자 absolute 기준점 */
-    height: 24px;                /* 게이지바 높이 */
-    border-radius: 8px;          /* 게이지바 모서리 둥글기 */
-    overflow: hidden;            /* 바가 밖으로 안 나가게 */
-    margin-bottom: 12px;         /* 문제창과 간격 */
+    width: calc(100% + 32px); /* qa-container 좌우 padding 상쇄 */
+    position: relative;        /* 숫자 absolute 기준점 */
+    height: 18px;              /* 게이지바 높이 */
+    border-radius: 0;          /* qa-container overflow hidden이 모서리 처리 */
+    overflow: hidden;          /* 바가 밖으로 안 나가게 */
+    margin: 0 -16px 16px -16px; /* 좌우 padding 상쇄 — 전체 너비 꽉 채움 */
     background: rgba(0,0,0,0.08); /* 게이지 빈 배경 */
-}
-
-/* 게이지바 채워지는 바 — 남은 단어 비율만큼 */
+}/* 게이지바 채워지는 바 — 남은 단어 비율만큼 */
 .qa-gauge-bar {
     height: 100%;
     width: 100%;                 /* JS에서 비율로 조절 */
     transition: width 0.4s ease, background-color 0.4s ease; /* 부드러운 변화 */
-    border-radius: 8px;
+    border-radius: 0;
+    margin-left: auto;           /* 우측 고정 — 줄어들 때 좌→우 방향으로 */
 }
-
 /* 게이지바 왼쪽 끝 — 전체 단어수 */
 .qa-gauge-total {
     position: absolute;
@@ -1046,8 +1581,7 @@ position: sticky;  /* 드롭다운에 밀리지 않고 고정 */
     transform: translateY(-50%);
     font-size: 11px;
     font-weight: 900;
-    color: #fff;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.4); /* 글자 그림자 — 배경과 구분 */
+    color: var(--label-text-light); /* 게이지 전체숫자 텍스트 — root 변수 */    text-shadow: 0 1px 3px rgba(0,0,0,0.4); /* 글자 그림자 — 배경과 구분 */
     pointer-events: none;        /* 클릭 방해 안 하게 */
 }
 
@@ -1059,8 +1593,7 @@ position: sticky;  /* 드롭다운에 밀리지 않고 고정 */
     transform: translateY(-50%);
     font-size: 11px;
     font-weight: 900;
-    color: #fff;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.4); /* 글자 그림자 — 배경과 구분 */
+    color: var(--label-text-light); /* 게이지 남은숫자 텍스트 — root 변수 */    text-shadow: 0 1px 3px rgba(0,0,0,0.4); /* 글자 그림자 — 배경과 구분 */
     pointer-events: none;        /* 클릭 방해 안 하게 */
 }
 
@@ -1099,13 +1632,13 @@ position: sticky;  /* 드롭다운에 밀리지 않고 고정 */
     border: 2px solid transparent;
 }
 .result-summary-box:hover { opacity: 0.85; transform: translateY(-2px); }
-.result-summary-box.active { border-color: #1a1a1a; }
+.result-summary-box.active { border-color: var(--result-active-border); } /* active 테두리 — root 변수 */
 
 /* 요약 박스 이름 */
 .result-summary-name {
     font-size: 12px;
     font-weight: 900;
-    color: #fff;
+    color: var(--result-text-light); /* 요약박스 텍스트 — root 변수 */
     letter-spacing: -0.3px;
 }
 
@@ -1113,17 +1646,15 @@ position: sticky;  /* 드롭다운에 밀리지 않고 고정 */
 .result-summary-num {
     font-size: 26px;
     font-weight: 900;
-    color: #fff;
+    color: var(--result-text-light); /* 요약박스 숫자 — root 변수 */
 }
-
 /* 요약 박스 개별 색상 */
-.result-box-total   { background: #64748b; } /* 전체 — 슬레이트 */
-.result-box-correct { background: #16a34a; } /* 정답 — 초록 */
-.result-box-wrong   { background: #ef4444; } /* 오답 — 빨강 */
-.result-box-timeout { background: #d97706; } /* 시간초과 — 앰버 */
-.result-box-blank1  { background: #94a3b8; opacity: 0.4; cursor: default; } /* 빈칸1 — 준비중 */
-.result-box-blank2  { background: #94a3b8; opacity: 0.4; cursor: default; } /* 빈칸2 — 준비중 */
-
+.result-box-total   { background: var(--result-total-bg); } /* 전체 — root 변수 */
+.result-box-correct { background: var(--accent-green); }    /* 정답 — root 변수 */
+.result-box-wrong   { background: var(--accent-red); }      /* 오답 — root 변수 */
+.result-box-timeout { background: var(--accent-yellow); }   /* 시간초과 — root 변수 */
+.result-box-blank1  { background: var(--result-blank-bg); opacity: 0.4; cursor: default; } /* 빈칸1 — root 변수 */
+.result-box-blank2  { background: var(--result-blank-bg); opacity: 0.4; cursor: default; } /* 빈칸2 — root 변수 */
 /* 결과 리스트 테이블 감싸는 영역 — 남은 공간 채우고 스크롤 */
 .result-table-wrap {
     flex: 1;
@@ -1158,10 +1689,9 @@ position: sticky;  /* 드롭다운에 밀리지 않고 고정 */
     text-align: center;
     border-bottom: 1px solid rgba(0,0,0,0.07);
     color: var(--text-main);
-    background: #fff;
+    background: var(--result-table-row-bg); /* 테이블 행 배경 — root 변수 */
 }
-.result-table tr:hover td { background: #f5f5f5; }
-
+.result-table tr:hover td { background: var(--result-table-hover-bg); } /* 테이블 행 hover — root 변수 */
 /* 결과 뱃지 — 정답/오답/시간초과 */
 .result-badge {
     display: inline-block;
@@ -1169,11 +1699,445 @@ position: sticky;  /* 드롭다운에 밀리지 않고 고정 */
     border-radius: 20px;
     font-size: 11px;
     font-weight: 900;
-    color: #fff;
+    color: var(--result-text-light); /* 뱃지 텍스트 — root 변수 */
 }
-.result-badge.correct { background: #16a34a; }
-.result-badge.wrong   { background: #ef4444; }
-.result-badge.timeout { background: #d97706; }
+.result-badge.correct { background: var(--accent-green); }  /* 정답 뱃지 — root 변수 */
+.result-badge.wrong   { background: var(--accent-red); }    /* 오답 뱃지 — root 변수 */
+.result-badge.timeout { background: var(--accent-yellow); } /* 시간초과 뱃지 — root 변수 */
+/* ══════════════════════════════════════
+   친구 관리 화면 — fr- 접두사, 독립
+══════════════════════════════════════ */
+
+/* 친구 관리 본문 */
+.fr-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 24px;
+    gap: 16px;
+    overflow-y: auto;
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* 검색 행 — 입력창 + 버튼 */
+.fr-search-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* 아이디 입력창 */
+.fr-search-input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 13px;
+    font-family: inherit;
+    background: var(--sel-right-bg);
+    color: var(--text-main);
+    outline: none;
+}
+.fr-search-input:focus { border-color: var(--sel-left-bg); }
+
+/* 검색 버튼 */
+.fr-search-btn {
+    padding: 10px 16px;
+    background: var(--sel-left-bg);
+    color: var(--sel-text);
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: background 0.15s;
+}
+.fr-search-btn:hover { background: var(--border); }
+
+/* 검색 결과 박스 */
+.fr-search-result {
+    background: var(--sel-right-bg);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--text-sub);
+    display: none; /* 검색 전 숨김 */
+}
+.fr-search-result.visible { display: flex; align-items: center; justify-content: space-between; }
+
+/* 검색된 유저명 */
+.fr-search-name {
+    font-weight: 900;
+    color: var(--text-main);
+}
+
+/* 친구 추가 버튼 */
+.fr-add-btn {
+    padding: 7px 14px;
+    background: var(--accent-green);
+    color: var(--btn-text-light); /* 버튼 텍스트 — root 변수 */    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 900;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+}
+.fr-add-btn:hover { background: var(--btn-green-hover); } /* 친구추가 hover — root 변수 */
+.fr-add-btn:disabled { background: var(--border); cursor: not-allowed; }
+
+/* 섹션 제목 */
+.fr-section-title {
+    font-size: 12px;
+    font-weight: 900;
+    color: var(--text-sub);
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+/* 친구 목록 */
+.fr-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* 친구 한 줄 */
+.fr-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--sel-right-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+}
+
+/* 친구 아이디 */
+.fr-item-name {
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--text-main);
+}
+
+/* 친구 삭제 버튼 */
+.fr-del-btn {
+    padding: 5px 10px;
+    background: var(--accent-red);
+    color: var(--btn-text-light); /* 버튼 텍스트 — root 변수 */    border: none;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 900;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+}
+.fr-del-btn:hover { background: var(--btn-red-hover); } /* 친구삭제 hover — root 변수 */
+
+/* 친구 없을 때 안내 */
+.fr-empty {
+    text-align: center;
+    color: var(--text-sub);
+    font-size: 13px;
+    padding: 24px 0;
+}
+/* ══════════════════════════════════════
+   대결 화면 CSS — bt- 접두사, 기존 코드와 완전 독립
+══════════════════════════════════════ */
+
+/* 대결 본문 컨테이너 */
+.bt-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 24px;
+    gap: 16px;
+    overflow-y: auto;
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* 섹션 제목 — fr-section-title과 동일 구조, bt- 독립 */
+.bt-section-title {
+    font-size: 12px;
+    font-weight: 900;
+    color: var(--text-sub);
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+/* 친구 한 줄 — 대결 화면용 (대결 버튼 포함) */
+.bt-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--sel-right-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+}
+
+/* 친구 아이디 텍스트 */
+.bt-item-name {
+    font-size: 13px;
+    font-weight: 900;
+    color: var(--text-main);
+}
+
+/* 대결 신청 버튼 */
+.bt-challenge-btn {
+    padding: 6px 14px;
+    background: var(--accent-red);
+    color: var(--btn-text-light); /* 버튼 텍스트 — root 변수 */    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 900;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+}
+.bt-challenge-btn:hover { background: var(--btn-red-hover); } /* 대결신청 hover — root 변수 */
+.bt-challenge-btn:disabled { background: var(--border); cursor: not-allowed; }
+
+/* 친구 없을 때 안내 */
+.bt-empty {
+    text-align: center;
+    color: var(--text-sub);
+    font-size: 13px;
+    padding: 24px 0;
+}
+
+/* 대결 대기 중 박스 — 방장/게스트 공통 */
+.bt-waiting-box {
+    background: var(--sel-right-bg);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+}
+
+/* 대기 중 아이콘 */
+.bt-waiting-icon { font-size: 40px; }
+
+/* 대기 중 제목 */
+.bt-waiting-title {
+    font-size: 15px;
+    font-weight: 900;
+    color: var(--text-main);
+}
+
+/* 대기 중 설명 */
+.bt-waiting-desc {
+    font-size: 12px;
+    color: var(--text-sub);
+    line-height: 1.6;
+}
+
+/* 대결 수락/거절 버튼 행 */
+.bt-invite-btns {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+/* 수락 버튼 */
+.bt-accept-btn {
+    flex: 1;
+    padding: 12px;
+    background: var(--accent-green);
+    color: var(--btn-text-light); /* 버튼 텍스트 — root 변수 */    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+}
+.bt-accept-btn:hover { background: var(--btn-green-hover); } /* 수락버튼 hover — root 변수 */
+
+/* 거절 버튼 */
+.bt-reject-btn {
+    flex: 1;
+    padding: 12px;
+    background: var(--surface2);
+    color: var(--text-sub);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+}
+.bt-reject-btn:hover { background: var(--border); }
+
+/* 방장 파일 선택 영역 */
+.bt-file-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 파일 선택 드롭다운 */
+.bt-file-select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 13px;
+    font-family: inherit;
+    background: var(--sel-right-bg);
+    color: var(--text-main);
+    outline: none;
+    cursor: pointer;
+}
+
+/* 대결 시작 버튼 — 방장 전용 */
+.bt-start-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--accent-red);
+    color: var(--btn-text-light); /* 버튼 텍스트 — root 변수 */    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 900;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+}
+.bt-start-btn:hover { background: var(--btn-red-hover); } /* 대결시작 hover — root 변수 */
+.bt-start-btn:disabled { background: var(--border); cursor: not-allowed; }
+
+/* 대결 중 스코어보드 */
+.bt-scoreboard {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+/* 스코어 한 칸 */
+.bt-score-box {
+    flex: 1;
+    background: var(--sel-right-bg);
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+/* 내 스코어 박스 — 강조 */
+.bt-score-box.me {
+    border-color: var(--accent-red);
+    background: var(--bt-me-bg); /* 내 스코어박스 배경 — root 변수 */
+}
+/* 스코어 유저명 */
+.bt-score-name {
+    font-size: 11px;
+    font-weight: 900;
+    color: var(--text-sub);
+}
+
+/* 스코어 숫자 */
+.bt-score-num {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--text-main);
+}
+
+/* 진행상태 텍스트 — "풀이 중" / "완료" */
+.bt-score-status {
+    font-size: 10px;
+    color: var(--text-sub);
+}
+
+/* 대결 결과 화면 */
+.bt-result-box {
+    background: var(--sel-right-bg);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+}
+
+/* 결과 이모지 */
+.bt-result-icon { font-size: 52px; }
+
+/* 결과 제목 */
+.bt-result-title {
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--text-main);
+}
+
+/* 결과 점수 비교 행 */
+.bt-result-scores {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+}
+
+/* 결과 점수 한 칸 */
+.bt-result-score-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+/* 결과 점수 유저명 */
+.bt-result-score-name {
+    font-size: 12px;
+    color: var(--text-sub);
+    font-weight: 900;
+}
+
+/* 결과 점수 숫자 */
+.bt-result-score-num {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--text-main);
+}
+
+/* 결과 vs 구분자 */
+.bt-result-vs {
+    font-size: 16px;
+    font-weight: 900;
+    color: var(--text-sub);
+}
+
+/* 다시하기 버튼 */
+.bt-again-btn {
+    width: 100%;
+    padding: 13px;
+    background: var(--sel-left-bg);
+    color: var(--sel-text);
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 900;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+}
+.bt-again-btn:hover { background: var(--border); }
+
 </style></head>
 
 <!-- ══════════════════════════════════════
@@ -1185,8 +2149,7 @@ position: sticky;  /* 드롭다운에 밀리지 않고 고정 */
 ══════════════════════════════════════ */
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 /* getDoc 추가 — keywords/{uid} 단일 문서 읽기용 */
-import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
+import { getFirestore, collection, getDocs, doc, getDoc, setDoc, deleteDoc, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 const firebaseConfig = {
     apiKey: "AIzaSyAO_rIAb9QmHQlXUg44wE772gzOOqWDAsc",
     authDomain: "vocabulary-study-49a47.firebaseapp.com",
@@ -1198,12 +2161,17 @@ const firebaseConfig = {
 const _app = initializeApp(firebaseConfig);
 const _db  = getFirestore(_app);
 
-/* Firebase 함수 window에 등록 — loadSharedFiles + 제외단어 로드에서 사용 */
-window._db           = _db;
-window._fsCollection = collection;
-window._fsGetDocs    = getDocs;
-window._fsDoc        = doc;     /* 단일 문서 참조 — keywords/{uid} 읽기용 */
-window._fsGetDoc     = getDoc;  /* 단일 문서 읽기 — keywords/{uid} 읽기용 */
+/* Firebase 함수 window에 등록 — 제외단어 로드에서 사용 */
+window._db            = _db;
+window._fsCollection  = collection;
+window._fsGetDocs     = getDocs;
+window._fsDoc         = doc;
+window._fsGetDoc      = getDoc;
+window._fsSetDoc      = setDoc;      /* 문서 쓰기 — 친구 추가용 */
+window._fsDeleteDoc   = deleteDoc;   /* 문서 삭제 — 친구 삭제용 */
+window._fsQuery       = query;       /* 쿼리 — 유저 검색용 */
+window._fsWhere       = where;       /* 조건 — 유저 검색용 */
+window._fsOnSnapshot  = onSnapshot;  /* 실시간 구독 — 대결용 */
 /* ── 현재 폰 모드 여부 ── */
 let isPhoneMode = false;
 
@@ -1222,35 +2190,27 @@ let isPhoneMode = false;
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         /* 대상 화면만 표시 */
         document.getElementById(id).classList.add('active');
-        /* 혼자 시험 설정 화면 진입 시 파일 목록 자동 로드 */
-        if (id === 'screen-solo') loadSharedFiles();
-    }
+            /* 혼자 시험 설정 화면 진입 시 파일 목록 자동 로드 */
+if (id === 'screen-solo') fsLoadFiles();   /* 파일선택 테이블 로드 */
+if (id === 'screen-battle' && typeof btEnter === 'function') { btEnter(); btWatchInvite(); btLoadFileOptions(); } /* 대결 화면 진입 시 친구목록+초대감지+파일목록 초기화 */
+    } /* showScreen 함수 닫기 */
 
     /* ── 메인 화면으로 돌아가기 ── */
-    function goMain() {
-        showScreen('screen-main');
+    function goMain() {        showScreen('screen-main');
     }
 
 /* ══════════════════════════════════════
    시험 설정 — 전역 상태
 ══════════════════════════════════════ */
 let soloConfig = {
-    files:      [],   /* 선택된 파일 tag 목록 */
-    excludeBy:  '',   /* 제외단어 적용 기준 */
-    playMode:   '',   /* 진행모드 */
-    examMode:   '',   /* 출제모드 */
-    timeMode:   '',   /* 시간모드 */
-    lang:       ''    /* 언어모드 */
+    files:        [],   /* 선택된 파일 tag 목록 — fsConfirm에서 갱신 */
+    timeMode:     '',   /* 시간모드 */
+    fileSettings: []    /* 파일별 독립 설정값 배열 — tag/excludeBy/playMode/examMode/lang */
 };
 
-/* 임시 선택값 저장 — 완료버튼 누르기 전 상태 보관, 취소 시 복귀용 */
+/* 임시 선택값 저장 — 시간모드 전용, 완료 전 상태 보관용 */
 let _pendingSelect = {
-    files:      null,  /* 파일 — 임시 tag 배열 */
-    excludeBy:  null,  /* 범위 — 임시 값 */
-    playMode:   null,  /* 진행모드 — 임시 값 */
-    examMode:   null,  /* 출제모드 — 임시 값 */
-    timeMode:   null,  /* 시간모드 — 임시 값 */
-    lang:       null   /* 언어모드 — 임시 값 */
+    timeMode: null  /* 시간모드 — 임시 값, 완료버튼 누르기 전 상태 */
 };
 
 /* 파일별 단어 데이터 저장 — tag: [{en, kr}] 구조 */
@@ -1258,6 +2218,7 @@ let _fileWordMap = {};/* 현재 출제 중인 단어 목록 */
 let _wordList    = [];
 /* 현재 문제 인덱스 */
 let _wordIdx     = 0;
+let _twPerSec    = 0;  /* 타임워드 출제모드 전용 단어당 제한시간(초) — 독립 저장 */
 /* ── 파일목록 스크롤 위치 기준 — 위아래 테두리 색 표시 ── */
 function updateFilelistBorder() {
     const el  = document.getElementById('filelist-list');
@@ -1265,88 +2226,46 @@ function updateFilelistBorder() {
     if (!el || !box) return;
     const atTop    = el.scrollTop <= 0;
     const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 2;
-      /* 위에 내용 있으면 상단 테두리 보라색+두껍게, 없으면 원래 상태 */
-    box.style.borderTopColor  = atTop    ? '' : '#a855f7';
-    box.style.borderTopWidth  = atTop    ? '' : '3px';
+    /* root 변수에서 보라색 읽기 — JS에 색 하드코딩 없음 */
+    const borderColor = getComputedStyle(document.documentElement).getPropertyValue('--filelist-scroll-border').trim();
+    /* 위에 내용 있으면 — 드롭다운 상단 대신 헤더 행 아래줄에 보라색 표시 */
+    const header = document.querySelector('.fs-header-row');
+    if (header) {
+        header.style.borderBottomColor = atTop ? '' : borderColor;
+        header.style.borderBottomWidth = atTop ? '' : '3px';
+    }
     /* 아래에 내용 있으면 하단 테두리 보라색+두껍게, 없으면 원래 상태 */
-    box.style.borderBottomColor = atBottom ? '' : '#a855f7';
+    box.style.borderBottomColor = atBottom ? '' : borderColor;
     box.style.borderBottomWidth = atBottom ? '' : '3px';
 }
-
 /* ── 임시 선택 전부 취소 — 완료버튼 없이 닫힐 때 호출 ── */
 function cancelAllPending() {
-    /* 파일 — 임시 하이라이트만 제거, soloConfig.files는 유지 */
-    document.querySelectorAll('#filelist-dropdown .sel-dropdown-item')
-        .forEach(el => {
-            const tag = el.dataset.tag;
-            /* 확정된 tag면 selected 유지, 아니면 제거 */
-            if (soloConfig.files.includes(tag)) {
-                el.classList.add('selected');
-            } else {
-                el.classList.remove('selected');
-            }
-        });
-    /* 범위 — 임시 하이라이트 원복 */
-    document.querySelectorAll('#filemode-dropdown .sel-dropdown-item')
-        .forEach(el => {
-            const confirmed = el.dataset.confirmedVal;
-            if (confirmed === 'yes') el.classList.add('selected');
-            else el.classList.remove('selected');
-        });
-    /* 진행모드 — 임시 하이라이트 원복 */
-    document.querySelectorAll('#playmode-dropdown .sel-dropdown-item')
-        .forEach(el => {
-            const confirmed = el.dataset.confirmedVal;
-            if (confirmed === 'yes') el.classList.add('selected');
-            else el.classList.remove('selected');
-        });
-    /* 출제모드 — 임시 하이라이트 원복 */
-    document.querySelectorAll('#exammode-dropdown .sel-dropdown-item')
-        .forEach(el => {
-            const confirmed = el.dataset.confirmedVal;
-            if (confirmed === 'yes') el.classList.add('selected');
-            else el.classList.remove('selected');
-        });
-    /* 언어모드 — 임시 하이라이트 원복 */
-    document.querySelectorAll('#langmode-dropdown .sel-dropdown-item')
-        .forEach(el => {
-            const confirmed = el.dataset.confirmedVal;
-            if (confirmed === 'yes') el.classList.add('selected');
-            else el.classList.remove('selected');
-        });
     /* 시간모드 — 임시 입력값 원복 */
     const tp = _pendingSelect;
     if (tp.timeMode !== null) {
         /* 확정된 시간값으로 입력창 복귀 */
-        const prev = soloConfig._timeSaved || { totalMin:'', totalSec:'', perMin:'', perSec:'' };
+               const prev = soloConfig._timeSaved || { totalMin:'', totalSec:'' };
         document.getElementById('total-min').value = prev.totalMin;
         document.getElementById('total-sec').value = prev.totalSec;
-        document.getElementById('per-min').value   = prev.perMin;
-        document.getElementById('per-sec').value   = prev.perSec;
     }
     /* 임시 저장 초기화 */
-    _pendingSelect = { files: null, excludeBy: null, playMode: null, examMode: null, timeMode: null, lang: null };
+    _pendingSelect = { timeMode: null };
 }
-
 /* 완료버튼으로 닫힌 경우 타이머가 다시 열지 못하게 막는 플래그 */
 let _skipNextOpen = false;
 
-/* ── 드롭다운 열기/닫기 공통 — fixed 위치 계산 후 열기 ── */
-function toggleDropdown(id) {    const target = document.getElementById(id);
-    const isOpen = target.classList.contains('open');
-      /* 열려있는 드롭다운 모두 닫기 + active 제거 */
-    document.querySelectorAll('.sel-dropdown.open')
-        .forEach(d => d.classList.remove('open'));
-    document.querySelectorAll('.sel-box.active')
-        .forEach(b => b.classList.remove('active'));
-    /* 완료버튼 누르지 않고 닫힌 경우 — 임시 선택 전부 취소 */
-    cancelAllPending();
+/* ── 드롭다운 열기 전용 — 이미 열려있으면 무시, 새 탭 클릭 시에만 열기 ── */
+function toggleDropdown(id) {
+    const target = document.getElementById(id);
 
-        /* 기존 placeholder 전체 제거 + 이전 활성 탭 원래 자리로 복귀 — 딱 한 번만 실행 */
+    /* 이미 열려있는 드롭다운이 있으면 무시 — 닫기는 완료버튼/파일선택탭 클릭에서만 처리 */
+    const alreadyOpen = document.querySelector('.sel-dropdown.open');
+    if (alreadyOpen) return;
+
+    /* placeholder/active 잔여물 초기화 — 비정상 상태 방지 */
     const prevActive = document.querySelector('#solo-tab-row-active .sel-box');
     const firstPh = document.querySelector('.sel-box-placeholder');
     if (prevActive && firstPh) {
-        /* fixed 애니메이션 중이면 즉시 해제 후 복귀 */
         prevActive.style.position      = '';
         prevActive.style.zIndex        = '';
         prevActive.style.pointerEvents = '';
@@ -1358,11 +2277,11 @@ function toggleDropdown(id) {    const target = document.getElementById(id);
         firstPh.parentNode.insertBefore(prevActive, firstPh);
         prevActive.classList.remove('active');
     }
-    /* 남은 placeholder 전체 제거 — 누적 방지 */
     document.querySelectorAll('.sel-box-placeholder').forEach(ph => ph.remove());
 
-      if (!isOpen) {
-        const box = target.closest('.sel-box');
+    /* 드롭다운 열기 */
+    const isOpen = false; /* 위에서 이미 열린 경우 return했으므로 항상 false */
+    if (!isOpen) {        const box = target.closest('.sel-box');
         const activeRow = document.getElementById('solo-tab-row-active');
 
         if (activeRow) {
@@ -1449,120 +2368,1458 @@ function toggleDropdown(id) {    const target = document.getElementById(id);
         }
     }
 }
-/* ── 파일 목록 불러오기 (뼈대 — 경로 확정 후 연결) ── */
-async function loadSharedFiles() {
-    /* 목록 삽입 대상 — filelist-list(우측 영역)로 변경 */
-    const listEl = document.getElementById('filelist-list');
-    listEl.innerHTML = '<div style="padding:12px 16px;font-size:13px;color:var(--sel-val-text)">불러오는 중...</div>';
+/* ══════════════════════════════════════
+   파일선택 새 테이블 JS — fs- 전용, 기존 코드와 완전 독립
+══════════════════════════════════════ */
+
+/* 파일별 설정값 독립 저장 — tag 기준으로 관리
+   구조: { tag, name, excludeBy, playMode, examMode, lang } */
+let _fsFileSettings = [];
+
+/* 셀 드롭다운 선택 항목 정의 — 각 열별 항목 목록 */
+const _fsCellOptions = {
+    /* 출제범위 선택항목 */
+          excludeBy: [
+        { val: 'none',      label: '원본' },       /* 출제범위 — 원본 전체 */
+        { val: 'mine',      label: '내키워드' },   /* 출제범위 — 내 키워드 제외 */
+        { val: 'opponent',  label: '상대키워드' }, /* 출제범위 — 상대 키워드 제외 */
+        { val: 'intersect', label: '교집합' },     /* 출제범위 — 교집합만 출제 */
+    ],
+      /* 진행모드 — 한 줄 UI로 직접 렌더링하므로 항목 없음 */
+    playMode: [],
+   /* 출제모드 선택항목 */
+examMode: [
+    { val: 'timeword', label: 'TimeWord', desc: '문제당 제한시간 안에 입력' },
+    { val: 'mix',      label: 'Mix',      desc: '영어와 한국어 둘 다 섞어서 출제' },
+    { val: 'memory',   label: 'Memory',   desc: '여러 단어를 보고 기억 후 입력' },
+    { val: 'finish',   label: 'Finish',   desc: '전체를 먼저 끝낸 사람이 승자' },
+    { val: 'first',    label: 'First',    desc: '먼저 맞추면 점수 획득, 최종 점수 승부' },
+],    /* 언어모드 선택항목 */
+    lang: [
+        { val: 'en', label: '영어' },
+        { val: 'ko', label: '한국어' },
+        { val: 'mix', label: '혼합' },
+    ],
+};
+
+/* ── Firebase 파일 목록 불러와 fs-body에 행 생성 ── */
+async function fsLoadFiles() {
+    const body = document.getElementById('fs-body');
+    if (!body) return;
+    body.innerHTML = '<div style="padding:12px 16px;font-size:13px;color:var(--sel-val-text)">불러오는 중...</div>';
+
     try {
         const snapshot = await window._fsGetDocs(
             window._fsCollection(window._db, 'shared', 'tabs', 'list')
         );
         if (snapshot.empty) {
-            listEl.innerHTML = '<div style="padding:12px 16px;font-size:13px;color:var(--sel-val-text)">공유된 파일이 없습니다</div>';
+            body.innerHTML = '<div style="padding:12px 16px;font-size:13px;color:var(--sel-val-text)">공유된 파일이 없습니다</div>';
             return;
         }
-               listEl.innerHTML = '';
-        /* 목록 로드 시 스크롤 맨 위로 초기화 — 이전 스크롤 위치 잔류 방지 */
-        listEl.scrollTop = 0;
-        let idx = 0;
+
+        body.innerHTML = ''; /* 기존 내용 초기화 */
+        _fsFileSettings = []; /* 설정값 초기화 */
+
         snapshot.forEach(docSnap => {
             const data = docSnap.data();
-            const tag  = data.tag || docSnap.id;  /* 태그 — data.tag 우선, 없으면 docId */
+            const tag  = data.tag || docSnap.id;
 
-            /* 파일명 추출 — fileName 우선, 없으면 docId */
+            /* 파일명 추출 */
             const fileList = (data.fileName || '').split(',').map(f => f.trim()).filter(Boolean);
-            const summaryText = fileList.length > 1
+            const name = fileList.length > 1
                 ? fileList[0] + ' 외 ' + (fileList.length - 1) + '건'
                 : (fileList[0] || tag);
 
-            /* 날짜·시간 추출 — savedAt 우선, 없으면 id에서 파싱 */
-            const savedAt = data.savedAt || '';
-            const dateStr = savedAt ? savedAt.slice(2,10).replace(/-/g,'-') : '-';
-            const timeStr = savedAt ? savedAt.slice(11,16) : '-';
+            /* 단어 데이터 전역 저장 — 기존 _fileWordMap 재사용 */
+            _fileWordMap[tag] = (data.wsPages || [])
+                .flatMap(p => (p.rows || []).filter(r => r.en || r.kr)
+                .map(r => ({ en: r.en || '', kr: r.kr || '' })));
 
-           /* 페이지수·단어수 — wsPages 기준 */
-const pageCount = (data.wsPages || []).length;
-const wordCount = (data.wsPages || []).reduce(
-    (sum, p) => sum + (p.rows || []).filter(r => r.en || r.kr).length, 0);
+            /* 파일별 설정 초기값 등록 */
+            _fsFileSettings.push({
+                tag,
+                name,
+               excludeBy: '',  /* 기본값: 없음 */
+               playMode:  '',  /* 기본값: 없음 */
+               examMode:  '',  /* 기본값: 없음 */
+               lang:      '',  /* 기본값: 없음 */
+            });
 
-/* 단어 데이터 전역 저장 — tag 기준으로 보관 */
-_fileWordMap[tag] = (data.wsPages || [])
-    .flatMap(p => (p.rows || []).filter(r => r.en || r.kr)
-    .map(r => ({ en: r.en || '', kr: r.kr || '' }))); /* en/kr 쌍으로 저장 */
+            /* 행 생성 */
+            const row = document.createElement('div');
+            row.className = 'fs-row';
+            row.dataset.tag = tag;
 
-            idx++;
-            const item = document.createElement('div');
-            item.className = 'sel-dropdown-item';
-            item.dataset.tag = tag;
-            /* 카드 글자 공통 스타일 */
-           /* 드롭다운 항목 글자색 — 배경과 구분되도록 진한 색으로 변경 */
-const sp = 'font-size:11px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#3a2e22;';
-            /* study.html 기준 7항목 — 태그/파일명/날짜/시간/파일수/페이지수/단어수 */
-                       /* 행 클릭으로 선택/해제 — 체크박스 제거 */
-            item.onclick = (e) => {
+            /* 파일명 셀 — 클릭 시 행 선택/해제 */
+            const nameCell = document.createElement('div');
+            nameCell.className = 'fs-cell fs-col-name';
+            nameCell.textContent = name;
+            nameCell.title = name;
+            nameCell.onclick = (e) => {
                 e.stopPropagation();
-                toggleFilelistItem(tag, item, summaryText);
+                fsToggleRow(tag, row); /* 행 선택/해제 */
             };
-                       /* 파일명만 표시 */
-            item.innerHTML =
-                `<span style="${sp}">${summaryText}</span>`;
 
-                                               listEl.appendChild(item);
+            /* 출제범위 셀 */
+            const rangeCell = document.createElement('div');
+            rangeCell.className = 'fs-cell fs-col-range';
+            rangeCell.dataset.col = 'excludeBy';
+            rangeCell.dataset.tag = tag;
+            rangeCell.textContent = ''; /* 기본값 — 빈칸 */
+            rangeCell.onclick = (e) => {
+    e.stopPropagation();
+    /* 파일명 체크된 행만 드롭다운 열기 */
+    if (!row.classList.contains('fs-row-selected')) return;
+    fsOpenCellDropdown(rangeCell, 'excludeBy', tag);
+};
+
+            /* 진행모드 셀 */
+            const playCell = document.createElement('div');
+            playCell.className = 'fs-cell fs-col-play';
+            playCell.dataset.col = 'playMode';
+            playCell.dataset.tag = tag;
+            playCell.textContent = ''; /* 기본값 — 빈칸 */
+                       /* 진행모드 셀 — data-dd-open 플래그로 재호출 차단 */
+            playCell.onclick = (e) => {
+    e.stopPropagation();
+    /* 파일명 체크된 행만 드롭다운 열기 */
+    if (!row.classList.contains('fs-row-selected')) return;
+    if (playCell.dataset.ddOpen === '1') return; /* 이미 열린 경우 무시 */
+    fsOpenCellDropdown(playCell, 'playMode', tag);
+};
+
+            /* 출제모드 셀 */
+            const examCell = document.createElement('div');
+            examCell.className = 'fs-cell fs-col-exam';
+            examCell.dataset.col = 'examMode';
+            examCell.dataset.tag = tag;
+            examCell.textContent = '-'; /* 기본값 — 출제범위처럼 미선택 표시 */
+           examCell.onclick = (e) => {
+    e.stopPropagation();
+    /* 파일명 체크된 행만 드롭다운 열기 */
+    if (!row.classList.contains('fs-row-selected')) return;
+    fsOpenCellDropdown(examCell, 'examMode', tag);
+};
+
+            /* 언어모드 셀 */
+            const langCell = document.createElement('div');
+            langCell.className = 'fs-cell fs-col-lang';
+            langCell.dataset.col = 'lang';
+            langCell.dataset.tag = tag;
+            langCell.textContent = '-'; /* 기본값 표시 */
+            langCell.onclick = (e) => {
+    e.stopPropagation();
+    /* 파일명 체크된 행만 드롭다운 열기 */
+    if (!row.classList.contains('fs-row-selected')) return;
+    fsOpenCellDropdown(langCell, 'lang', tag);
+};
+
+                       /* 수량 셀 — 파일명과 출제범위 사이 */
+            const countCell = document.createElement('div');
+            countCell.className = 'fs-cell fs-col-count';
+            countCell.dataset.tag = tag;
+            countCell.id = 'fs-row-cnt-' + tag; /* 진행모드 완료 시 수량 업데이트용 */
+            countCell.textContent = '';
+
+            /* 행에 셀 추가 */
+            row.appendChild(nameCell);
+            row.appendChild(countCell);
+            row.appendChild(rangeCell);
+            row.appendChild(playCell);
+            row.appendChild(examCell);
+            row.appendChild(langCell);
+
+            body.appendChild(row);
         });
-              /* 모든 항목 추가 완료 후 스크롤 맨 위 강제 초기화 + 테두리 초기 상태 반영 */
-        setTimeout(() => { listEl.scrollTop = 0; updateFilelistBorder(); }, 0);
+
     } catch(e) {
-        listEl.innerHTML = `<div style="padding:12px 16px;font-size:13px;color:var(--sel-val-text)">불러오기 실패: ${e.message}</div>`;
+        body.innerHTML = `<div style="padding:12px 16px;font-size:13px;color:var(--sel-val-text)">불러오기 실패: ${e.message}</div>`;
     }
 }
-/* ── 파일선택 항목 클릭 — 임시 하이라이트만, 확정은 완료버튼에서 ── */
-function toggleFilelistItem(tag, item, name) {
-    /* 행 클릭 선택/해제 — 하이라이트 토글만 (soloConfig 미반영) */
-    const isSelected = item.classList.contains('selected');
+
+/* ── 행 선택/해제 — 파일명 셀 클릭 시 ── */
+function fsToggleRow(tag, row) {
+    const isSelected = row.classList.contains('fs-row-selected');
     if (isSelected) {
-        item.classList.remove('selected');
+        row.classList.remove('fs-row-selected');
+        /* 체크 해제 시 — 설정값 초기화 */
+        const s = _fsFileSettings.find(f => f.tag === tag);
+        if (s) {
+                       s.excludeBy = '';
+            s.playMode  = '';
+            s.playRange = null;
+            s.examMode  = '';
+            s.lang      = '';
+        }
+        /* 체크 해제 시 — 셀 표시 초기화 */
+        const rangeCell = row.querySelector('.fs-col-range');
+        const playCell  = row.querySelector('.fs-col-play');
+        const examCell  = row.querySelector('.fs-col-exam');
+        const langCell  = row.querySelector('.fs-col-lang');
+        const countCell = row.querySelector('.fs-col-count');
+        if (rangeCell) { rangeCell.textContent = ''; rangeCell.classList.remove('fs-cell-set'); }
+        if (playCell)  { playCell.textContent  = ''; playCell.classList.remove('fs-cell-set');  }
+        if (examCell)  { examCell.textContent  = ''; examCell.classList.remove('fs-cell-set'); }
+        if (langCell)  { langCell.textContent  = ''; langCell.classList.remove('fs-cell-set');  }
+        if (countCell) { countCell.textContent = ''; }
     } else {
-        item.classList.add('selected');
+        row.classList.add('fs-row-selected');
     }
-}/* ── 범위선택 항목 클릭 — 임시 하이라이트만, 확정은 완료버튼에서 ── */
-function selectFilemode(val, label, el, event) {
-    event.stopPropagation();
-    /* 임시 선택값 저장 */
-    _pendingSelect.excludeBy = { val, label };
-    /* 하이라이트만 변경 — soloConfig 미반영 */
-    document.querySelectorAll('#filemode-dropdown .sel-dropdown-item')
-        .forEach(i => i.classList.remove('selected'));
-    el.classList.add('selected');
+}/* ── 진행모드 범위 입력 시 입력창+라벨 색 동시 변경 — 독립 함수 ── */
+function fsPlayRangeInput(tag) {
+    const startEl  = document.getElementById('fs-ps-' + tag); /* 시작 입력창 */
+    const endEl    = document.getElementById('fs-pe-' + tag); /* 끝 입력창 */
+    const lblStart = document.getElementById('fs-lbl-s-' + tag); /* 범위 라벨 */
+    const lblEnd   = document.getElementById('fs-lbl-e-' + tag); /* ~ 라벨 */
+    const cntEl    = document.getElementById('fs-cnt-' + tag);   /* 수량 표시 */
+
+    /* 시작+끝 둘 다 입력된 경우에만 라벨 색 변경 */
+    const bothFilled = startEl.value && endEl.value;
+
+    /* 입력창 색 — 각각 독립적으로 입력값 있으면 색 변경 */
+       startEl.value ? startEl.classList.add('has-value') : startEl.classList.remove('has-value'); /* 시작 입력창 값 유무 */
+    endEl.value   ? endEl.classList.add('has-value')   : endEl.classList.remove('has-value');   /* 끝 입력창 값 유무 */
+
+    /* 라벨 색 — 둘 다 입력된 경우에만 변경, 하나라도 비면 원래 색으로 복귀 */
+    bothFilled ? lblStart.classList.add('has-value') : lblStart.classList.remove('has-value'); /* 시작 라벨 값 유무 */
+    bothFilled ? lblEnd.classList.add('has-value')   : lblEnd.classList.remove('has-value');   /* 끝 라벨 값 유무 */
+
+    /* 수량 계산 — 시작/끝 둘 다 입력된 경우에만 */
+    if (!cntEl) return;
+    if (!bothFilled) { cntEl.textContent = ''; return; }
+
+    const s  = Number(startEl.value);
+    const en = Number(endEl.value);
+    let words = (_fileWordMap[tag] || []).slice(s - 1, en); /* 범위 슬라이싱 */
+
+    const setting = _fsFileSettings.find(f => f.tag === tag);
+    if (setting && setting.excludeBy === 'mine') {
+        /* 내 키워드 제외 — Firebase에서 키워드 로드 후 수량 계산 */
+        const user = JSON.parse(localStorage.getItem('vocabCurrentUser'));
+        if (user && window._db) {
+            window._fsGetDoc(window._fsDoc(window._db, 'keywords', user.uid))
+                .then(snap => {
+                    const kws = snap.exists() ? (snap.data().words || []) : [];
+                    const exSet = new Set(kws.map(w => w.toLowerCase()));
+                    const filtered = words.filter(row => {
+                        if (!row.en) return true;
+                        return !row.en.toLowerCase().split(/\s+/).some(w => exSet.has(w));
+                    });
+                    cntEl.textContent = filtered.length + '';
+                })
+                .catch(() => { cntEl.textContent = words.length + ''; });
+        } else {
+            cntEl.textContent = words.length + '';
+        }
+    } else {
+        cntEl.textContent = words.length + '';
+    }
+}/* 전역 등록 — playRow innerHTML oninput에서 호출용 */
+window.fsPlayRangeInput = fsPlayRangeInput;
+
+/* ── 셀 드롭다운 열기 — 진행모드/나머지열 완전 독립 ── */
+function fsOpenCellDropdown(cell, col, tag) {
+    /* 열린 드롭다운 전부 제거 — 클래스/플래그 무관하게 전부 */
+    document.querySelectorAll('.fs-cell-dropdown').forEach(d => d.remove());
+    document.querySelectorAll('.fs-cell[data-play-open="1"]').forEach(c => delete c.dataset.playOpen); /* 진행모드 플래그 해제 */
+    document.querySelectorAll('.fs-cell[data-opt-open="1"]').forEach(c => delete c.dataset.optOpen);  /* 나머지열 플래그 해제 */    const options = _fsCellOptions[col];
+    if (!options) return;
+
+    const setting = _fsFileSettings.find(s => s.tag === tag);
+    const currentVal = setting ? setting[col] : '';
+
+    /* 드롭다운 생성 — 열린 대상 tag/col 기록 */
+    const dd = document.createElement('div');
+    dd.className = 'fs-cell-dropdown fs-dd-open';
+    dd.dataset.forTag = tag;
+    dd.dataset.forCol = col;
+
+       /* 진행모드 — fixed 좌표 계산 + body에 부착 */
+    if (col === 'playMode') {
+        const rowEl     = cell.closest('.fs-row');
+        const rangeCell = rowEl.querySelector('.fs-col-range');
+        const langCell  = rowEl.querySelector('.fs-col-lang');
+        const rowRect   = rowEl.getBoundingClientRect();
+        const rangeRect = rangeCell.getBoundingClientRect();
+        const langRect  = langCell.getBoundingClientRect();
+        dd.style.position = 'fixed';
+        dd.style.top      = rowRect.bottom + 'px';
+        dd.style.left     = rangeRect.left + 'px';
+        dd.style.width    = (langRect.right - rangeRect.left) + 'px';
+        dd.style.zIndex   = '2000';
+
+        /* 이전 확정값 불러오기 — 드롭다운 열 때 복원용 */
+        const prevSetting  = _fsFileSettings.find(s => s.tag === tag);
+        const prevPlayVal  = prevSetting ? prevSetting.playMode  : '';  /* 이전 순차/랜덤 */
+        const prevRange    = prevSetting ? prevSetting.playRange : null; /* 이전 범위 */
+        let _selectedPlayVal = prevPlayVal; /* 이전 확정값으로 초기화 */
+
+        /* 진행모드 한 줄 — 범위입력 + 순차적/랜덤 버튼 */
+        const playRow = document.createElement('div');
+        playRow.className = 'fs-play-row';
+
+        /* 범위 라벨/입력창/버튼 — createElement로 생성 (oninput 버블링 없음) */
+              /* 전체 버튼 — 클릭 시 범위 입력창 락 + 전체 단어 선택 */
+        const lblS = document.createElement('button');
+        lblS.className = 'fs-all-btn'; /* 전체 버튼 — fs-range-label 분리, 독립 클래스로 단독 사용 */
+        lblS.id = 'fs-lbl-s-' + tag;
+        lblS.textContent = '전체';
+        lblS.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isLocked = inputS.disabled;
+            if (isLocked) {
+                /* 이미 락이면 해제 */
+                inputS.disabled = false;
+                inputE.disabled = false;
+                inputS.value = '';
+                inputE.value = '';
+                               lblS.classList.remove('is-locked'); /* 전체버튼 락 해제 */
+                inputS.classList.remove('is-locked'); /* 시작 입력창 락 해제 */
+                inputE.classList.remove('is-locked'); /* 끝 입력창 락 해제 */
+                lblE.classList.remove('is-locked'); /* ~ 라벨 락 해제 */
+                /* 수량 표시 초기화 */
+                const cntEl = document.getElementById('fs-cnt-' + tag);
+                if (cntEl) cntEl.textContent = '';
+            } else {
+                /* 락 — 전체 단어 선택 */
+                inputS.disabled = true;
+                inputE.disabled = true;
+                inputS.value = '';
+                inputE.value = '';
+                               lblS.classList.add('is-locked'); /* 전체버튼 락 상태 */
+                inputS.classList.add('is-locked'); /* 시작 입력창 락 상태 */
+                inputE.classList.add('is-locked'); /* 끝 입력창 락 상태 */
+                lblE.classList.add('is-locked'); /* ~ 라벨 락 상태 */
+                              /* 수량 표시 — excludeBy 설정 반영 후 남은 수량 */
+                const cntEl = document.getElementById('fs-cnt-' + tag);
+                if (cntEl) {
+                    const setting = _fsFileSettings.find(s => s.tag === tag);
+                    let words = _fileWordMap[tag] || [];
+                    if (setting && setting.excludeBy === 'mine') {
+                        /* 내 키워드 제외 — localStorage 키워드 목록 기준 */
+                        const user = JSON.parse(localStorage.getItem('vocabCurrentUser'));
+                        if (user && window._db) {
+                            window._fsGetDoc(window._fsDoc(window._db, 'keywords', user.uid))
+                                .then(snap => {
+                                    const kws = snap.exists() ? (snap.data().words || []) : [];
+                                    const exSet = new Set(kws.map(w => w.toLowerCase()));
+                                    const filtered = words.filter(row => {
+                                        if (!row.en) return true;
+                                        return !row.en.toLowerCase().split(/\s+/).some(w => exSet.has(w));
+                                    });
+                                    cntEl.textContent = filtered.length + '';
+                                })
+                                .catch(() => { cntEl.textContent = words.length + ''; });
+                        } else {
+                            cntEl.textContent = words.length + '';
+                        }
+                    } else {
+                        cntEl.textContent = words.length + '';
+                    }
+                }
+            }
+        });
+
+               const inputS = document.createElement('input');
+        inputS.className = 'fs-range-input';
+        inputS.id = 'fs-ps-' + tag;
+               inputS.type = 'text'; /* text로 변경 — 스피너 자체 생성 안 됨 */
+        inputS.addEventListener('input', (e) => { e.stopPropagation(); fsPlayRangeInput(tag); });
+
+        const lblE = document.createElement('span');
+        lblE.className = 'fs-range-label';
+        lblE.id = 'fs-lbl-e-' + tag;
+        lblE.textContent = '~';
+
+        const inputE = document.createElement('input');
+        inputE.className = 'fs-range-input';
+        inputE.id = 'fs-pe-' + tag;
+        inputE.type = 'text'; /* text로 변경 — 스피너 자체 생성 안 됨 */
+        inputE.min = '1';
+        inputE.addEventListener('input', (e) => { e.stopPropagation(); fsPlayRangeInput(tag); });
+
+        const btnSeq = document.createElement('button');
+        btnSeq.className = 'fs-play-btn';
+        btnSeq.dataset.val = 'seq';
+        btnSeq.textContent = '순차적';
+
+        const btnRand = document.createElement('button');
+        btnRand.className = 'fs-play-btn';
+        btnRand.dataset.val = 'random';
+        btnRand.textContent = '랜덤';
+
+        /* 이전 확정값 복원 — 드롭다운 열 때 이전 입력값/버튼 상태 되살리기 */
+        if (prevRange) {
+            /* 이전에 전체 선택이었으면 전체 버튼 락 상태로 복원 */
+            const totalLen = (_fileWordMap[tag] || []).length;
+            if (prevRange.start === 1 && prevRange.end === totalLen) {
+                inputS.disabled = true;
+                inputE.disabled = true;
+                               lblS.classList.add('is-locked'); /* 전체버튼 락 상태 복원 */
+                inputS.classList.add('is-locked'); /* 시작 입력창 락 상태 복원 */
+                inputE.classList.add('is-locked'); /* 끝 입력창 락 상태 복원 */
+                lblE.classList.add('is-locked'); /* ~ 라벨 락 상태 복원 */
+            } else {
+                /* 이전 범위 숫자 복원 */
+                inputS.value = prevRange.start;
+                inputE.value = prevRange.end;
+                               inputS.classList.add('has-value'); /* 시작 입력창 값 있음 복원 */
+                inputE.classList.add('has-value'); /* 끝 입력창 값 있음 복원 */
+            }
+        }
+        if (prevPlayVal === 'seq') {
+            btnSeq.classList.add('fs-play-selected'); /* 이전 순차 선택 복원 */
+        } else if (prevPlayVal === 'random') {
+            btnRand.classList.add('fs-play-selected'); /* 이전 랜덤 선택 복원 */
+        }
+
+        /* 순차적/랜덤 버튼 — 강조만, 임시 저장 */
+              [btnSeq, btnRand].forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                [btnSeq, btnRand].forEach(b => b.classList.remove('fs-play-selected'));
+                btn.classList.add('fs-play-selected');
+                _selectedPlayVal = btn.dataset.val;
+
+                /* 수량 계산 — 전체 락 상태면 전체 단어수, 아니면 범위 기준 */
+                const cntEl = document.getElementById('fs-cnt-' + tag);
+                if (!cntEl) return;
+                               if (inputS.disabled) {
+                    /* 전체 버튼 락 상태 — excludeBy 반영 후 수량 */
+                    const setting = _fsFileSettings.find(s => s.tag === tag);
+                    let words = _fileWordMap[tag] || [];
+                    if (setting && setting.excludeBy === 'mine') {
+                        const user = JSON.parse(localStorage.getItem('vocabCurrentUser'));
+                        if (user && window._db) {
+                            window._fsGetDoc(window._fsDoc(window._db, 'keywords', user.uid))
+                                .then(snap => {
+                                    const kws = snap.exists() ? (snap.data().words || []) : [];
+                                    const exSet = new Set(kws.map(w => w.toLowerCase()));
+                                    const filtered = words.filter(row => {
+                                        if (!row.en) return true;
+                                        return !row.en.toLowerCase().split(/\s+/).some(w => exSet.has(w));
+                                    });
+                                    cntEl.textContent = filtered.length + '';
+                                })
+                                .catch(() => { cntEl.textContent = words.length + ''; });
+                        } else {
+                            cntEl.textContent = words.length + '';
+                        }
+                    } else {
+                        cntEl.textContent = words.length + '';
+                    }
+                              } else if (inputS.value && inputE.value) {
+                    /* 범위 입력된 경우 — fsPlayRangeInput 재호출로 키워드 제외 수량 유지 */
+                    fsPlayRangeInput(tag);
+                } else {
+                    cntEl.textContent = '';
+                }
+            });
+        });
+
+               /* 수량 표시 span — 끝 입력창과 순차적 버튼 사이 배치 */
+        const cntSpan = document.createElement('span');
+        cntSpan.className = 'fs-range-cnt';
+        cntSpan.id = 'fs-cnt-' + tag;
+        cntSpan.textContent = '';
+
+        playRow.appendChild(lblS);
+        playRow.appendChild(inputS);
+        playRow.appendChild(lblE);
+        playRow.appendChild(inputE);
+        playRow.appendChild(cntSpan); /* 수량 표시 — 끝입력창 다음, 순차 버튼 앞 */
+        playRow.appendChild(btnSeq);
+        playRow.appendChild(btnRand);
+        dd.appendChild(playRow);
+
+              /* 버튼 행 — 취소/완료 나란히 배치 */
+        const btnRow = document.createElement('div');
+        btnRow.style.cssText = 'display:flex; gap:0; border-top:1px solid rgba(0,0,0,0.10);';
+
+        /* 취소버튼 — 확정 없이 드롭다운만 닫기 */
+        const cancelBtn = document.createElement('button');
+        cancelBtn.className = 'fs-dd-confirm-btn';
+        cancelBtn.textContent = '✖ 취소';
+        cancelBtn.style.cssText = 'flex:1; background:var(--surface2); color:var(--sel-val-text);';
+                cancelBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            delete cell.dataset.playOpen; /* 진행모드 플래그 해제 */
+            dd.remove(); /* 드롭다운만 닫기 — 이전값 그대로 유지 */
+        });
+
+        /* 완료버튼 — 입력값 확정 후 닫기 */
+        const confirmBtn = document.createElement('button');
+        confirmBtn.className = 'fs-dd-confirm-btn';
+        confirmBtn.textContent = '✔ 완료';
+        confirmBtn.style.cssText = 'flex:1;';
+        confirmBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isAllLocked = inputS.disabled; /* 전체 버튼 락 상태 여부 */
+            if (!isAllLocked && (!inputS.value || !inputE.value)) {
+                alert('범위(시작~끝)를 입력해주세요.');
+                return;
+            }
+            if (!_selectedPlayVal) {
+                alert('순차적/랜덤을 선택해주세요.');
+                return;
+            }
+            const start = isAllLocked ? 1 : Number(inputS.value);
+            const end   = isAllLocked ? (_fileWordMap[tag] || []).length : Number(inputE.value);
+            const label = (_selectedPlayVal === 'seq' ? '순차 ' : '랜덤 ') + (isAllLocked ? '전체' : start + '~' + end);
+            const s = _fsFileSettings.find(s => s.tag === tag);
+            if (s) { s.playRange = { start, end }; s.playMode = _selectedPlayVal; } /* 확정 저장 */
+            /* 수량 텍스트 — dd 제거 전에 먼저 읽기 */
+            const ddCntEl = document.getElementById('fs-cnt-' + tag);
+            const cntText = ddCntEl ? ddCntEl.textContent : '';
+            delete cell.dataset.playOpen; /* 진행모드 플래그 해제 */
+            dd.remove();
+            cell.textContent = label; /* 진행모드 셀에 확정값 표시 */
+            cell.classList.add('fs-cell-set');
+                        /* 수량 셀 업데이트 */
+            const rowCntEl = document.getElementById('fs-row-cnt-' + tag);
+            if (rowCntEl) {
+                rowCntEl.textContent = cntText;
+                /* 게이지 즉시 갱신 — 수량 숫자 기준 */
+                const cnt = Number(cntText) || 0;
+                updateGauge(cnt, cnt);
+            }
+        });
+
+        btnRow.appendChild(cancelBtn);
+        btnRow.appendChild(confirmBtn);
+        dd.appendChild(btnRow);
+               /* 진행모드 전용 플래그 설정 후 body에 부착 */
+        cell.dataset.playOpen = '1'; /* 진행모드 독립 플래그 — 나머지열과 충돌 없음 */
+        document.body.appendChild(dd);
+
+       } else {
+        /* 나머지 열 — fixed + body 부착, 출제범위~언어모드 전체 너비 */
+        const rowEl     = cell.closest('.fs-row');
+        const rangeCell = rowEl.querySelector('.fs-col-range'); /* 좌측 기준 — 출제범위 */
+        const langCell  = rowEl.querySelector('.fs-col-lang');  /* 우측 기준 — 언어모드 */
+        const rowRect   = rowEl.getBoundingClientRect();
+        const rangeRect = rangeCell.getBoundingClientRect();
+        const langRect  = langCell.getBoundingClientRect();
+        dd.style.position = 'fixed';
+        dd.style.top      = rowRect.bottom + 'px';
+        dd.style.left     = rangeRect.left + 'px';
+        dd.style.width    = (langRect.right - rangeRect.left) + 'px'; /* 전체 너비 */
+        dd.style.zIndex   = '2000';
+
+               /* 이전 확정값으로 초기 선택 세팅 — 드롭다운 재열 때 유지 */
+        let _selectedOpt = options.find(o => o.val === currentVal) || null;
+
+        /* ── 타임워드 전용 단어당시간 설정행 — TimeWord 선택 시에만 표시 ── */
+        const twRow = document.createElement('div');
+        twRow.className = 'fs-tw-row'; /* 타임워드 설정행 — 표시/숨김 제어용 클래스 */
+        twRow.style.cssText = `
+            display: none; /* 기본 숨김 — TimeWord 선택 시 flex로 전환 */
+            align-items: stretch;
+            background: var(--tw-row-bg); /* 행 전체 배경색 — root 변수 */
+        `;
+
+       options.forEach(opt => {
+    const item = document.createElement('div');
+    item.className = 'fs-dd-item';
+    if (opt.val === currentVal) item.classList.add('fs-dd-selected'); /* 이전값 강조 */
+    /* label + desc 함께 표시 — desc 없으면 label만 */
+  if (opt.desc) {
+    /* 좌측 라벨 + 우측 설명 — span 각각 색 직접 고정 */
+    item.style.cssText = '';
+    item.innerHTML =
+        /* 좌측 라벨 — --dd-lbl-bg 고정 */
+                `<span class="fs-dd-lbl" style="
+            min-width:64px; max-width:64px;
+            font-weight:900; font-size:13px;
+            display:flex; align-items:center; justify-content:center;
+            padding:10px 6px;
+        ">${opt.label}</span>` +
+        /* 우측 설명 */
+        `<span class="fs-dd-val" style="
+            flex:1;
+            font-size:11px; font-weight:500;
+            display:flex; align-items:center;
+            padding:10px 10px;
+        ">${opt.desc}</span>`;} else {
+    /* desc 없는 항목 — span 각각 색 직접 고정 */
+    item.style.cssText = '';
+    item.innerHTML =
+        /* 좌측 라벨 — --dd-lbl-bg 고정 */
+                `<span class="fs-dd-lbl" style="
+            min-width:64px; max-width:64px;
+            font-weight:900; font-size:13px;
+            display:flex; align-items:center; justify-content:center;
+            padding:10px 6px;
+        ">${opt.label}</span>` +
+        /* 우측 빈 영역 */
+        `<span class="fs-dd-val" style="
+            flex:1;
+            font-size:11px; font-weight:500;
+            display:flex; align-items:center;
+            padding:10px 10px;
+        "></span>`;
+}       /* hover — 우측 span만 색 변경 */
+       item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        /* 이전 선택 해제 */
+        dd.querySelectorAll('.fs-dd-item').forEach(i => {
+            i.classList.remove('fs-dd-selected'); /* 선택 클래스 제거 — CSS가 기본색으로 복귀 */
+        });
+        item.classList.add('fs-dd-selected'); /* 선택 클래스 추가 — CSS가 선택색 적용 */
+        _selectedOpt = opt;
+
+               /* 기존 타임워드 설정행 제거 — 다른 항목 클릭 시 초기화 */
+        const prevTwRow = dd.querySelector('.fs-tw-row');
+        if (prevTwRow) prevTwRow.remove();
+
+        /* TimeWord 선택 시 해당 항목 바로 아래에 설정행 삽입 */
+        if (col === 'examMode' && opt.val === 'timeword') {
+            item.insertAdjacentElement('afterend', twRow); /* TimeWord 항목 바로 아래 삽입 */
+            twRow.style.display = 'flex';
+        }
+      });           dd.appendChild(item);
+        });
+
+        /* 분 이름박스 */
+        const twMinLbl = document.createElement('span');
+        twMinLbl.textContent = '분';
+        twMinLbl.style.cssText = `
+            background: var(--tw-lbl-bg);   /* 분 이름박스 배경색 — root 변수 */
+            color: var(--tw-lbl-color);      /* 분 이름박스 글자색 — root 변수 */
+            font-size: 12px; font-weight: 900;
+            display: flex; align-items: center; justify-content: center;
+            padding: 6px 8px;
+        `;
+
+        /* 분 입력창 */
+        const twMinInput = document.createElement('input');
+                twMinInput.type = 'text'; /* text로 변경 — 스피너 자체 생성 안 됨 */
+        twMinInput.placeholder = '0';
+        twMinInput.style.cssText = `
+            background: var(--tw-input-bg);    /* 분 입력창 배경색 — root 변수 */
+            color: var(--tw-input-color);       /* 분 입력창 글자색 — root 변수 */
+            border: none; outline: none;
+            width: 36px; font-size: 13px; font-weight: 700;
+            text-align: center; padding: 6px 4px;
+        `;
+
+        /* 초 이름박스 */
+        const twSecLbl = document.createElement('span');
+        twSecLbl.textContent = '초';
+        twSecLbl.style.cssText = `
+            background: var(--tw-lbl-bg);   /* 초 이름박스 배경색 — 분과 동일 root 변수 공용 */
+            color: var(--tw-lbl-color);      /* 초 이름박스 글자색 — 분과 동일 root 변수 공용 */
+            font-size: 12px; font-weight: 900;
+            display: flex; align-items: center; justify-content: center;
+            padding: 6px 8px;
+        `;
+
+        /* 초 입력창 */
+        const twSecInput = document.createElement('input');
+                twSecInput.type = 'text'; /* text로 변경 — 스피너 자체 생성 안 됨 */
+        twSecInput.placeholder = '0';
+        twSecInput.style.cssText = `
+            background: var(--tw-input-bg);    /* 초 입력창 배경색 — 분과 동일 root 변수 공용 */
+            color: var(--tw-input-color);       /* 초 입력창 글자색 — 분과 동일 root 변수 공용 */
+            border: none; outline: none;
+            width: 36px; font-size: 13px; font-weight: 700;
+            text-align: center; padding: 6px 4px;
+        `;
+
+        /* 저장버튼 — 타임워드 분/초 값만 독립 저장 */
+        const twSaveBtn = document.createElement('button');
+        twSaveBtn.textContent = '저장';
+        twSaveBtn.style.cssText = `
+            background: var(--tw-save-bg);   /* 저장버튼 배경색 — root 변수 */
+            color: var(--tw-save-color);      /* 저장버튼 글자색 — root 변수 */
+            border: none; cursor: pointer;
+            font-size: 12px; font-weight: 900;
+            flex: 1; padding: 6px 4px;
+        `;
+        twSaveBtn.onmouseover = () => twSaveBtn.style.background = 'var(--tw-save-hover)'; /* 저장버튼 hover색 — root 변수 */
+        twSaveBtn.onmouseout  = () => twSaveBtn.style.background = 'var(--tw-save-bg)';
+                             twSaveBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+                       const m = Number(twMinInput.value);
+            const s = Number(twSecInput.value);
+            /* 분·초 둘 다 입력 여부 확인 — 하나라도 비어있으면 경고 */
+                      /* 분·초 둘 다 비어있을 때만 경고 — 하나라도 입력되면 저장 허용 */
+            if (twMinInput.value.trim() === '' && twSecInput.value.trim() === '') {
+                alert('분 또는 초를 입력해주세요.');
+                return;
+            }
+            _twPerSec = m * 60 + s; /* 분·초 → 총 초로 변환 후 전역변수에 독립 저장 */
+
+            /* 설정값 _fsFileSettings에 저장 */
+            const setting = _fsFileSettings.find(f => f.tag === tag);
+            if (setting) setting['examMode'] = 'timeword';
+
+            /* 셀에 두 줄 반영 */
+            const timeStr = (m ? m + '분 ' : '') + (s ? s + '초' : ''); /* 분·초 텍스트 생성 */
+            cell.innerHTML =
+                `<span>TimeWord</span>` +
+                `<span class="fs-tw-cell-time">${timeStr}</span>`; /* 두 줄 표시 */
+            cell.classList.add('fs-cell-set', 'fs-tw-cell-set');
+
+                       /* 단어당 타이머 표시창에 설정값 즉시 반영 */
+            document.getElementById('timer-divider').style.display = ''; /* 구분선 표시 */
+            document.getElementById('timer-per-wrap').style.display = ''; /* 단어당 타이머 표시 */
+            document.getElementById('timer-per').textContent = secToStr(_twPerSec); /* 설정한 시간 즉시 표시 */
+
+            /* 드롭다운 닫기 */
+            delete cell.dataset.optOpen;
+            dd.remove();
+        });
+
+        /* 취소버튼 — 입력창 초기화만, 드롭다운 닫지 않음 */
+        const twCancelBtn = document.createElement('button');
+        twCancelBtn.textContent = '취소';
+        twCancelBtn.style.cssText = `
+            background: var(--tw-cancel-bg);   /* 취소버튼 배경색 — root 변수 */
+            color: var(--tw-cancel-color);      /* 취소버튼 글자색 — root 변수 */
+            border: none; cursor: pointer;
+            font-size: 12px; font-weight: 900;
+            flex: 1; padding: 6px 4px;
+        `;
+        twCancelBtn.onmouseover = () => twCancelBtn.style.background = 'var(--tw-cancel-hover)'; /* 취소버튼 hover색 — root 변수 */
+        twCancelBtn.onmouseout  = () => twCancelBtn.style.background = 'var(--tw-cancel-bg)';
+              twCancelBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            twMinInput.value = ''; /* 분 입력창 초기화 */
+            twSecInput.value = ''; /* 초 입력창 초기화 */
+            _twPerSec = 0;         /* 저장값도 초기화 */
+            /* 드롭다운 닫기 */
+            delete cell.dataset.optOpen;
+            dd.remove();
+        });
+
+        twRow.appendChild(twMinLbl);
+        twRow.appendChild(twMinInput);
+        twRow.appendChild(twSecLbl);
+        twRow.appendChild(twSecInput);
+        twRow.appendChild(twSaveBtn);
+        twRow.appendChild(twCancelBtn);
+
+        /* examMode 드롭다운에만 타임워드 설정행 추가 — 다른 열은 제외 */
+              /* 드롭다운 열릴 때 이전에 TimeWord 선택돼 있으면 해당 항목 바로 아래 삽입 */
+        if (col === 'examMode' && currentVal === 'timeword') {
+            const twItem = dd.querySelector('.fs-dd-item.fs-dd-selected');
+            if (twItem) {
+                twItem.insertAdjacentElement('afterend', twRow); /* 선택된 TimeWord 항목 바로 아래 삽입 */
+                twRow.style.display = 'flex';
+            }
+        }
+
+        /* 취소/완료 버튼 행 */
+        const btnRow = document.createElement('div');
+        btnRow.style.cssText = 'display:flex; gap:0; border-top:1px solid rgba(0,0,0,0.10);';
+
+        /* 취소버튼 — 확정 없이 드롭다운만 닫기 */
+        const cancelBtn = document.createElement('button');
+        cancelBtn.className = 'fs-dd-confirm-btn';
+        cancelBtn.textContent = '✖ 취소';
+        cancelBtn.style.cssText = 'flex:1; background:var(--surface2); color:var(--sel-val-text);';
+               cancelBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            delete cell.dataset.optOpen; /* 나머지열 플래그 해제 */
+            dd.remove(); /* 드롭다운만 닫기 — 이전값 그대로 유지 */
+        });
+
+        /* 완료버튼 — 선택값 확정 후 닫기 */
+        const confirmBtn = document.createElement('button');
+        confirmBtn.className = 'fs-dd-confirm-btn';
+        confirmBtn.textContent = '✔ 완료';
+        confirmBtn.style.cssText = 'flex:1;';
+                confirmBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (!_selectedOpt) { alert('항목을 선택해주세요.'); return; }
+            dd.remove();
+
+            /* TimeWord + 저장된 시간 있으면 두 줄로 셀 표시 */
+            if (col === 'examMode' && _selectedOpt.val === 'timeword' && _twPerSec > 0) {
+                const m = Math.floor(_twPerSec / 60);
+                const s = _twPerSec % 60;
+                const timeStr = (m ? m + '분 ' : '') + (s ? s + '초' : ''); /* 분·초 텍스트 생성 */
+                const setting = _fsFileSettings.find(f => f.tag === tag);
+                if (setting) setting[col] = _selectedOpt.val; /* 설정값 저장 */
+                cell.innerHTML =
+                    `<span>TimeWord</span>` +
+                    `<span class="fs-tw-cell-time">${timeStr}</span>`; /* 두 줄 표시 */
+                cell.classList.add('fs-cell-set', 'fs-tw-cell-set');
+            } else {
+                cell.classList.remove('fs-tw-cell-set'); /* 타임워드 아닌 경우 두 줄 클래스 제거 */
+                fsSaveCellValue(tag, col, _selectedOpt.val, _selectedOpt.label, cell); /* 기존 방식 저장 */
+            }
+        });
+
+        btnRow.appendChild(cancelBtn);
+        btnRow.appendChild(confirmBtn);
+        dd.appendChild(btnRow);
+
+              /* 나머지열 전용 플래그 설정 후 body에 부착 */
+        cell.dataset.optOpen = '1'; /* 나머지열 독립 플래그 — 진행모드와 충돌 없음 */
+        document.body.appendChild(dd);
+    }
+}/* ── 셀 선택값 저장 — 해당 tag의 col 값 업데이트 ── */
+function fsSaveCellValue(tag, col, val, label, cell) {
+    /* _fsFileSettings에서 해당 tag 찾아 값 갱신 */
+    const setting = _fsFileSettings.find(s => s.tag === tag);
+    if (setting) setting[col] = val;
+
+    /* 셀 텍스트 업데이트 */
+    cell.textContent = label;
+    cell.classList.add('fs-cell-set'); /* 설정 완료 강조 */
+
+    /* 출제범위 변경 시 — 행의 수량 셀 즉시 재계산 */
+    if (col === 'excludeBy') {
+        const rowCntEl = document.getElementById('fs-row-cnt-' + tag); /* 행 수량 셀 */
+        if (!rowCntEl || !rowCntEl.textContent) return; /* 수량 표시 중일 때만 재계산 */
+
+        const s = _fsFileSettings.find(f => f.tag === tag);
+        const range = s && s.playRange; /* 진행모드 확정 범위 */
+        let words = range
+            ? (_fileWordMap[tag] || []).slice(range.start - 1, range.end) /* 범위 슬라이싱 */
+            : (_fileWordMap[tag] || []); /* 전체 */
+
+        if (val === 'mine') {
+            /* 내 키워드 제외 — Firebase 비동기 로드 후 수량 갱신 */
+            const user = JSON.parse(localStorage.getItem('vocabCurrentUser'));
+            if (user && window._db) {
+                window._fsGetDoc(window._fsDoc(window._db, 'keywords', user.uid))
+                    .then(snap => {
+                        const kws = snap.exists() ? (snap.data().words || []) : [];
+                        const exSet = new Set(kws.map(w => w.toLowerCase()));
+                        const filtered = words.filter(r => {
+                            if (!r.en) return true;
+                            return !r.en.toLowerCase().split(/\s+/).some(w => exSet.has(w));
+                        });
+                     /* '개' 글자 제거 — 숫자만 표시 */
+rowCntEl.textContent = filtered.length + '';
+                        updateGauge(filtered.length, filtered.length); /* 게이지 즉시 갱신 */
+                    })
+                    .catch(() => { rowCntEl.textContent = words.length + ''; updateGauge(words.length, words.length); });
+            } else {
+                rowCntEl.textContent = words.length + '';
+                updateGauge(words.length, words.length); /* 게이지 즉시 갱신 */
+            }
+        } else {
+            rowCntEl.textContent = words.length + ''; /* 원본/기타 — 바로 표시 */
+            updateGauge(words.length, words.length); /* 게이지 즉시 갱신 */
+        }
+    }
 }
-/* ── 진행모드 항목 클릭 — 임시 하이라이트만, 확정은 완료버튼에서 ── */
-function selectPlaymode(val, label, el, event) {
+/* ── 완료버튼 확정 — 선택된 행들의 설정을 soloConfig.fileSettings에 저장 ── */
+function fsConfirm(event) {
     event.stopPropagation();
-    /* 임시 선택값 저장 */
-    _pendingSelect.playMode = { val, label };
-    /* 하이라이트만 변경 — soloConfig 미반영 */
-    document.querySelectorAll('#playmode-dropdown .sel-dropdown-item')
-        .forEach(i => i.classList.remove('selected'));
-    el.classList.add('selected');
-}/* ── 출제모드 항목 클릭 — 임시 하이라이트만, 확정은 완료버튼에서 ── */
-function selectExammode(val, label, el, event) {
-    event.stopPropagation();
-    /* 임시 선택값 저장 */
-    _pendingSelect.examMode = { val, label };
-    /* 하이라이트만 변경 — soloConfig 미반영 */
-    document.querySelectorAll('#exammode-dropdown .sel-dropdown-item')
-        .forEach(i => i.classList.remove('selected'));
-    el.classList.add('selected');
+
+    /* 선택된 행 tag 목록 수집 */
+    const selectedTags = [...document.querySelectorAll('.fs-row.fs-row-selected')]
+        .map(row => row.dataset.tag);
+
+    if (selectedTags.length === 0) {
+        alert('파일을 하나 이상 선택해주세요.');
+        return;
+    }
+
+    /* 선택된 파일들의 설정값 수집 — soloConfig.fileSettings에 저장 */
+        soloConfig.fileSettings = selectedTags.map(tag => {
+        const s = _fsFileSettings.find(f => f.tag === tag);
+        return {
+            tag,
+            excludeBy: s ? s.excludeBy : 'none',
+            playMode:  s ? s.playMode  : 'seq',
+            playRange: s ? s.playRange : null,  /* 진행모드 범위 — startSoloExam에서 참조용 */
+            examMode:  s ? s.examMode  : 'en-to-kr',
+            lang:      s ? s.lang      : 'en',
+        };
+    });
+
+    /* 기존 soloConfig.files도 유지 — 기존 시험 시작 로직과 호환 */
+    soloConfig.files = selectedTags;
+
+        /* 단어 목록 갱신 */
+    _wordList = selectedTags.flatMap(t => _fileWordMap[t] || []);
+    _wordIdx = 0;
+
+    /* 게이지 업데이트 — 수량 셀에 표시된 숫자 기준으로 갱신 */
+    const totalCnt = selectedTags.reduce((sum, t) => {
+        const el = document.getElementById('fs-row-cnt-' + t);
+        return sum + (el && el.textContent ? Number(el.textContent) || 0 : 0);
+    }, 0);
+    const gaugeCnt = totalCnt > 0 ? totalCnt : _wordList.length; /* 수량 없으면 전체로 fallback */
+    updateGauge(gaugeCnt, gaugeCnt);
+
+    /* 시작버튼 활성화 조건 갱신 */
+    updateStartBtn();
+
+   console.log('파일선택 확정:', soloConfig.fileSettings); /* 확인용 로그 */
+
+    /* 드롭다운 닫기 + 탭 원래 자리 복귀 */
+    _skipNextOpen = true;
+    document.getElementById('filelist-dropdown').classList.remove('open');
+    const activeBox = document.querySelector('#solo-tab-row-active .sel-box');
+    const ph = document.querySelector('.sel-box-placeholder');
+    if (activeBox) {
+        activeBox.style.position      = '';
+        activeBox.style.zIndex        = '';
+        activeBox.style.pointerEvents = '';
+        activeBox.style.margin        = '';
+        activeBox.style.width         = '';
+        activeBox.style.top           = '';
+        activeBox.style.left          = '';
+        activeBox.style.transition    = '';
+        activeBox.classList.remove('active');
+        if (ph) { ph.parentNode.insertBefore(activeBox, ph); ph.remove(); }
+    }
+    _skipNextOpen = false;
 }
+
 /* ── 시간모드 입력값 변경 — 임시 저장만, 확정은 완료버튼에서 ── */
 function updateTimemodeDisplay() {
     const totalMin = document.getElementById('total-min').value || 0;
     const totalSec = document.getElementById('total-sec').value || 0;
-    const perMin   = document.getElementById('per-min').value || 0;
-    const perSec   = document.getElementById('per-sec').value || 0;
     /* 임시 시간값 저장 — soloConfig 미반영 */
-    _pendingSelect.timeMode = { totalMin, totalSec, perMin, perSec };
-}/* ══════════════════════════════════════
+    _pendingSelect.timeMode = { totalMin, totalSec };
+}
+/* ── 시간모드 완료버튼 확정 — soloConfig.timeMode에 저장 후 드롭다운 닫기 ── */
+function confirmTimemode(event) {
+    event.stopPropagation(); /* 버블링 차단 */
+
+    const totalMin = Number(document.getElementById('total-min').value) || 0;
+    const totalSec = Number(document.getElementById('total-sec').value) || 0;
+      /* soloConfig에 확정 저장 */
+    soloConfig.timeMode = { totalMin, totalSec };
+
+    /* 티커 표시용 텍스트 생성 — timemode-value 업데이트 */
+    const parts = [];
+    if (totalMin || totalSec) parts.push('⏱' + (totalMin ? totalMin + '분' : '') + (totalSec ? totalSec + '초' : ''));
+    const displayText = parts.length ? parts.join(' / ') : '0초';
+    document.getElementById('timemode-value').textContent = displayText; /* 티커 표시값 갱신 */
+
+       /* 임시값 초기화 */
+    _pendingSelect.timeMode = null;
+
+    /* 타이머 숫자 미리 반영 — 시험 시작 전에도 설정값 표시 */
+      const totalAll = totalMin * 60 + totalSec;
+    document.getElementById('timer-total').textContent = secToStr(totalAll); /* 전체시간 타이머 미리 반영 */
+
+    /* 시작버튼 활성화 조건 갱신 */
+    updateStartBtn();
+
+    /* 드롭다운 닫기 + 탭 원래 자리 복귀 */
+    _skipNextOpen = true;
+    document.getElementById('timemode-dropdown').classList.remove('open');
+    const activeBox = document.querySelector('#solo-tab-row-active .sel-box');
+    const ph = document.querySelector('.sel-box-placeholder');
+    if (activeBox) {
+        activeBox.style.position      = '';
+        activeBox.style.zIndex        = '';
+        activeBox.style.pointerEvents = '';
+        activeBox.style.margin        = '';
+        activeBox.style.width         = '';
+        activeBox.style.top           = '';
+        activeBox.style.left          = '';
+        activeBox.style.transition    = '';
+        activeBox.classList.remove('active');
+        if (ph) { ph.parentNode.insertBefore(activeBox, ph); ph.remove(); }
+    }
+    _skipNextOpen = false;
+}
+/* confirmTimemode 전역 등록 — type="module" 스코프 탈출용 */
+window.confirmTimemode = confirmTimemode;
+
+/* ══════════════════════════════════════
+   친구 관리 — _fr 접두사, 솔로 코드와 완전 독립
+══════════════════════════════════════ */
+
+/* ── 친구 검색 — vocab_users에서 uid 존재 확인 ── */
+async function frSearchUser() {
+    const input = document.getElementById('fr-search-input');
+    const resultBox = document.getElementById('fr-search-result');
+    const resultName = document.getElementById('fr-search-name');
+    const addBtn = document.getElementById('fr-add-btn');
+    const targetUid = input.value.trim();
+
+    if (!targetUid) { alert('아이디를 입력해주세요.'); return; }
+
+    /* 내 uid */
+    const me = JSON.parse(localStorage.getItem('vocabCurrentUser'));
+    if (!me) return;
+    if (targetUid === me.uid) { alert('자신은 추가할 수 없습니다.'); return; }
+
+    /* vocab_users에서 해당 uid 문서 확인 */
+    try {
+        const snap = await window._fsGetDoc(window._fsDoc(window._db, 'vocab_users', targetUid));
+        if (!snap.exists()) {
+            resultBox.className = 'fr-search-result visible';
+            resultName.textContent = '존재하지 않는 아이디입니다.';
+            addBtn.style.display = 'none';
+            return;
+        }
+        /* 이미 친구인지 확인 */
+        const friendSnap = await window._fsGetDoc(
+            window._fsDoc(window._db, 'friends', me.uid, 'list', targetUid)
+        );
+        resultBox.className = 'fr-search-result visible';
+        resultName.textContent = targetUid;
+        addBtn.style.display = 'block';
+        addBtn.textContent = friendSnap.exists() ? '이미 친구' : '친구 추가';
+        addBtn.disabled = friendSnap.exists();
+    } catch(e) {
+        alert('검색 실패: ' + e.message);
+    }
+}
+
+/* ── 친구 추가 — friends/{내uid}/list/{상대uid} 에 저장 ── */
+async function frAddFriend() {
+    const me = JSON.parse(localStorage.getItem('vocabCurrentUser'));
+    if (!me) return;
+    const targetUid = document.getElementById('fr-search-input').value.trim();
+    if (!targetUid) return;
+
+    try {
+        await window._fsSetDoc(
+            window._fsDoc(window._db, 'friends', me.uid, 'list', targetUid),
+            { uid: targetUid, addedAt: new Date().toISOString() }
+        );
+        /* 상대방 친구 목록에도 나를 추가 — 양방향 */
+        await window._fsSetDoc(
+            window._fsDoc(window._db, 'friends', targetUid, 'list', me.uid),
+            { uid: me.uid, addedAt: new Date().toISOString() }
+        );
+        alert(targetUid + ' 님을 친구 추가했습니다.');
+        document.getElementById('fr-search-input').value = '';
+        document.getElementById('fr-search-result').className = 'fr-search-result';
+        frLoadFriends(); /* 목록 새로고침 — 대결화면 친구목록 갱신 */
+    } catch(e) {
+        alert('친구 추가 실패: ' + e.message);
+    }
+}
+
+/* ── 친구 목록 불러오기 — friends/{내uid}/list 컬렉션 ── */
+async function frLoadFriends() {
+    /* bt-friend-list로 대상 변경 — fr-list는 삭제됨 */
+    const me = JSON.parse(localStorage.getItem('vocabCurrentUser'));
+    if (!me) return;
+    const listEl = document.getElementById('bt-friend-list');
+    if (!listEl) return;
+    listEl.innerHTML = '<div class="bt-empty">불러오는 중...</div>';
+
+    try {
+        const snap = await window._fsGetDocs(
+            window._fsCollection(window._db, 'friends', me.uid, 'list')
+        );
+        if (snap.empty) {
+            listEl.innerHTML = '<div class="bt-empty">친구가 없습니다.<br>아이디로 검색해서 추가해보세요.</div>';
+            return;
+        }
+        listEl.innerHTML = '';
+        snap.forEach(d => {
+            const uid = d.data().uid;
+            const item = document.createElement('div');
+            item.className = 'bt-item';
+            item.innerHTML = `
+                <span class="bt-item-name">👤 ${uid}</span>
+                <div style="display:flex; gap:6px;">
+                    <button class="bt-challenge-btn" onclick="btChallenge('${uid}')">⚔️ 대결</button>
+                    <button class="fr-del-btn" onclick="frDeleteFriend('${uid}')">삭제</button>
+                </div>
+            `;
+            listEl.appendChild(item);
+        });
+    } catch(e) {
+        listEl.innerHTML = `<div class="bt-empty">불러오기 실패: ${e.message}</div>`;
+    }
+}
+/* ── 친구 삭제 — 양방향 삭제 ── */
+async function frDeleteFriend(targetUid) {
+    if (!confirm(targetUid + ' 님을 친구 삭제하시겠습니까?')) return;
+    const me = JSON.parse(localStorage.getItem('vocabCurrentUser'));
+    if (!me) return;
+
+    try {
+        /* 내 목록에서 삭제 */
+        await window._fsDeleteDoc(
+            window._fsDoc(window._db, 'friends', me.uid, 'list', targetUid)
+        );
+        /* 상대 목록에서도 삭제 */
+        await window._fsDeleteDoc(
+            window._fsDoc(window._db, 'friends', targetUid, 'list', me.uid)
+        );
+        frLoadFriends(); /* 목록 새로고침 — bt-friend-list 갱신 */
+    } catch(e) {
+        alert('삭제 실패: ' + e.message);
+    }
+}
+/* ── 전역 등록 ── */
+window.frSearchUser   = frSearchUser;
+window.frAddFriend    = frAddFriend;
+window.frDeleteFriend = frDeleteFriend;
+window.frLoadFriends  = frLoadFriends;
+
+/* ══════════════════════════════════════
+   대결 기능 — bt_ 접두사, 기존 코드와 완전 독립
+══════════════════════════════════════ */
+
+let _btRoomId      = null; /* 현재 참여 중인 방 ID */
+let _btUnsubscribe = null; /* Firestore 실시간 구독 해제용 */
+let _btIsHost      = false; /* 방장 여부 */
+let _btWordList    = [];    /* 대결용 단어 목록 */
+let _btWordIdx     = 0;     /* 현재 문제 인덱스 */
+let _btMyScore     = 0;     /* 내 점수 */
+
+/* ── 대결 화면 진입 — 친구 목록 표시 ── */
+async function btEnter() {
+    /* 대결 화면 초기 상태: 친구 목록 뷰 표시 */
+    btShowView('bt-view-friends');
+    frLoadFriends(); /* btLoadFriends 삭제 후 frLoadFriends로 통합 */
+}
+/* ── 대결 화면 내 뷰 전환 — id로 해당 뷰만 표시 ── */
+function btShowView(viewId) {
+    /* 모든 bt-view 숨기기 */
+    document.querySelectorAll('.bt-view').forEach(v => v.style.display = 'none');
+    /* 대상 뷰만 표시 */
+    const target = document.getElementById(viewId);
+    if (target) target.style.display = 'flex';
+}
+
+
+/* ── 대결 신청 — 방 생성 후 상대방에게 초대 저장 ── */
+async function btChallenge(targetUid) {
+    const me = JSON.parse(localStorage.getItem('vocabCurrentUser'));
+    if (!me) return;
+
+    /* 랜덤 방 ID 생성 */
+    _btRoomId = me.uid + '_' + Date.now();
+    _btIsHost = true;
+
+    try {
+        /* battles/{roomId} 방 문서 생성 */
+        await window._fsSetDoc(
+            window._fsDoc(window._db, 'battles', _btRoomId),
+            {
+                hostUid:    me.uid,       /* 방장 uid */
+                guestUid:   targetUid,    /* 초대받은 상대 uid */
+                status:     'waiting',    /* 대기 중 */
+                fileTag:    '',           /* 파일 미선택 상태 */
+                wordList:   [],           /* 문제 목록 — 방장이 파일 선택 후 채움 */
+                hostScore:  0,            /* 방장 점수 */
+                guestScore: 0,            /* 게스트 점수 */
+                hostDone:   false,        /* 방장 완료 여부 */
+                guestDone:  false,        /* 게스트 완료 여부 */
+                createdAt:  new Date().toISOString()
+            }
+        );
+
+        /* 방장 대기 화면으로 전환 */
+        document.getElementById('bt-waiting-opponent').textContent = targetUid;
+        btShowView('bt-view-host-waiting');
+
+        /* 상대방 수락 여부 실시간 감지 */
+        btSubscribeRoom(_btRoomId);
+
+    } catch(e) {
+        alert('대결 신청 실패: ' + e.message);
+    }
+}
+
+/* ── 대결 화면 진입 시 내게 온 초대 감지 — onSnapshot으로 실시간 수신 ── */
+function btWatchInvite() {
+    const me = JSON.parse(localStorage.getItem('vocabCurrentUser'));
+    if (!me) return;
+
+    /* 이전 구독 해제 */
+    if (_btUnsubscribe) { _btUnsubscribe(); _btUnsubscribe = null; }
+
+    /* 내가 guestUid이고 status가 waiting인 방 실시간 감지 */
+    const q = window._fsQuery(
+        window._fsCollection(window._db, 'battles'),
+        window._fsWhere('guestUid', '==', me.uid),
+        window._fsWhere('status',   '==', 'waiting')
+    );
+
+    _btUnsubscribe = window._fsOnSnapshot(q, snap => {
+        if (snap.empty) return;
+        /* 가장 최신 초대 하나만 처리 */
+        const doc = snap.docs[0];
+        const data = doc.data();
+        /* 초대 수신 화면 표시 */
+        _btRoomId = doc.id;
+        _btIsHost = false;
+        document.getElementById('bt-invite-from').textContent = data.hostUid;
+        btShowView('bt-view-invite');
+    });
+}
+
+/* ── 초대 수락 — status를 ready로 변경 ── */
+async function btAccept() {
+    if (!_btRoomId) return;
+    try {
+        await window._fsSetDoc(
+            window._fsDoc(window._db, 'battles', _btRoomId),
+            { status: 'ready' },
+            { merge: true }
+        );
+        /* 방장이 파일 선택할 때까지 게스트 대기 화면 */
+        document.getElementById('bt-waiting-host').textContent =
+            (await window._fsGetDoc(window._fsDoc(window._db, 'battles', _btRoomId))).data().hostUid;
+        btShowView('bt-view-guest-waiting');
+        /* 방 상태 실시간 감지 — 시작 신호 대기 */
+        btSubscribeRoom(_btRoomId);
+    } catch(e) {
+        alert('수락 실패: ' + e.message);
+    }
+}
+
+/* ── 초대 거절 — 방 문서 삭제 ── */
+async function btReject() {
+    if (!_btRoomId) return;
+    try {
+        await window._fsDeleteDoc(window._fsDoc(window._db, 'battles', _btRoomId));
+    } catch(e) {}
+    _btRoomId = null;
+    btShowView('bt-view-friends');
+    btWatchInvite(); /* 다시 초대 감지 재시작 */
+}
+
+/* ── 방장: 파일 목록 불러와 select에 채우기 ── */
+async function btLoadFileOptions() {
+    const sel = document.getElementById('bt-file-select');
+    sel.innerHTML = '<option value="">파일 선택...</option>';
+    try {
+        const snap = await window._fsGetDocs(
+            window._fsCollection(window._db, 'shared', 'tabs', 'list')
+        );
+        snap.forEach(d => {
+            const data = d.data();
+            const tag  = data.tag || d.id;
+            const fileList = (data.fileName || '').split(',').map(f => f.trim()).filter(Boolean);
+            const name = fileList.length > 1
+                ? fileList[0] + ' 외 ' + (fileList.length - 1) + '건'
+                : (fileList[0] || tag);
+            /* 단어 데이터도 전역 맵에 미리 저장 */
+            _fileWordMap[tag] = (data.wsPages || [])
+                .flatMap(p => (p.rows || []).filter(r => r.en || r.kr)
+                .map(r => ({ en: r.en || '', kr: r.kr || '' })));
+            const opt = document.createElement('option');
+            opt.value = tag;
+            opt.textContent = name;
+            sel.appendChild(opt);
+        });
+    } catch(e) {
+        console.warn('파일 목록 로드 실패:', e);
+    }
+}
+
+/* ── 방장: 대결 시작 — 파일 선택 확인 후 wordList를 방 문서에 저장 ── */
+async function btStartBattle() {
+    const sel = document.getElementById('bt-file-select');
+    const tag = sel.value;
+    if (!tag) { alert('파일을 선택해주세요.'); return; }
+
+    const words = _fileWordMap[tag] || [];
+    if (words.length === 0) { alert('선택한 파일에 단어가 없습니다.'); return; }
+
+    /* 단어 목록 + status를 playing으로 업데이트 — 상대도 동일 문제로 시작 */
+    try {
+        await window._fsSetDoc(
+            window._fsDoc(window._db, 'battles', _btRoomId),
+            { fileTag: tag, wordList: words, status: 'playing' },
+            { merge: true }
+        );
+    } catch(e) {
+        alert('시작 실패: ' + e.message);
+    }
+}
+
+/* ── 방 상태 실시간 구독 — 상태 변화에 따라 화면 전환 ── */
+function btSubscribeRoom(roomId) {
+    /* 이전 구독 해제 */
+    if (_btUnsubscribe) { _btUnsubscribe(); _btUnsubscribe = null; }
+
+    _btUnsubscribe = window._fsOnSnapshot(
+        window._fsDoc(window._db, 'battles', roomId),
+        snap => {
+            if (!snap.exists()) {
+                /* 방이 삭제됨 — 초대 거절 또는 종료 */
+                alert('대결이 취소되었습니다.');
+                btExit();
+                return;
+            }
+            const data = snap.data();
+
+            if (data.status === 'playing' && _btWordList.length === 0) {
+                /* 시작 신호 수신 — 대결 시작 */
+                btStartGame(data);
+            } else if (data.status === 'playing') {
+                /* 점수 실시간 갱신 */
+                btUpdateScoreboard(data);
+                /* 둘 다 완료 시 결과 화면 */
+                if (data.hostDone && data.guestDone) btShowResult(data);
+            }
+        }
+    );
+}
+
+/* ── 대결 시작 — 단어 목록 세팅 후 문제 화면 전환 ── */
+function btStartGame(data) {
+    const me = JSON.parse(localStorage.getItem('vocabCurrentUser'));
+    _btWordList = data.wordList || [];
+    _btWordIdx  = 0;
+    _btMyScore  = 0;
+
+    /* 스코어보드 이름 표시 */
+    const isHost = (me.uid === data.hostUid);
+    document.getElementById('bt-score-my-name').textContent   = '나 (' + me.uid + ')';
+    document.getElementById('bt-score-oppo-name').textContent = isHost ? data.guestUid : data.hostUid;
+    document.getElementById('bt-score-my-num').textContent    = '0';
+    document.getElementById('bt-score-oppo-num').textContent  = '0';
+    document.getElementById('bt-score-my-status').textContent   = '풀이 중';
+    document.getElementById('bt-score-oppo-status').textContent = '풀이 중';
+
+    /* 첫 문제 표시 */
+    btShowQuestion();
+    btShowView('bt-view-playing');
+
+    /* 정답 입력창 Enter 이벤트 */
+    const input = document.getElementById('bt-answer-input');
+    input.value = '';
+    input.disabled = false;
+    input.focus();
+    input.onkeydown = function(e) {
+        if (e.key !== 'Enter') return;
+        const myAns = input.value.replace(/\s/g, '').toLowerCase();
+        const correct = (_btWordList[_btWordIdx].kr || '').replace(/\s/g, '').toLowerCase();
+        if (myAns === correct) {
+            /* 정답 */
+            _btMyScore++;
+            btNextWord('correct');
+        } else {
+            /* 오답 — 빨간 테두리 후 다음으로 */
+                      btNextWord('wrong');
+        }
+    };
+}
+
+/* ── 현재 문제 화면에 표시 ── */
+function btShowQuestion() {
+    if (_btWordIdx >= _btWordList.length) return;
+    const word = _btWordList[_btWordIdx];
+    /* 영→한 고정 (영어 단어 보여주고 한국어 입력) */
+    document.getElementById('bt-question-text').textContent = word.en || '';
+    document.getElementById('bt-answer-input').value = '';
+}
+
+/* ── 다음 단어로 이동 — 마지막이면 내 완료 처리 ── */
+async function btNextWord(status) {
+    _btWordIdx++;
+    document.getElementById('bt-answer-input').value = '';
+
+    if (_btWordIdx >= _btWordList.length) {
+        /* 모든 문제 완료 — 내 점수 Firebase에 저장 */
+        document.getElementById('bt-answer-input').disabled = true;
+        document.getElementById('bt-score-my-status').textContent = '완료 ✅';
+        await btSaveMyScore();
+        return;
+    }
+    /* 스코어 즉시 반영 */
+    document.getElementById('bt-score-my-num').textContent = String(_btMyScore);
+    btShowQuestion();
+    await btSaveMyScore();
+}
+
+/* ── 내 점수 Firebase에 저장 ── */
+async function btSaveMyScore() {
+    const me = JSON.parse(localStorage.getItem('vocabCurrentUser'));
+    if (!me || !_btRoomId) return;
+    const roomSnap = await window._fsGetDoc(window._fsDoc(window._db, 'battles', _btRoomId));
+    if (!roomSnap.exists()) return;
+    const data = roomSnap.data();
+    const isHost = (me.uid === data.hostUid);
+    const isDone = (_btWordIdx >= _btWordList.length);
+
+    /* 방장이면 hostScore/hostDone, 게스트면 guestScore/guestDone 업데이트 */
+    const update = isHost
+        ? { hostScore: _btMyScore, hostDone: isDone }
+        : { guestScore: _btMyScore, guestDone: isDone };
+
+    try {
+        await window._fsSetDoc(
+            window._fsDoc(window._db, 'battles', _btRoomId),
+            update,
+            { merge: true }
+        );
+    } catch(e) {
+        console.warn('점수 저장 실패:', e);
+    }
+}
+
+/* ── 스코어보드 실시간 갱신 ── */
+function btUpdateScoreboard(data) {
+    const me = JSON.parse(localStorage.getItem('vocabCurrentUser'));
+    if (!me) return;
+    const isHost = (me.uid === data.hostUid);
+    const myScore   = isHost ? data.hostScore  : data.guestScore;
+    const oppoScore = isHost ? data.guestScore : data.hostScore;
+    const myDone    = isHost ? data.hostDone   : data.guestDone;
+    const oppoDone  = isHost ? data.guestDone  : data.hostDone;
+
+    document.getElementById('bt-score-my-num').textContent    = String(myScore);
+    document.getElementById('bt-score-oppo-num').textContent  = String(oppoScore);
+    document.getElementById('bt-score-my-status').textContent   = myDone   ? '완료 ✅' : '풀이 중';
+    document.getElementById('bt-score-oppo-status').textContent = oppoDone ? '완료 ✅' : '풀이 중';
+}
+
+/* ── 결과 화면 표시 ── */
+function btShowResult(data) {
+    const me = JSON.parse(localStorage.getItem('vocabCurrentUser'));
+    if (!me) return;
+    const isHost    = (me.uid === data.hostUid);
+    const myScore   = isHost ? data.hostScore  : data.guestScore;
+    const oppoScore = isHost ? data.guestScore : data.hostScore;
+    const oppoUid   = isHost ? data.guestUid   : data.hostUid;
+
+    /* 승패 판정 */
+    let icon, title;
+    if (myScore > oppoScore)      { icon = '🏆'; title = '승리!'; }
+    else if (myScore < oppoScore) { icon = '😢'; title = '패배...'; }
+    else                          { icon = '🤝'; title = '무승부!'; }
+
+    document.getElementById('bt-result-icon').textContent         = icon;
+    document.getElementById('bt-result-title').textContent        = title;
+    document.getElementById('bt-result-my-name').textContent      = '나';
+    document.getElementById('bt-result-my-score').textContent     = String(myScore);
+    document.getElementById('bt-result-oppo-name').textContent    = oppoUid;
+    document.getElementById('bt-result-oppo-score').textContent   = String(oppoScore);
+
+    btShowView('bt-view-result');
+}
+
+/* ── 대결 나가기 — 구독 해제 + 초기화 + 친구 목록으로 복귀 ── */
+function btExit() {
+    if (_btUnsubscribe) { _btUnsubscribe(); _btUnsubscribe = null; }
+    _btRoomId   = null;
+    _btIsHost   = false;
+    _btWordList = [];
+    _btWordIdx  = 0;
+    _btMyScore  = 0;
+    btShowView('bt-view-friends');
+    btWatchInvite();
+}
+
+/* ── 전역 등록 ── */
+window.btEnter       = btEnter;
+window.btChallenge   = btChallenge;
+window.btAccept      = btAccept;
+window.btReject      = btReject;
+window.btStartBattle = btStartBattle;
+window.btExit        = btExit;
+window.frLoadFriends = frLoadFriends; /* frLoadFriends 전역 등록 — btEnter에서 호출용 */
+window.frDeleteFriend = frDeleteFriend;
+window.frSearchUser  = frSearchUser;
+window.frAddFriend   = frAddFriend;
+
+/* ══════════════════════════════════════
    타임어택 — 카운트다운 타이머
 ══════════════════════════════════════ */
 
@@ -1630,11 +3887,10 @@ function startPerTimer(perSec) {
         el.textContent = secToStr(_timerPer);
 
         /* 0:00 — 다음 단어로 이동 */
-        if (_timerPer <= 0) {
+               if (_timerPer <= 0) {
             clearInterval(_timerPerId);
             el.textContent = '0:00';
-            /* 다음 단어 이동 함수 — 추후 연결 */
-            // nextWord();
+            nextWord('timeout', ''); /* 시간 초과 — 오답 처리 후 다음 단어로 이동 */
         }
     }, 1000);
 }
@@ -1643,16 +3899,16 @@ function startPerTimer(perSec) {
 function startTimerFromConfig() {
     const totalMin = Number(document.getElementById('total-min').value) || 0;
     const totalSec = Number(document.getElementById('total-sec').value) || 0;
-    const perMin   = Number(document.getElementById('per-min').value)   || 0;
-    const perSec   = Number(document.getElementById('per-sec').value)   || 0;
-
     const totalAll = totalMin * 60 + totalSec; /* 전체시간 총 초 */
-    const perAll   = perMin   * 60 + perSec;   /* 단어당시간 총 초 */
-
     if (totalAll > 0) startTotalTimer(totalAll); /* 전체시간 타이머 시작 */
-    if (perAll   > 0) startPerTimer(perAll);     /* 단어당시간 타이머 시작 */
-}
 
+       /* 타임워드 출제모드 선택 시 단어당 타이머 시작 — _twPerSec 독립 저장값 사용 */
+    if (_twPerSec > 0) {
+        document.getElementById('timer-divider').style.display = ''; /* 구분선 표시 */
+        document.getElementById('timer-per-wrap').style.display = ''; /* 단어당 타이머 표시 */
+        startPerTimer(_twPerSec); /* 단어당 타이머 시작 */
+    }
+}
 /* 타이머 전체 정지 — 시험 종료/나가기 시 호출 */
 function stopAllTimers() {
     clearInterval(_timerTotalId);
@@ -1671,12 +3927,16 @@ window.startPerTimer        = startPerTimer;
 
 /* 게이지바 색상 — 남은 비율별 반환 */
 function getGaugeColor(ratio) {
+    /* root 변수에서 게이지 색 읽기 — JS에 색 하드코딩 없음 */
+    const style = getComputedStyle(document.documentElement);
+    const high  = style.getPropertyValue('--gauge-high').trim(); /* 70%~100% — 빨강 */
+    const mid   = style.getPropertyValue('--gauge-mid').trim();  /* 31%~69%  — 하늘색 */
+    const low   = style.getPropertyValue('--gauge-low').trim();  /* 0%~30%   — 초록 */
     /* ratio: 0.0 ~ 1.0 (남은단어/전체단어) */
-    if (ratio > 0.69) return '#ef4444'; /* 70%~100% — 빨강 */
-    if (ratio > 0.30) return '#60b8d4'; /* 31%~69%  — 하늘색 */
-    return '#16a34a';                   /* 0%~30%   — 초록 */
+    if (ratio > 0.69) return high;
+    if (ratio > 0.30) return mid;
+    return low;
 }
-
 /* 게이지바 업데이트 — 문제 넘길 때마다 호출 */
 function updateGauge(total, remain) {
     const ratio = total > 0 ? remain / total : 0; /* 남은 비율 계산 */
@@ -1695,39 +3955,32 @@ window.updateGauge = updateGauge;
 
 /* 초기값 — 테스트용 (실제 시험 시작 시 updateGauge(전체수, 남은수) 호출) */
 updateGauge(20, 20);
-/* ── 언어모드 항목 클릭 — 임시 하이라이트만, 확정은 완료버튼에서 ── */
-function selectLangmode(val, label, el, event) {
-    event.stopPropagation();
-    /* 임시 선택값 저장 */
-    _pendingSelect.lang = { val, label };
-    /* 하이라이트만 변경 — soloConfig 미반영 */
-    document.querySelectorAll('#langmode-dropdown .sel-dropdown-item')
-        .forEach(i => i.classList.remove('selected'));
-    el.classList.add('selected');
-    /* mix일 때 슬라이더 표시 — 미리보기 목적 유지 */
-    document.getElementById('lang-slider-wrap')
-        .classList.toggle('visible', val === 'mix');
-}/* ── 티커 배너 — 항목 순환 표시 ── */
+/* ── 티커 배너 — 항목 순환 표시 ── */
 let _tickerTimer  = null;   /* 타이머 ID */
 let _tickerIdx    = 0;      /* 현재 항목 인덱스 */
-/* 티커에 표시할 항목 목록 수집 */
+/* 티커에 표시할 항목 목록 수집 — fileSettings 기준 */
 function getTickerItems() {
-    const files = [...document.querySelectorAll('#filelist-dropdown .sel-dropdown-item.selected')]
-        .map(i => i.querySelector('span')?.textContent || '');
     const items = [];
-    /* 파일 — 여러 개면 각각 추가, 라벨은 동일 */
-    if (files.length > 0) files.forEach(f => items.push({ lbl: '📂 파일', val: f }));
-    else items.push({ lbl: '📂 파일', val: '' });
-    /* 나머지 항목 */
-    const get = id => { const t = document.getElementById(id)?.textContent; return t !== '선택하세요' ? t : ''; };
-    items.push({ lbl: '📂 범위', val: get('filemode-value') });
-    items.push({ lbl: '🔀 진행', val: get('playmode-value') });
-    items.push({ lbl: '📝 출제', val: get('exammode-value') });
-    items.push({ lbl: '⏱ 시간', val: get('timemode-value') });
-    items.push({ lbl: '🌐 언어', val: get('langmode-value') });
+    const settings = soloConfig.fileSettings || [];
+
+    /* 파일별 설정 — 선택된 파일마다 한 줄씩 */
+    if (settings.length > 0) {
+        settings.forEach(s => {
+            /* 파일명 찾기 — fs-body에서 해당 tag 행의 파일명 셀 텍스트 */
+            const nameCell = document.querySelector(`.fs-row[data-tag="${s.tag}"] .fs-col-name`);
+            const name = nameCell ? nameCell.textContent : s.tag;
+            items.push({ lbl: '📂 파일', val: name });
+        });
+    } else {
+        items.push({ lbl: '📂 파일', val: '' });
+    }
+
+    /* 시간모드 — 기존 timemode-value 유지 */
+    const timeVal = document.getElementById('timemode-value')?.textContent;
+    items.push({ lbl: '⏱ 시간', val: timeVal !== '선택하세요' ? timeVal : '' });
+
     return items;
 }
-
 /* 티커 슬라이드 전환 */
 function tickerNext() {
     const items = getTickerItems();
@@ -1769,44 +4022,60 @@ function startTicker() {
     _tickerTimer = setInterval(tickerNext, 2000);
 }
 
-/* 펼침 드롭다운 내용 업데이트 */
+/* 펼침 드롭다운 내용 업데이트 — fileSettings 기준 */
 function updateTickerDropdown() {
-    const get = id => { const t = document.getElementById(id)?.textContent; return t !== '선택하세요' ? t : ''; };
-    const files = [...document.querySelectorAll('#filelist-dropdown .sel-dropdown-item.selected')]
-        .map(i => i.querySelector('span')?.textContent || '').join(', ');
+    const settings = soloConfig.fileSettings || [];
     const el = id => document.getElementById(id);
-    if (el('td-file')) el('td-file').textContent = files;
-    if (el('td-range')) el('td-range').textContent = get('filemode-value');
-    if (el('td-play'))  el('td-play').textContent  = get('playmode-value');
-    if (el('td-exam'))  el('td-exam').textContent  = get('exammode-value');
-    if (el('td-time'))  el('td-time').textContent  = get('timemode-value');
-    if (el('td-lang'))  el('td-lang').textContent  = get('langmode-value');
-}
 
-/* 티커 드롭다운 열기/닫기 */
+    /* 파일명 목록 — 선택된 파일명 콤마 구분 */
+    const fileNames = settings.map(s => {
+        const nameCell = document.querySelector(`.fs-row[data-tag="${s.tag}"] .fs-col-name`);
+        return nameCell ? nameCell.textContent : s.tag;
+    }).join(', ');
+    if (el('td-file')) el('td-file').textContent = fileNames;
+
+    /* 시간모드 — 기존 유지 */
+    const timeVal = el('timemode-value')?.textContent;
+    if (el('td-time')) el('td-time').textContent = timeVal !== '선택하세요' ? timeVal : '';
+
+    /* 나머지 항목 — 파일별 설정이므로 첫 번째 파일 기준으로 표시 */
+    const first = settings[0];
+    if (el('td-range')) el('td-range').textContent = first ? first.excludeBy : '';
+    if (el('td-play'))  el('td-play').textContent  = first ? first.playMode  : '';
+    if (el('td-exam'))  el('td-exam').textContent  = first ? first.examMode  : '';
+    if (el('td-lang'))  el('td-lang').textContent  = first ? first.lang      : '';
+}
+/* 티커 드롭다운 열기/닫기 — 우측 값 영역 너비/위치에 맞춰 드롭다운 배치 */
 function toggleTickerDropdown(event) {
     event.stopPropagation();
-    const dd = document.getElementById('ticker-dropdown');
+    const dd  = document.getElementById('ticker-dropdown');
     if (!dd) return;
     dd.classList.toggle('open');
-    if (dd.classList.contains('open')) updateTickerDropdown();
+          if (dd.classList.contains('open')) {
+               /* 티커 좌측라벨~우측창 끝(시작버튼 제외)에 맞춰 드롭다운 배치 */
+        const startBtn = document.getElementById('solo-start-btn');
+        const wrapEl   = document.querySelector('.ticker-wrap');
+        if (startBtn && wrapEl) {
+            const btnRect  = startBtn.getBoundingClientRect();
+            const wrapRect = wrapEl.getBoundingClientRect();
+            dd.style.left  = '0';
+            dd.style.right = (wrapRect.right - btnRect.left) + 'px';
+            dd.style.width = 'auto';
+        }
+        updateTickerDropdown();
+    }
 }
 
-
-/* ── 시작 버튼 활성화 조건 ── */
+/* ── 시작 버튼 활성화 조건 — 새 구조 기준 ── */
 function updateStartBtn() {
     const btn = document.getElementById('solo-start-btn');
-    const ok = soloConfig.files.length > 0
-             && soloConfig.excludeBy !== ''
-             && soloConfig.playMode  !== ''
-             && soloConfig.examMode  !== ''
-             && soloConfig.timeMode  !== ''
-             && soloConfig.lang      !== '';
-        btn.disabled = !ok;
+    /* 파일설정 1개 이상 선택 + 시간모드 설정됨 — 두 조건 모두 충족 시 활성화 */
+    const hasFiles    = (soloConfig.fileSettings || []).length > 0;
+    const hasTimeMode = soloConfig.timeMode !== '';
+    btn.disabled = !(hasFiles && hasTimeMode);
     /* 선택 항목 변경 시 티커 드롭다운 내용 갱신 */
     updateTickerDropdown();
-}
-/* ══════════════════════════════════════
+}/* ══════════════════════════════════════
    시험 결과 데이터 — 전역 저장
 ══════════════════════════════════════ */
 let _resultList = []; /* 결과 항목 배열 — { no, question, answer, myAnswer, status } */
@@ -1864,7 +4133,7 @@ function renderResultTable(filter) {
     /* 항목 없을 때 안내 */
     if (list.length === 0) {
         const tr = document.createElement('tr');
-        tr.innerHTML = '<td colspan="5" style="padding:24px;color:#999;">해당 항목이 없습니다.</td>';
+        tr.innerHTML = '<td colspan="5" style="padding:24px;color:var(--text-empty);">해당 항목이 없습니다.</td>'; /* 빈 항목 텍스트 — root 변수 */
         tbody.appendChild(tr);
     }
 }
@@ -1882,15 +4151,16 @@ function filterResult(filter, boxEl) {
 window.filterResult = filterResult;
 window.showResult   = showResult;
 
-/* ── 언어 모드에 따라 문제 텍스트 결정 — 전역 함수 (시험 중 다음 단어 이동에도 사용) ── */
-function getQuestion(word) {    const lang = soloConfig.lang;
+/* ── 언어 모드에 따라 문제 텍스트 결정 — 현재 단어 파일의 fileSettings 언어모드 기준 ── */
+function getQuestion(word) {
+    /* 현재 단어의 tag로 해당 파일 설정 찾기 */
+    const setting = (soloConfig.fileSettings || []).find(s => s.tag === word.tag);
+    const lang = setting ? setting.lang : 'en'; /* 설정 없으면 영어 기본값 */
     if (lang === 'en') return word.en;
     if (lang === 'ko') return word.kr;
-    /* mix — 슬라이더 비율대로 랜덤 결정 */
-    const enRatio = Number(document.getElementById('lang-slider')?.value ?? 50);
-    return Math.random() * 100 < enRatio ? word.en : word.kr;
+    /* mix — 50:50 랜덤 */
+    return Math.random() < 0.5 ? word.en : word.kr;
 }
-
 /* ── 다음 단어로 이동 — status: 'correct'/'wrong'/'timeout' ── */
 function nextWord(status, myAnswer) {
     /* 현재 단어 결과 기록 */
@@ -1924,42 +4194,41 @@ function nextWord(status, myAnswer) {
     /* 게이지바 업데이트 */
     updateGauge(_wordList.length, remain);
 
-    /* 단어당 타이머 재시작 */
-    const perMin = Number(document.getElementById('per-min').value) || 0;
-    const perSec = Number(document.getElementById('per-sec').value) || 0;
-    const perAll = perMin * 60 + perSec;
-    if (perAll > 0) startPerTimer(perAll);
+       /* 타임워드 출제모드일 때 단어당 타이머 재시작 — _twPerSec 독립 저장값 사용 */
+    if (_twPerSec > 0) startPerTimer(_twPerSec);
 }
-/* ── 현재 문제의 정답 텍스트 반환 — 언어모드 반대쪽 ── */
+/* ── 현재 문제의 정답 텍스트 반환 — 현재 단어 파일의 fileSettings 언어모드 기준 ── */
 function getAnswer(word) {
-    const lang = soloConfig.lang;
+    /* 현재 단어의 tag로 해당 파일 설정 찾기 */
+    const setting = (soloConfig.fileSettings || []).find(s => s.tag === word.tag);
+    const lang = setting ? setting.lang : 'en'; /* 설정 없으면 영어 기본값 */
     if (lang === 'en') return word.kr; /* 문제가 영어면 정답은 한국어 */
     if (lang === 'ko') return word.en; /* 문제가 한국어면 정답은 영어 */
-    /* mix — 현재 문제가 en이면 정답은 kr, 반대도 동일 */
+    /* mix — 현재 문제 텍스트 기준으로 반대쪽 반환 */
     const curQ = document.getElementById('qa-question').querySelector('.qa-question-text').textContent;
     return curQ === word.en ? word.kr : word.en;
 }
-
 /* ── 띄어쓰기 제거 비교 — 공백만 무시, 글자 다르면 틀림 ── */
 function normalizeAnswer(str) {
     return str.replace(/\s/g, '').toLowerCase();
 }
 
-/* ── 시험 시작 ── */
+/* ── 시험 시작 — fileSettings 파일별 독립 설정 기준 ── */
 async function startSoloExam() {
     console.log('시험 설정:', soloConfig);
 
-    /* 파일이 선택되지 않으면 시작 불가 */
-    const rawList = soloConfig.files.flatMap(t => _fileWordMap[t] || []);
-    if (rawList.length === 0) {
-        alert('파일을 선택하면 단어가 불러와집니다.');
+    /* 파일설정이 없으면 시작 불가 */
+    const settings = soloConfig.fileSettings || [];
+    if (settings.length === 0) {
+        alert('파일을 선택해주세요.');
         return;
     }
 
-    /* 시험 시작 시점에 제외단어 필터링 — 범위선택 확정 순서 무관하게 항상 정확히 적용 */
-    if (soloConfig.excludeBy === 'mine') {
+    /* 제외단어 로드 — mine 설정 파일이 하나라도 있으면 Firebase에서 로드 */
+    let excludedSet = new Set();
+    const needsMine = settings.some(s => s.excludeBy === 'mine');
+    if (needsMine) {
         const user = JSON.parse(localStorage.getItem('vocabCurrentUser')); /* localStorage에서 로그인 상태 확인 */
-        let excludedSet = new Set();
         if (user && window._db) {
             try {
                 const docRef = window._fsDoc(window._db, 'keywords', user.uid);
@@ -1970,20 +4239,45 @@ async function startSoloExam() {
                 console.warn('제외단어 로드 실패:', e);
             }
         }
-        _wordList = rawList.filter(row => {
-            if (!row.en) return true;
-            const words = row.en.toLowerCase().split(/\s+/);
-            return !words.some(w => excludedSet.has(w));
-        });
-    } else {
-        _wordList = rawList;
+    }
+
+    /* 파일별 독립 설정 기준으로 단어 목록 구성 */
+    _wordList = [];
+       for (const s of settings) {
+        let words = _fileWordMap[s.tag] || [];
+
+        /* ── 진행모드 범위 적용 — playRange 설정된 경우 해당 번호 구간만 추출 ── */
+        if (s.playRange) {
+            const start = s.playRange.start - 1; /* 1-based → 0-based 변환 */
+            const end   = s.playRange.end;        /* slice end는 exclusive이므로 그대로 */
+            words = words.slice(start, end);
+        }
+
+        /* ── 출제범위 — 파일별 독립 적용 ── */
+        if (s.excludeBy === 'mine') {
+            words = words.filter(row => {
+                if (!row.en) return true;
+                const ws = row.en.toLowerCase().split(/\s+/);
+                return !ws.some(w => excludedSet.has(w));
+            });
+        }
+
+        /* ── 진행모드 순서 적용 — random이면 셔플 ── */
+        if (s.playMode === 'random') {
+            for (let i = words.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [words[i], words[j]] = [words[j], words[i]]; /* Fisher-Yates 셔플 */
+            }
+        }
+
+        /* 각 단어에 파일 tag 추가 — getQuestion/getAnswer에서 파일별 설정 참조용 */
+        _wordList.push(...words.map(w => ({ ...w, tag: s.tag })));
     }
 
     if (_wordList.length === 0) {
-        alert('제외단어를 적용하면 출제할 단어가 없습니다.');
+        alert('출제할 단어가 없습니다.');
         return;
     }
-
     /* 첫 번째 단어 문제창에 표시 */
     _wordIdx = 0;
     document.getElementById('qa-question').querySelector('.qa-question-text')
@@ -2009,8 +4303,6 @@ async function startSoloExam() {
             nextWord('correct', answerInput.value);
         } else {
             /* 오답 — wrong으로 기록 후 빨간 테두리 + 초기화 */
-            answerInput.style.border = '2px solid #ef4444';
-            setTimeout(() => { answerInput.style.border = ''; }, 600);
             nextWord('wrong', answerInput.value);
         }
     };
@@ -2028,202 +4320,26 @@ async function startSoloExam() {
         location.href = 'common.html';
     }
 
-                 /* ── 완료버튼 확정 함수 — 파일선택 ── */
-async function confirmFilelist(event) {
-    event.stopPropagation(); /* 버블링 차단 — sel-box의 toggleDropdown 재실행 방지 */
-    /* 260ms 후 toggleDropdown 타이머가 다시 열지 못하도록 플래그 설정 */
-    _skipNextOpen = true; /* 현재 하이라이트된 항목을 soloConfig.files에 확정 */
-    soloConfig.files = [...document.querySelectorAll('#filelist-dropdown .sel-dropdown-item.selected')]
-        .map(el => el.dataset.tag);
-      /* 확정 후 단어 목록 갱신 — 제외단어 필터링 포함 */
-    _wordIdx = 0;
-
-    /* 범위 선택이 '내 제외단어'면 Firebase에서 키워드 로드 후 필터링 */
-    if (soloConfig.excludeBy === 'mine') {
-        /* 로그인 유저 정보 확인 */
-        const user = JSON.parse(localStorage.getItem('vocabCurrentUser')); /* localStorage에서 로그인 상태 확인 */
-        let excludedSet = new Set();
-
-        if (user && window._db) {
-            try {
-                /* keywords/{uid} 문서에서 제외단어 배열 읽기 */
-                const docRef = window._fsDoc(window._db, 'keywords', user.uid);
-                const snap   = await window._fsGetDoc(docRef);
-                const kwWords = snap.exists() ? (snap.data().words || []) : [];
-                /* 소문자 Set으로 변환 — 대소문자 무관 비교 */
-                excludedSet = new Set(kwWords.map(w => w.toLowerCase()));
-            } catch(e) {
-                console.warn('제외단어 로드 실패:', e);
-            }
-        }
-
-        /* 전체 단어 목록에서 제외단어 포함 행 필터링 */
-        _wordList = soloConfig.files.flatMap(t => _fileWordMap[t] || []).filter(row => {
-            if (!row.en) return true; /* 영어 없는 행은 유지 */
-            /* en을 공백으로 split — 한 단어라도 제외단어 Set에 있으면 제거 */
-            const words = row.en.toLowerCase().split(/\s+/);
-            return !words.some(w => excludedSet.has(w));
-        });
-    } else {
-        /* 제외단어 없이 전체 출제 */
-        _wordList = soloConfig.files.flatMap(t => _fileWordMap[t] || []);
-    }
-
-    /* 파일 선택 시 문제창은 항상 대기 문구만 표시 — 시험 시작 전까지 단어 노출 안 함 */
-    document.getElementById('qa-question').querySelector('.qa-question-text')
-        .textContent = '문제가 여기에 표시됩니다.';
-    updateGauge(_wordList.length, _wordList.length);
-    updateStartBtn(); /* 시작버튼 활성화 조건 갱신 */
-       _pendingSelect.files = null;
-        /* 드롭다운 닫기 + 탭 복귀 */
-    document.getElementById('filelist-dropdown').classList.remove('open');
-    const activeBox = document.querySelector('#solo-tab-row-active .sel-box');
-    const ph = document.querySelector('.sel-box-placeholder');
-       if (activeBox) {
-        /* 260ms 타이머 충돌 방지 — style 전부 미리 초기화 */
-        activeBox.style.position      = '';
-        activeBox.style.zIndex        = '';
-        activeBox.style.pointerEvents = '';
-        activeBox.style.margin        = '';
-        activeBox.style.width         = '';
-        activeBox.style.top           = '';
-        activeBox.style.left          = '';
-        activeBox.style.transition    = '';
-        activeBox.classList.remove('active');
-        if (ph) { ph.parentNode.insertBefore(activeBox, ph); ph.remove(); }
-    }
-    /* 탭 복귀 완료 후 플래그 즉시 리셋 — 다음 탭 클릭 시 드롭다운 정상 열림 */
-    _skipNextOpen = false;
-}
-/* ── 완료버튼 확정 함수 — 범위선택 ── */
-function confirmFilemode(event) {
-    event.stopPropagation();
-    if (!_pendingSelect.excludeBy) return; /* 선택 없으면 무시 */
-    const { val, label } = _pendingSelect.excludeBy;
-    soloConfig.excludeBy = val;
-    document.getElementById('filemode-value').textContent = label;
-    /* 확정 항목에 data 마킹 — 취소 시 복귀 기준 */
-    document.querySelectorAll('#filemode-dropdown .sel-dropdown-item')
-        .forEach(el => { el.dataset.confirmedVal = el.classList.contains('selected') ? 'yes' : ''; });
-    _pendingSelect.excludeBy = null;
-    updateStartBtn();
-    document.getElementById('filemode-dropdown').classList.remove('open');
-    const activeBox = document.querySelector('#solo-tab-row-active .sel-box');
-    if (activeBox) {
-        activeBox.classList.remove('active');
-        const ph = document.querySelector('.sel-box-placeholder');
-        if (ph) { ph.parentNode.insertBefore(activeBox, ph); ph.remove(); }
-    }
-}
-/* ── 완료버튼 확정 함수 — 진행모드 ── */
-function confirmPlaymode(event) {
-    event.stopPropagation();
-    if (!_pendingSelect.playMode) return;
-    const { val, label } = _pendingSelect.playMode;
-    soloConfig.playMode = val;
-    document.getElementById('playmode-value').textContent = label;
-    document.querySelectorAll('#playmode-dropdown .sel-dropdown-item')
-        .forEach(el => { el.dataset.confirmedVal = el.classList.contains('selected') ? 'yes' : ''; });
-    _pendingSelect.playMode = null;
-    updateStartBtn();
-    document.getElementById('playmode-dropdown').classList.remove('open');
-    const activeBox = document.querySelector('#solo-tab-row-active .sel-box');
-    if (activeBox) {
-        activeBox.classList.remove('active');
-        const ph = document.querySelector('.sel-box-placeholder');
-        if (ph) { ph.parentNode.insertBefore(activeBox, ph); ph.remove(); }
-    }
-}
-/* ── 완료버튼 확정 함수 — 출제모드 ── */
-function confirmExammode(event) {
-    event.stopPropagation();
-    if (!_pendingSelect.examMode) return;
-    const { val, label } = _pendingSelect.examMode;
-    soloConfig.examMode = val;
-    document.getElementById('exammode-value').textContent = label;
-    document.querySelectorAll('#exammode-dropdown .sel-dropdown-item')
-        .forEach(el => { el.dataset.confirmedVal = el.classList.contains('selected') ? 'yes' : ''; });
-    _pendingSelect.examMode = null;
-    updateStartBtn();
-    document.getElementById('exammode-dropdown').classList.remove('open');
-    const activeBox = document.querySelector('#solo-tab-row-active .sel-box');
-    if (activeBox) {
-        activeBox.classList.remove('active');
-        const ph = document.querySelector('.sel-box-placeholder');
-        if (ph) { ph.parentNode.insertBefore(activeBox, ph); ph.remove(); }
-    }
-}
-/* ── 완료버튼 확정 함수 — 시간모드 ── */
-function confirmTimemode(event) {
-    event.stopPropagation();
-    if (!_pendingSelect.timeMode) return;
-    const { totalMin, totalSec, perMin, perSec } = _pendingSelect.timeMode;
-    soloConfig.timeMode = 'set';
-    /* 확정된 시간값 저장 — 취소 시 복귀용 */
-    soloConfig._timeSaved = { totalMin, totalSec, perMin, perSec };
-    const pad = n => String(n).padStart(2,'0');
-    document.getElementById('timemode-value').textContent =
-        `⏱${totalMin}:${pad(totalSec)} / 📋${perMin}:${pad(perSec)}`;
-    document.getElementById('timer-total').textContent = `${totalMin}:${pad(totalSec)}`;
-    document.getElementById('timer-per').textContent   = `${perMin}:${pad(perSec)}`;
-    _pendingSelect.timeMode = null;
-    updateStartBtn();
-    document.getElementById('timemode-dropdown').classList.remove('open');
-    const activeBox = document.querySelector('#solo-tab-row-active .sel-box');
-    if (activeBox) {
-        activeBox.classList.remove('active');
-        const ph = document.querySelector('.sel-box-placeholder');
-        if (ph) { ph.parentNode.insertBefore(activeBox, ph); ph.remove(); }
-    }
-}
-/* ── 완료버튼 확정 함수 — 언어모드 ── */
-function confirmLangmode(event) {
-    event.stopPropagation();
-    if (!_pendingSelect.lang) return;
-    const { val, label } = _pendingSelect.lang;
-    soloConfig.lang = val;
-    document.getElementById('langmode-value').textContent = label;
-    document.querySelectorAll('#langmode-dropdown .sel-dropdown-item')
-        .forEach(el => { el.dataset.confirmedVal = el.classList.contains('selected') ? 'yes' : ''; });
-    _pendingSelect.lang = null;
-    updateStartBtn();
-    document.getElementById('langmode-dropdown').classList.remove('open');
-    const activeBox = document.querySelector('#solo-tab-row-active .sel-box');
-    if (activeBox) {
-        activeBox.classList.remove('active');
-        const ph = document.querySelector('.sel-box-placeholder');
-        if (ph) { ph.parentNode.insertBefore(activeBox, ph); ph.remove(); }
-    }
-}
 
     /* ── 함수 전역 등록 — type="module" 스코프 탈출용 ── */
       window.toggleViewMode        = toggleViewMode;
     window.showScreen            = showScreen;
     window.goMain                = goMain;
     window.toggleDropdown        = toggleDropdown;
-    window.toggleFilelistItem    = toggleFilelistItem;
-    window.selectFilemode        = selectFilemode;
-    window.selectPlaymode        = selectPlaymode;
-    window.selectExammode        = selectExammode;
-    window.selectLangmode        = selectLangmode;
-    window.updateTimemodeDisplay = updateTimemodeDisplay;
+window.fsLoadFiles  = fsLoadFiles;   /* 파일목록 로드 */
+window.fsConfirm    = fsConfirm;     /* 완료버튼 확정 */
+        window.updateTimemodeDisplay = updateTimemodeDisplay;
     window.startSoloExam         = startSoloExam;
     window.doLogout              = doLogout;
 
-    window.confirmFilelist          = confirmFilelist;          /* 파일선택 완료확정 */
-    window.confirmFilemode          = confirmFilemode;          /* 범위선택 완료확정 */
-    window.confirmPlaymode          = confirmPlaymode;          /* 진행모드 완료확정 */
-    window.confirmExammode          = confirmExammode;          /* 출제모드 완료확정 */
-    window.confirmTimemode          = confirmTimemode;          /* 시간모드 완료확정 */
-    window.confirmLangmode          = confirmLangmode;          /* 언어모드 완료확정 */
-    window.updateFilelistBorder     = updateFilelistBorder;     /* 테두리 색 업데이트 */
+       window.updateFilelistBorder     = updateFilelistBorder;     /* 테두리 색 업데이트 */
           window.toggleTickerDropdown     = toggleTickerDropdown;     /* 티커 드롭다운 열기/닫기 */
     window.updateTickerDropdown     = updateTickerDropdown;     /* 티커 드롭다운 내용 갱신 */
      /* 페이지 로드 시 티커 시작 */
     startTicker();
 
     /* ── 드롭다운 열린 상태에서 Enter → 현재 활성 탭 완료버튼 실행 ── */
-    document.addEventListener('keydown', function(e) {
+      document.addEventListener('keydown', function(e) {
         if (e.key !== 'Enter') return;
         /* 열린 드롭다운 확인 */
         const openDd = document.querySelector('.sel-dropdown.open');
@@ -2233,12 +4349,8 @@ function confirmLangmode(event) {
         e.preventDefault();
         /* 열린 드롭다운 id로 어떤 탭인지 판별 후 해당 confirm 함수 호출 */
         const id = openDd.id;
-        if (id === 'filelist-dropdown') confirmFilelist(e);
-        else if (id === 'filemode-dropdown')  confirmFilemode(e);
-        else if (id === 'playmode-dropdown')  confirmPlaymode(e);
-        else if (id === 'exammode-dropdown')  confirmExammode(e);
-        else if (id === 'timemode-dropdown')  confirmTimemode(e);
-        else if (id === 'langmode-dropdown')  confirmLangmode(e);
+        if (id === 'filelist-dropdown') fsConfirm(e);       /* 파일선택 — 새 구조 */
+        else if (id === 'timemode-dropdown') confirmTimemode(e); /* 시간모드 — 유지 */
     });
 
 
@@ -2261,6 +4373,7 @@ window.addEventListener('DOMContentLoaded', function () {
     showScreen('screen-main');
 });
 </script>
+</head>
 
 <!-- ══════════════════════════════════════
      HTML
@@ -2314,12 +4427,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 <div class="card-desc">이전 시험 결과<br>불러오기</div>
             </div>
 
-            <!-- 친구 관리 -->
-            <div class="main-card card-friend" onclick="showScreen('screen-friend')">
-                <div class="card-icon-wrap">👥</div>
-                <div class="card-label">친구 관리</div>
-                <div class="card-desc">친구 추가 및<br>목록 관리</div>
-            </div>
+           
 
         </div>
     </div>
@@ -2351,7 +4459,7 @@ window.addEventListener('DOMContentLoaded', function () {
             <div class="ticker-val" id="ticker-val"></div>
         </div>
         <!-- 시험 시작 버튼 — 티커 우측 끝 -->
-        <button id="solo-start-btn" class="solo-start-btn" onclick="startSoloExam()" disabled>
+        <button id="solo-start-btn" class="solo-start-btn" onclick="event.stopPropagation(); startSoloExam()" disabled>
             시험 시작 →
         </button>
         <!-- 펼침 드롭다운 — 6개 항목 고정 표시 -->
@@ -2371,62 +4479,42 @@ window.addEventListener('DOMContentLoaded', function () {
             <!-- 위쪽 탭 줄 — 비활성 탭들 -->
             <div class="solo-tab-row" id="solo-tab-row">
                       <!-- ① 파일 선택 -->
-                      <div class="sel-box" onclick="toggleDropdown('filelist-dropdown')">
-                <div class="sel-label">📂 파일 선택<button class="sel-confirm-btn" onclick="confirmFilelist(event)"></button></div>
+                    <div class="sel-box">
+    <!-- 라벨 클릭 → 드롭다운 열기만 담당 / 완료버튼 클릭 → 닫기만 담당 -->
+    <div class="sel-label" onclick="toggleDropdown('filelist-dropdown')">📂 파일 선택<button class="sel-confirm-btn" onclick="fsConfirm(event)"></button></div>
                 <div class="sel-value" id="filelist-value">선택하세요</div>
                                                <div id="filelist-dropdown" class="sel-dropdown">
                     <!-- 파일 목록 — 직접 배치, 스크롤바로 위아래 이동 -->
                     <div id="filelist-list" class="sel-dropdown-right" onscroll="updateFilelistBorder()">
-                        <div style="padding:12px 16px;font-size:13px;color:var(--sel-val-text)">파일 목록 준비 중...</div>
-                    </div>
+    <!-- 새 파일선택 테이블 구조 — fs- 접두사, 기존 코드와 완전 독립 -->
+    <div class="fs-table" id="fs-table">
+        <!-- 테이블 헤더 행 — 열 제목 고정 -->
+        <div class="fs-header-row">
+                      <div class="fs-header-cell fs-col-name">파일명</div>
+            <div class="fs-header-cell fs-col-count">수량</div>
+            <div class="fs-header-cell fs-col-range">출제범위</div>
+            <div class="fs-header-cell fs-col-play">진행모드</div>
+            <div class="fs-header-cell fs-col-exam">출제모드</div>
+            <div class="fs-header-cell fs-col-lang">언어모드</div>
+        </div>
+        <!-- 파일 행 목록 스크롤 영역 — JS에서 fs-row 동적 생성 -->
+        <div class="fs-body" id="fs-body">
+            <div style="padding:12px 16px;font-size:13px;color:var(--sel-val-text)">파일 목록 준비 중...</div>
+        </div>
+    </div>
+</div>
                 </div>
             </div>
             
 
-            <!-- ② 범위 선택 -->
-                        <div class="sel-box" onclick="toggleDropdown('filemode-dropdown')">
-                                <div class="sel-label">📂 범위 선택<button class="sel-confirm-btn" onclick="confirmFilemode(event)"></button></div>
-                <div class="sel-value" id="filemode-value">선택하세요</div>
-                                <div id="filemode-dropdown" class="sel-dropdown">
-                    <div class="sel-dropdown-right">
-                        <div class="sel-dropdown-item" onclick="selectFilemode('mine','내 제외단어',this,event)">내 제외단어</div>
-                        <div class="sel-dropdown-item" onclick="selectFilemode('opponent','상대 제외단어',this,event)">상대 제외단어</div>
-                        <div class="sel-dropdown-item" onclick="selectFilemode('intersect','교집합',this,event)">교집합</div>
-                        <div class="sel-dropdown-item" onclick="selectFilemode('none','원본',this,event)">원본</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ③ 진행 모드 -->
-                      <div class="sel-box" onclick="toggleDropdown('playmode-dropdown')">
-                                <div class="sel-label">🔀 진행 모드<button class="sel-confirm-btn" onclick="confirmPlaymode(event)"></button></div>
-                <div class="sel-value" id="playmode-value">선택하세요</div>
-                               <div id="playmode-dropdown" class="sel-dropdown">
-                    <div class="sel-dropdown-right">
-                        <div class="sel-dropdown-item" onclick="selectPlaymode('seq','순차적',this,event)">순차적</div>
-                        <div class="sel-dropdown-item" onclick="selectPlaymode('section','구간별',this,event)">구간별</div>
-                        <div class="sel-dropdown-item" onclick="selectPlaymode('random','무작위',this,event)">무작위</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ④ 출제 모드 -->
-                      <div class="sel-box" onclick="toggleDropdown('exammode-dropdown')">
-                                <div class="sel-label">📝 출제 모드<button class="sel-confirm-btn" onclick="confirmExammode(event)"></button></div>
-                <div class="sel-value" id="exammode-value">선택하세요</div>
-                                <div id="exammode-dropdown" class="sel-dropdown">
-                    <div class="sel-dropdown-right">
-                        <div class="sel-dropdown-item" onclick="selectExammode('timed','문제당 시간안에',this,event)">문제당 시간안에</div>
-                        <div class="sel-dropdown-item" onclick="selectExammode('allwrite','영어·한국어 뜻 모두 적기',this,event)">영어·한국어 뜻 모두 적기</div>
-                        <div class="sel-dropdown-item" onclick="selectExammode('snapshot','스냅샷 배틀',this,event)">스냅샷 배틀</div>
-                        <div class="sel-dropdown-item" onclick="selectExammode('first','먼저 다 맞추면 종료',this,event)">먼저 다 맞추면 종료</div>
-                    </div>
-                </div>
-            </div>
+           
+          
+           
 
             <!-- ⑤ 시간 모드 -->
-                        <div class="sel-box" onclick="toggleDropdown('timemode-dropdown')">
-                              <div class="sel-label">⏱ 시간 모드<button class="sel-confirm-btn" onclick="confirmTimemode(event)"></button></div>
+                       <div class="sel-box">
+    <!-- 라벨 클릭 → 드롭다운 열기만 담당 / 완료버튼 클릭 → 닫기만 담당 -->
+    <div class="sel-label" onclick="toggleDropdown('timemode-dropdown')">⏱ 시간 모드<button class="sel-confirm-btn" onclick="confirmTimemode(event)"></button></div>
                 <div class="sel-value" id="timemode-value">선택하세요</div>
                                <div id="timemode-dropdown" class="sel-dropdown">
                     <div class="sel-dropdown-right">
@@ -2439,51 +4527,12 @@ window.addEventListener('DOMContentLoaded', function () {
                             <input class="solo-time-input" type="number" min="0" placeholder="0" id="total-sec"
                                 oninput="updateTimemodeDisplay()" onclick="event.stopPropagation()">
                             <span class="solo-time-unit">초</span>
-                            <span class="timemode-input-divider">|</span>
-                            <!-- 📋 문제당 시간 아이콘 -->
-                            <span class="timemode-input-label" title="문제당 시간">📋</span>
-                            <input class="solo-time-input" type="number" min="0" placeholder="0" id="per-min"
-                                oninput="updateTimemodeDisplay()" onclick="event.stopPropagation()">
-                            <span class="solo-time-unit">분</span>
-                            <input class="solo-time-input" type="number" min="0" placeholder="0" id="per-sec"
-                                oninput="updateTimemodeDisplay()" onclick="event.stopPropagation()">
-                            <span class="solo-time-unit">초</span>
-                        </div>
+                                                  </div>
                     </div>
                 </div>
             </div>
 
-            <!-- ⑥ 언어 모드 -->
-                 <div class="sel-box" onclick="toggleDropdown('langmode-dropdown')">
-                               <div class="sel-label">🌐 언어 모드<button class="sel-confirm-btn" onclick="confirmLangmode(event)"></button></div>
-                <div class="sel-value" id="langmode-value">선택하세요</div>
-                                <div id="langmode-dropdown" class="sel-dropdown">
-                    <div class="sel-dropdown-right">
-                        <div class="sel-dropdown-item" onclick="selectLangmode('en','영어 ',this,event)">영어</div>
-                        <div class="sel-dropdown-item" onclick="selectLangmode('ko','한국어 ',this,event)">한국어</div>
-                        <div class="sel-dropdown-item" onclick="selectLangmode('mix','영어<>한국어',this,event)">영어<>한국어</div>
-                        <div id="lang-slider-wrap" class="solo-slider-wrap">
-                            <div class="solo-slider-labels">
-                                <span>영어 100%</span>
-                                <span id="lang-ratio-label">50 : 50</span>
-                                <span>한국어 100%</span>
-                            </div>
-                                                                                   <!-- 슬라이더 조절 시 비율 표시 + 상단 배너 언어 항목만 직접 업데이트 -->
-                            <input id="lang-slider" class="solo-slider" type="range" min="0" max="100" value="50"
-                                oninput="
-                                    const en = this.value; const kr = 100 - this.value;
-                                    document.getElementById('lang-ratio-label').textContent = en + ' : ' + kr;
-                                    const txt = '영어' + en + '%/한국어' + kr + '%';
-                                    document.getElementById('langmode-value').textContent = txt;
-                                    soloConfig.lang = 'mix';
-                                                                        /* 티커 드롭다운 언어 항목 갱신 */
-                                    updateTickerDropdown();
-                                "
-                                onclick="event.stopPropagation()">
-                        </div>
-                    </div>
-                </div>
-            </div>
+           
                                  </div><!-- 위쪽 탭 줄 닫기 -->
 
             <!-- 아래쪽 활성 탭 줄 — 클릭한 탭이 여기로 이동 -->
@@ -2496,27 +4545,22 @@ window.addEventListener('DOMContentLoaded', function () {
         <span class="qa-timer-label">⏱ 남은시간</span>
         <span class="qa-timer-num" id="timer-total">0:00</span>
     </div>
-    <!-- 전체시간 / 단어당시간 구분선 -->
-    <div class="qa-timer-divider"></div>
-    <!-- 단어당 타이머 -->
-    <div class="qa-timer-item">
+    <!-- 전체시간 / 단어당시간 구분선 — 타임워드 선택 시에만 표시 -->
+    <div class="qa-timer-divider" id="timer-divider" style="display:none;"></div>
+    <!-- 단어당 타이머 — 타임워드 선택 시에만 표시 -->
+    <div class="qa-timer-item" id="timer-per-wrap" style="display:none;">
         <span class="qa-timer-label">📋 단어당</span>
         <span class="qa-timer-num" id="timer-per">0:00</span>
     </div>
 </div>
-
 <!-- 문제/정답 영역 — 탭 아래 독립 배치 -->
 <div class="qa-container">
-    <!-- 단어 게이지바 — 남은 단어 진행 표시 -->
+    <!-- 단어 게이지바 — qa-container 상단 밀착 배치 -->
     <div class="qa-gauge-wrap" id="qa-gauge-wrap">
-        <!-- 게이지 채워지는 바 -->
         <div class="qa-gauge-bar" id="qa-gauge-bar"></div>
-        <!-- 왼쪽 끝 — 전체 단어수 -->
         <span class="qa-gauge-total" id="qa-gauge-total">0</span>
-        <!-- 오른쪽 끝 — 남은 단어수 -->
         <span class="qa-gauge-remain" id="qa-gauge-remain">0</span>
-    </div>
-                <!-- 문제 박스 — 왼쪽 말풍선 -->                                <div class="qa-question" id="qa-question">
+    </div>                <!-- 문제 박스 — 왼쪽 말풍선 -->                                <div class="qa-question" id="qa-question">
                     <!-- Q. 라벨 영역 — 배경색 분리 -->
                     <div class="qa-question-label">Q.</div>
                     <!-- 문제 텍스트 영역 -->
@@ -2610,8 +4654,9 @@ window.addEventListener('DOMContentLoaded', function () {
 </div>
 
 <!-- ────────────────────────────────────
-     ③ 대결 화면 (뼈대)
-──────────────────────────────────────── --><div id="screen-battle" class="screen">
+     ③ 대결 화면 — 친구관리 + 대결 통합
+──────────────────────────────────────── -->
+<div id="screen-battle" class="screen">
     <div class="header">
         <div class="header-logo-wrap">
             <div class="header-logo">EXAM</div>
@@ -2621,10 +4666,129 @@ window.addEventListener('DOMContentLoaded', function () {
             </div>
         </div>
     </div>
-    <div class="empty-body">
-        <div class="empty-icon">⚔️</div>
-        <div class="empty-title">대결 하기</div>
-        <div class="empty-desc">대결 기능 — 준비 중</div>
+
+    <!-- 대결 본문 — bt-view 단위로 뷰 전환 -->
+    <div class="bt-body">
+
+        <!-- [뷰0] 친구관리 — 검색+목록+대결 신청 통합 -->
+        <div class="bt-view" id="bt-view-friends" style="display:flex; flex-direction:column; gap:16px;">
+            <!-- 친구 검색 -->
+            <div class="bt-section-title">👤 친구 검색</div>
+            <div class="fr-search-row">
+                <input class="fr-search-input" id="fr-search-input" type="text"
+                    placeholder="상대방 아이디 입력"
+                    onkeydown="if(event.key==='Enter') frSearchUser()">
+                <button class="fr-search-btn" onclick="frSearchUser()">검색</button>
+            </div>
+            <!-- 검색 결과 -->
+            <div class="fr-search-result" id="fr-search-result">
+                <span class="fr-search-name" id="fr-search-name"></span>
+                <button class="fr-add-btn" id="fr-add-btn" onclick="frAddFriend()">친구 추가</button>
+            </div>
+            <!-- 친구 목록 — 클릭 시 대결 신청 -->
+            <div class="bt-section-title">⚔️ 친구 목록 (클릭하면 대결 신청)</div>
+            <div id="bt-friend-list">
+                <div class="bt-empty">불러오는 중...</div>
+            </div>
+        </div>
+
+        <!-- [뷰1] 방장 대기 화면 — 상대 수락 대기 + 파일 선택 -->
+        <div class="bt-view" id="bt-view-host-waiting" style="display:none; flex-direction:column; gap:16px;">
+            <div class="bt-waiting-box">
+                <div class="bt-waiting-icon">⏳</div>
+                <div class="bt-waiting-title">대결 신청 중...</div>
+                <div class="bt-waiting-desc">
+                    <span id="bt-waiting-opponent"></span> 님의 수락을 기다리는 중입니다.
+                </div>
+                <!-- 파일 선택 영역 -->
+                <div class="bt-file-section" style="width:100%;">
+                    <div class="bt-section-title">📂 문제 파일 선택 (방장)</div>
+                    <select class="bt-file-select" id="bt-file-select">
+                        <option value="">파일 선택...</option>
+                    </select>
+                    <button class="bt-start-btn" onclick="btStartBattle()">🚀 대결 시작</button>
+                </div>
+                <button class="bt-reject-btn" onclick="btExit()">취소</button>
+            </div>
+        </div>
+
+        <!-- [뷰2] 초대 수신 화면 — 게스트 수락/거절 -->
+        <div class="bt-view" id="bt-view-invite" style="display:none; flex-direction:column; gap:16px;">
+            <div class="bt-waiting-box">
+                <div class="bt-waiting-icon">📩</div>
+                <div class="bt-waiting-title">대결 초대!</div>
+                <div class="bt-waiting-desc">
+                    <span id="bt-invite-from"></span> 님이 대결을 신청했습니다.
+                </div>
+                <div class="bt-invite-btns">
+                    <button class="bt-accept-btn" onclick="btAccept()">✅ 수락</button>
+                    <button class="bt-reject-btn" onclick="btReject()">❌ 거절</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- [뷰3] 게스트 대기 화면 — 방장 시작 대기 -->
+        <div class="bt-view" id="bt-view-guest-waiting" style="display:none; flex-direction:column; gap:16px;">
+            <div class="bt-waiting-box">
+                <div class="bt-waiting-icon">🎯</div>
+                <div class="bt-waiting-title">수락 완료!</div>
+                <div class="bt-waiting-desc">
+                    <span id="bt-waiting-host"></span> 님이 파일을 선택하고 시작하면 자동으로 시작됩니다.
+                </div>
+                <button class="bt-reject-btn" onclick="btExit()">취소</button>
+            </div>
+        </div>
+
+        <!-- [뷰4] 대결 진행 화면 -->
+        <div class="bt-view" id="bt-view-playing" style="display:none; flex-direction:column; gap:16px;">
+            <!-- 스코어보드 -->
+            <div class="bt-scoreboard">
+                <div class="bt-score-box me">
+                    <div class="bt-score-name" id="bt-score-my-name">나</div>
+                    <div class="bt-score-num"  id="bt-score-my-num">0</div>
+                    <div class="bt-score-status" id="bt-score-my-status">풀이 중</div>
+                </div>
+                <div style="display:flex; align-items:center; font-size:18px; font-weight:900; color:var(--text-sub);">VS</div>
+                <div class="bt-score-box">
+                    <div class="bt-score-name" id="bt-score-oppo-name">상대</div>
+                    <div class="bt-score-num"  id="bt-score-oppo-num">0</div>
+                    <div class="bt-score-status" id="bt-score-oppo-status">풀이 중</div>
+                </div>
+            </div>
+            <!-- 문제 박스 -->
+            <div class="qa-question" style="position:static; margin:0;">
+                <div class="qa-question-label">Q.</div>
+                <div class="qa-question-text" id="bt-question-text">문제 로딩 중...</div>
+            </div>
+            <!-- 정답 입력 -->
+            <div class="qa-answer-wrap" style="position:static; margin:0;">
+                <div class="qa-answer-label">A.</div>
+                <input class="qa-answer-input" id="bt-answer-input"
+                    type="text" placeholder="정답을 입력하세요 (Enter)"
+                    autocomplete="off" />
+            </div>
+        </div>
+
+        <!-- [뷰5] 결과 화면 -->
+        <div class="bt-view" id="bt-view-result" style="display:none; flex-direction:column; gap:16px;">
+            <div class="bt-result-box">
+                <div class="bt-result-icon" id="bt-result-icon">🏆</div>
+                <div class="bt-result-title" id="bt-result-title">결과</div>
+                <div class="bt-result-scores">
+                    <div class="bt-result-score-item">
+                        <div class="bt-result-score-name" id="bt-result-my-name">나</div>
+                        <div class="bt-result-score-num"  id="bt-result-my-score">0</div>
+                    </div>
+                    <div class="bt-result-vs">VS</div>
+                    <div class="bt-result-score-item">
+                        <div class="bt-result-score-name" id="bt-result-oppo-name">상대</div>
+                        <div class="bt-result-score-num"  id="bt-result-oppo-score">0</div>
+                    </div>
+                </div>
+                <button class="bt-again-btn" onclick="btExit()">🔄 다시하기</button>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -2640,31 +4804,11 @@ window.addEventListener('DOMContentLoaded', function () {
                 <button class="header-logo-btn" onclick="goMain()" title="메인으로">◀</button>
             </div>
         </div>
-    </div>    <div class="empty-body">
+    </div>
+    <div class="empty-body">
         <div class="empty-icon">📊</div>
         <div class="empty-title">저장된 결과</div>
         <div class="empty-desc">결과 불러오기 — 준비 중</div>
     </div>
-</div>
-
-<!-- ────────────────────────────────────
-     ⑤ 친구 관리 화면 (뼈대)
-──────────────────────────────────────── -->
-<div id="screen-friend" class="screen">
-    <div class="header">
-        <div class="header-logo-wrap">
-            <div class="header-logo">EXAM</div>
-            <div class="header-logo-btns">
-                <button class="header-logo-btn btn-view-toggle" onclick="toggleViewMode()" title="컴/폰 화면 전환">📱</button>
-                <button class="header-logo-btn" onclick="goMain()" title="메인으로">◀</button>
-            </div>
-        </div>
-    </div>    <div class="empty-body">
-        <div class="empty-icon">👥</div>
-        <div class="empty-title">친구 관리</div>
-        <div class="empty-desc">친구 추가 및 목록 — 준비 중</div>
-    </div>
-</div>
-
-</body>
+</div></body>
 </html>
